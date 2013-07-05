@@ -43,3 +43,16 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# murakami
+gem 'rails-i18n'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.0'
+end
+
+group :development do
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'awesome_print'
+end
