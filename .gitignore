@@ -14,3 +14,18 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# murakami
+.*
+!.gitignore
+!.rspec
+
+# Emacs
+*~
+
+# Mac
+.DS_Store
+._*
+
+# Win
+Thumbs.db
