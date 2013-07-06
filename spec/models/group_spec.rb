@@ -58,11 +58,13 @@ describe Group do
 
     it {
       id = subject.id
+      t0 = Time.now.utc.to_s(:db)
       expect(subject.remove).to be_true
       ghost = nil
       expect { ghost = Group.find id }.to raise_error
       expect { ghost = Group.unscoped.find id }.not_to raise_error
       expect(ghost.id).to eq id
+      expect(ghost.removed_at).to be >= t0
       expect(ghost).to eq subject
       expect(ghost.persisted?).to be_true
       expect(ghost.active?).to be_false
@@ -70,28 +72,28 @@ describe Group do
     }
   end
 
-  describe "::removed_only" do
-    pending ""
+  describe "::active_only, ::removed_only" do
+    it {
+      expect(Group.unscoped.size).to eq 0
+      expect(Group.active_only.size).to eq 0
+      expect(Group.removed_only.size).to eq 0
+      objs = []
+      objs << Group.create!(name: 1)
+      expect(Group.unscoped.size).to eq objs.size
+      expect(Group.active_only.size).to eq 1
+      expect(Group.removed_only.size).to eq 0
+      objs << Group.create!(name: 2)
+      expect(Group.unscoped.size).to eq objs.size
+      expect(Group.active_only.size).to eq 2
+      expect(Group.removed_only.size).to eq 0
+      n = objs.size
+      n.times { |i|
+        j = i + 1
+        expect(objs[i].remove).to be_true
+        expect(Group.unscoped.size).to eq n
+        expect(Group.active_only.size).to eq (n-j)
+        expect(Group.removed_only.size).to eq j
+      }
+    }
   end
-
-  describe "::active_only" do
-    pending ""
-  end
-
-  # describe "::active_ids" do
-  #   let(:num) { 5 }
-  #   let(:objary) {
-  #     num.times { |i| Group.create! name: i }
-  #     Group.all
-  #   }
-  #   it { expect(objary.size).to eq num }
-  #   it {
-  #     a = []
-  #     objary.each { |o| a << o.id }
-  #     a.sort!
-  #     a.uniq!
-  #     expect(a.size).to eq num
-  #     expect(Group.valid_ids).to eq a
-  #   }
-  # end
 end
