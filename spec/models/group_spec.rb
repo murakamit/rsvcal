@@ -45,4 +45,8 @@ describe Group do
       }
     }
   end
+
+  describe "::valid_ids" do
+    pending ""
+  end
 end
