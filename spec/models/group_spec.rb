@@ -46,11 +46,48 @@ describe Group do
     }
   end
 
-  describe "#destroy" do
+  describe "#remove" do
+    pending ""
+    it {
+      obj = Group.create! name: 1
+      expect(obj)
+    }
+  end
+
+  describe "#remove!" do
     pending ""
   end
 
-  describe "::valid_ids" do
+  describe "#removed?" do
     pending ""
   end
+
+  describe "#active?" do
+    pending ""
+  end
+
+  describe "::removed_only" do
+    pending ""
+  end
+
+  describe "::active_only" do
+    pending ""
+  end
+
+  # describe "::active_ids" do
+  #   let(:num) { 5 }
+  #   let(:objary) {
+  #     num.times { |i| Group.create! name: i }
+  #     Group.all
+  #   }
+  #   it { expect(objary.size).to eq num }
+  #   it {
+  #     a = []
+  #     objary.each { |o| a << o.id }
+  #     a.sort!
+  #     a.uniq!
+  #     expect(a.size).to eq num
+  #     expect(Group.valid_ids).to eq a
+  #   }
+  # end
 end
