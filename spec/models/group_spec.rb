@@ -31,6 +31,12 @@ describe Group do
   context "name has white spaces only" do
     [ nil, '', ' ', "　", "\t", "\n",  "\r\n", " \n " ].each { |s|
       it { expect { Group.create! name: s }.to raise_error }
+
+      it {
+        obj = nil
+        expect { obj = Group.create! name: "foo" }.not_to raise_error
+        expect { obj.update! name: s }.to raise_error
+      }
     }
   end
 
@@ -43,7 +49,56 @@ describe Group do
         expect(obj.memo).not_to be_nil
         expect(obj.memo).to eq ''
       }
+
+      it {
+        h = { name: n, memo: "bar" }
+        obj = nil
+        id = nil
+        expect { obj = Group.create! h }.not_to raise_error
+        id = obj.id
+        expect { obj.update!(memo: m) }.not_to raise_error
+        expect(obj.memo).to eq ''
+        expect(Group.find(id).memo).to eq ''
+      }
     }
+  end
+
+  context "name.size" do
+    let(:a0) { "a"  * 50 }
+    let(:j0) { "あ" * 50 }
+    let(:a1) { "a"  * 51 }
+    let(:j1) { "あ" * 51 }
+    it {
+      obj = nil
+      expect { obj = Group.create! name: a0 }.not_to raise_error
+      expect { obj.update! name: a1 }.to raise_error
+    }
+    it { expect { Group.create! name: a1 }.to raise_error }
+    it {
+      obj = nil
+      expect { obj = Group.create! name: j0 }.not_to raise_error
+      expect { obj.update! name: j1 }.to raise_error
+    }
+    it { expect { Group.create! name: j1 }.to raise_error }
+  end
+
+  context "memo.size" do
+    let(:a0) { "a"  * 250 }
+    let(:j0) { "あ" * 250 }
+    let(:a1) { "a"  * 251 }
+    let(:j1) { "あ" * 251 }
+    it {
+      obj = nil
+      expect { obj = Group.create! name: 1, memo: a0 }.not_to raise_error
+      expect { obj.update! memo: a1 }.to raise_error
+    }
+    it { expect { Group.create! name: 1, memo: a1 }.to raise_error }
+    it {
+      obj = nil
+      expect { obj = Group.create! name: 1, memo: j0 }.not_to raise_error
+      expect { obj.update! memo: j1 }.to raise_error
+    }
+    it { expect { Group.create! name: 1, memo: j1 }.to raise_error }
   end
 
   describe "#active?, #removed?, #remove" do

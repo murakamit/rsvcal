@@ -1,10 +1,10 @@
 module Paranoid
   extend ActiveSupport::Concern
 
-  included do
-    DEFAULT_REMOVED_YEAR = 1900
-    THRESHOLD_YEAR = 2000
+  DEFAULT_REMOVED_YEAR = 1900
+  THRESHOLD_YEAR = 2000
 
+  included do
     def self.threshold_time
       Time.utc(THRESHOLD_YEAR).to_s(:db)
     end
@@ -29,11 +29,11 @@ module Paranoid
 
   # --- --- --- --- --- --- --- --- --- --- --- ---
   def remove
-    self.update_attributes removed_at: Time.now.utc.to_s(:db)
+    self.update removed_at: Time.now.utc.to_s(:db)
   end
 
   def remove!
-    self.update_attributes! removed_at: Time.now.utc.to_s(:db)
+    self.update! removed_at: Time.now.utc.to_s(:db)
   end
 
   def removed?

@@ -2,7 +2,9 @@
 
 class Item < ActiveRecord::Base
   belongs_to :group
+  include Paranoid
 
+  # --- --- --- --- --- --- --- --- --- --- --- ---
   before_validation :replace_nil_to_empty_at_memo, on: :create
 
   validates :group_id, presence: true
@@ -13,6 +15,7 @@ class Item < ActiveRecord::Base
 
   validates :memo, length: { maximum: 250 }
 
+  # --- --- --- --- --- --- --- --- --- --- --- ---
   def remove
     # pending
   end
