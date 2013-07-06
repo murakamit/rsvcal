@@ -1,9 +1,11 @@
 # coding: utf-8
 
-class Group < ActiveRecord::Base
-  has_one :room
+class Item < ActiveRecord::Base
+  belongs_to :group
 
   before_validation :replace_nil_to_empty_at_memo, on: :create
+
+  validates :group_id, presence: true
 
   validates :name, presence: true
   validates :name, length: { in: 1 .. 50 }

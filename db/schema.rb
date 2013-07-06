@@ -11,9 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130705234638) do
+ActiveRecord::Schema.define(version: 20130706010610) do
 
   create_table "groups", force: true do |t|
+    t.string   "name",         limit: 50,               null: false
+    t.string   "memo",         limit: 250, default: "", null: false
+    t.integer  "lock_version",             default: 0,  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", force: true do |t|
+    t.integer  "group_id",                              null: false
     t.string   "name",         limit: 50,               null: false
     t.string   "memo",         limit: 250, default: "", null: false
     t.integer  "lock_version",             default: 0,  null: false
