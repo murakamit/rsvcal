@@ -151,4 +151,8 @@ describe Group do
       }
     }
   end
+
+  describe "relation" do
+    pending ""
+  end
 end
