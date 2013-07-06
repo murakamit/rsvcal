@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20130706010610) do
   create_table "groups", force: true do |t|
     t.string   "name",         limit: 50,                                  null: false
     t.string   "memo",         limit: 250, default: "",                    null: false
-    t.datetime "deleted_at",               default: '1900-01-01 00:00:00', null: false
+    t.datetime "removed_at",               default: '1900-01-01 00:00:00', null: false
     t.integer  "lock_version",             default: 0,                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20130706010610) do
     t.integer  "group_id",                                                 null: false
     t.string   "name",         limit: 50,                                  null: false
     t.string   "memo",         limit: 250, default: "",                    null: false
-    t.datetime "deleted_at",               default: '1900-01-01 00:00:00', null: false
+    t.datetime "removed_at",               default: '1900-01-01 00:00:00', null: false
     t.integer  "lock_version",             default: 0,                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"

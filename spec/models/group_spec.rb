@@ -46,6 +46,10 @@ describe Group do
     }
   end
 
+  describe "#destroy" do
+    pending ""
+  end
+
   describe "::valid_ids" do
     pending ""
   end

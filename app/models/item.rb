@@ -13,6 +13,10 @@ class Item < ActiveRecord::Base
 
   validates :memo, length: { maximum: 250 }
 
+  def remove
+    # pending
+  end
+
   def replace_nil_to_empty_at_memo
     self.memo = '' if self.memo.nil?
   end
