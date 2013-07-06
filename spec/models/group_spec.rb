@@ -46,24 +46,28 @@ describe Group do
     }
   end
 
-  describe "#remove" do
-    pending ""
+  describe "#active?, #removed?, #remove" do
+    let(:subject) { Group.create! name: "a" }
+
     it {
-      obj = Group.create! name: 1
-      expect(obj)
+      expect(subject.removed_at).to be <= Group.threshold_time
+      expect(subject.persisted?).to be_true
+      expect(subject.active?).to be_true
+      expect(subject.removed?).to be_false
     }
-  end
 
-  describe "#remove!" do
-    pending ""
-  end
-
-  describe "#removed?" do
-    pending ""
-  end
-
-  describe "#active?" do
-    pending ""
+    it {
+      id = subject.id
+      expect(subject.remove).to be_true
+      ghost = nil
+      expect { ghost = Group.find id }.to raise_error
+      expect { ghost = Group.unscoped.find id }.not_to raise_error
+      expect(ghost.id).to eq id
+      expect(ghost).to eq subject
+      expect(ghost.persisted?).to be_true
+      expect(ghost.active?).to be_false
+      expect(ghost.removed?).to be_true
+    }
   end
 
   describe "::removed_only" do
