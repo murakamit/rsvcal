@@ -7,6 +7,8 @@ class Group < ActiveRecord::Base
   include Memoable
   include Removable
 
+  class RemoveError < StandardError; end
+
   # --- --- --- --- --- --- --- --- --- --- --- ---
   def remove
     if self.items.empty?
@@ -20,7 +22,7 @@ class Group < ActiveRecord::Base
     if self.items.empty?
       super
     else
-      raise "Group not empty"
+      raise RemoveError, "Group not empty"
     end
   end
 end
