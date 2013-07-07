@@ -86,7 +86,68 @@ describe Weekly do
   end # "wday"
 
   describe "begin && end" do
-    pending ""
+    it {
+      w = nil
+      args[:begin_h] = 9
+      args[:begin_m] = 0
+      args[:end_h] = 10
+      args[:end_m] = 0
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.begin_to_s).to eq "9:00"
+      expect(w.begin_to_s(2)).to eq "09:00"
+      expect(w.end_to_s).to eq "10:00"
+      expect(w.end_to_s(2)).to eq "10:00"
+      expect { w.update! end_h: 10, end_m: 30 }.not_to raise_error
+      expect { w.update! end_h:  8, end_m:  0 }.to raise_error
+    }
+
+    it {
+      args[:begin_h] = 0
+      args[:begin_m] = 0
+      args[:end_h] = 0
+      args[:end_m] = 30
+      expect { Weekly.create! args }.not_to raise_error
+    }
+
+    it {
+      args[:begin_h] = 24
+      args[:begin_m] = 0
+      args[:end_h] = 24
+      args[:end_m] = 30
+      expect { Weekly.create! args }.to raise_error
+    }
+
+    it {
+      args[:begin_h] = 9
+      args[:begin_m] = 0
+      args[:end_h] = 9
+      args[:end_m] = 30
+      expect { Weekly.create! args }.not_to raise_error
+    }
+
+    it {
+      args[:begin_h] = 9
+      args[:begin_m] = 15
+      args[:end_h] = 9
+      args[:end_m] = 30
+      expect { Weekly.create! args }.to raise_error
+    }
+
+    it {
+      args[:begin_h] = 9
+      args[:begin_m] = 0
+      args[:end_h] = 9
+      args[:end_m] = 0
+      expect { Weekly.create! args }.to raise_error
+    }
+
+    it {
+      args[:begin_h] = 10
+      args[:begin_m] = 0
+      args[:end_h] = 9
+      args[:end_m] = 0
+      expect { Weekly.create! args }.to raise_error
+    }
   end # "begin, end"
 
   describe "icon" do
