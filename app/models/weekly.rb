@@ -44,7 +44,7 @@ class Weekly < ActiveRecord::Base
     end
 
     if (self.end - self.begin) < 15.minutes
-      errors.add :end, :"too short time(< 15 min)"
+      errors.add :end, "too short time(< 15 min)"
     end
   end
 end
