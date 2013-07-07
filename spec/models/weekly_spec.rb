@@ -82,4 +82,65 @@ describe Weekly do
       expect { Weekly.create! args }.to raise_error
     }
   end # "wday"
+
+  describe do
+    describe "begin && end" do
+      [ [:begin, :end], [:end, :begin] ].each { |a|
+        it {
+          k = a.first
+          s = args[k]
+          args.delete k
+          expect(args.has_key? k).to be_false
+          expect(args.has_key? a.last).to be_true
+          expect { Weekly.create! args }.to raise_error
+        }
+      }
+    end
+
+    context "begin < end" do
+      it {
+        args[:begin] = "2010-01-01  9:00"
+        args[:end]   = "2010-01-01 10:00"
+        expect { Weekly.create! args }.not_to raise_error
+      }
+    end
+
+    context "begin == end" do
+      it {
+        args[:begin] = "2010-01-01  9:00"
+        args[:end] = args[:begin].dup
+        expect { Weekly.create! args }.to raise_error
+      }
+    end
+
+    context "begin > end" do
+      it {
+        args[:begin] = "2010-01-01 10:00"
+        args[:end]   = "2010-01-01  9:00"
+        expect { Weekly.create! args }.to raise_error
+      }
+    end
+
+    context "(end - begin) < 15.minutes" do
+      it {
+        args[:begin] = "2010-01-01 9:00"
+        args[:end]   = "2010-01-01 9:14"
+        expect { Weekly.create! args }.to raise_error
+        args[:end]   = "2010-01-01 9:15"
+        expect { Weekly.create! args }.not_to raise_error
+      }
+    end
+
+    context "until next day" do
+      it {
+        args[:begin] = "2010-01-01 21:00"
+        args[:end]   = "2010-01-02  9:00"
+        expect { Weekly.create! args }.to raise_error
+      }
+    end
+  end # "begin, end"
+
+  describe "validates_associated :item" do
+    pending ""
+  end
 end

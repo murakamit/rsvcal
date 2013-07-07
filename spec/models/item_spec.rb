@@ -46,8 +46,4 @@ describe Item do
   describe "validates_associated :group" do
     pending ""
   end
-
-  context "has many weeklies" do
-    pending ""
-  end
 end
