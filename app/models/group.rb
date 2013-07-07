@@ -1,7 +1,7 @@
 # coding: utf-8
 
 class Group < ActiveRecord::Base
-  has_many :room
+  has_many :rooms
 
   include Nameable
   include Memoable
