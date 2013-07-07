@@ -140,6 +140,66 @@ describe Weekly do
     end
   end # "begin, end"
 
+  describe "icon" do
+    context "blank" do
+      [ nil, '', ' ', "\n", "\r\n" ].each { |s|
+        it {
+          w = nil
+          args[:icon] = s
+          expect { w = Weekly.create! args }.not_to raise_error
+          expect(w.icon).to eq Weekly.default_icon
+        }
+      }
+    end
+
+    context "HTML Entities" do
+      [ "&lt;", "&#60;" ].each { |s|
+        it {
+          w = nil
+          args[:icon] = s
+          expect { w = Weekly.create! args }.not_to raise_error
+          expect(w.icon).to eq s
+        }
+      }
+
+      [ "&lt", "&lt; ", "&60;" ].each { |s|
+        it {
+          w = nil
+          args[:icon] = s
+          expect { w = Weekly.create! args }.not_to raise_error
+          expect(w.icon).to eq "&amp;"
+        }
+      }
+
+      [ ["&", "&amp;"], ["<", "&lt;"], ["<script>", "&lt;"]  ].each { | ab |
+        it {
+          a, b = ab
+          w = nil
+          args[:icon] = a
+          expect { w = Weekly.create! args }.not_to raise_error
+          expect(w.icon).to eq b
+        }
+      }
+
+      it {
+        w = nil
+        args[:icon] = "あいうえお"
+        expect { w = Weekly.create! args }.not_to raise_error
+        expect(w.icon).to eq "あ"
+        expect { w.update! icon: "かきくけこ" }.not_to raise_error
+        expect(w.icon).to eq "か"
+      }
+
+      it {
+        s = "☆"
+        w = nil
+        args[:icon] = s
+        expect { w = Weekly.create! args }.not_to raise_error
+        expect(w.icon).to eq s
+      }
+    end
+  end # "icon"
+
   describe "validates_associated :item" do
     pending ""
   end

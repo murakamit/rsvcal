@@ -5,6 +5,7 @@ class Weekly < ActiveRecord::Base
 
   include Userable
   include Beginendable
+  include Iconable
   include Memoable
   include Removable
 
@@ -24,5 +25,9 @@ class Weekly < ActiveRecord::Base
 
   def replace_7_to_0_at_wday
     self.wday = 0 if self.wday == 7
+  end
+
+  def self.default_icon
+    "&#9834;" # 8th note
   end
 end
