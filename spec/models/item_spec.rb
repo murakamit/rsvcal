@@ -4,28 +4,42 @@ require 'spec_helper'
 describe Item do
   context "no arg" do
     it {
-      obj = nil
-      expect { obj = Item.new }.not_to raise_error
-      expect(obj.save).to be_false
-      expect { obj.save! }.to raise_error
+      item = nil
+      expect { item = Item.new }.not_to raise_error
+      expect(item.save).to be_false
+      expect { item.save! }.to raise_error
     }
 
     it { expect { Item.create! }.to raise_error }
   end
 
   context "group only" do
-    pending ""
+    it {
+      g = nil
+      expect { g = Group.create! name: "g" }.not_to raise_error
+      expect { item = Item.create! group: g }.to raise_error
+    }
   end
 
   context "name only" do
-    it { expect { Item.create! name: "会議室２" }.to raise_error }
+    it { expect { Item.create! name: 1 }.to raise_error }
   end
 
-  context "group & name" do
-    pending ""
-  end
-
-  describe "relation" do
-    pending ""
+  context "group & name; relation" do
+    it {
+      g = nil
+      expect { g = Group.create! name: "g" }.not_to raise_error
+      expect(g.items.empty?).to be_true
+      n = "会議室１"
+      item = nil
+      expect { item = Item.create! group: g, name: n }.not_to raise_error
+      expect(item.group).to eq g
+      expect(g.items.include? item).to be_true
+      expect(g.items.empty?).to be_false
+      expect(g.remove).to be_false
+      expect(item.remove).to be_true
+      expect(g.items.empty?).to be_true
+      expect(g.remove).to be_true
+    }
   end
 end

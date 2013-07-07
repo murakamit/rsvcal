@@ -8,7 +8,19 @@ class Group < ActiveRecord::Base
   include Removable
 
   # --- --- --- --- --- --- --- --- --- --- --- ---
-  # def remove
-  #   super
-  # end
+  def remove
+    if self.items.empty?
+      super
+    else
+      false
+    end
+  end
+
+  def remove!
+    if self.items.empty?
+      super
+    else
+      raise "Group not empty"
+    end
+  end
 end
