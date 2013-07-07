@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
 
   include Nameable
   include Memoable
-  include Paranoid
+  include Removable
 
   validates :group_id, presence: true
 end

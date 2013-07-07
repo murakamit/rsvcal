@@ -5,5 +5,5 @@ class Group < ActiveRecord::Base
 
   include Nameable
   include Memoable
-  include Paranoid
+  include Removable
 end

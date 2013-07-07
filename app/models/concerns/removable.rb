@@ -1,4 +1,4 @@
-module Paranoid
+module Removable
   extend ActiveSupport::Concern
 
   DEFAULT_REMOVED_YEAR = 1900
