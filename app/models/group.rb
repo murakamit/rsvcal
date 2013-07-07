@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 
 class Group < ActiveRecord::Base
   has_many :items

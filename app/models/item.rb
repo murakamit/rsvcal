@@ -1,7 +1,8 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 
 class Item < ActiveRecord::Base
   belongs_to :group
+  has_many :weeklies
 
   include Nameable
   include Memoable

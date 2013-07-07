@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe Item do
@@ -25,12 +25,12 @@ describe Item do
     it { expect { Item.create! name: 1 }.to raise_error }
   end
 
-  context "group & name; relation" do
+  context "group & name; belongs_to group" do
     it {
       g = nil
       expect { g = Group.create! name: "g" }.not_to raise_error
       expect(g.items.empty?).to be_true
-      n = "会議室１"
+      n = "会議室"
       item = nil
       expect { item = Item.create! group: g, name: n }.not_to raise_error
       expect(item.group).to eq g
@@ -41,5 +41,9 @@ describe Item do
       expect(g.items.empty?).to be_true
       expect(g.remove).to be_true
     }
+  end
+
+  context "has many weeklies" do
+    pending ""
   end
 end
