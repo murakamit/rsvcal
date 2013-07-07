@@ -2,25 +2,30 @@
 require 'spec_helper'
 
 describe Weekly do
-  describe "user" do
-    let(:g) { Group.create! name: "g" }
-    let(:i) { Item.create! group: g, name: "i" }
-    let(:h) {
-      {
-        item: i,
-        wday: 0,
-        begin: "2010-01-01  9:00",
-        end:   "2010-01-01 10:00",
-      }
+  let(:group) { Group.create! name: "g" }
+  let(:item) { Item.create! group: group, name: "i" }
+  let(:args) {
+    {
+      item: item,
+      user: "user",
+      wday: 0,
+      begin: "2010-01-01  9:00",
+      end:   "2010-01-01 10:00",
     }
+  }
 
+  describe "user" do
     context "empty, blank" do
-      it { expect { w = Weekly.create! h }.to raise_error }
+      it {
+        args.delete :user
+        expect(args.has_key? :user).to be_false
+        expect { Weekly.create! args }.to raise_error
+      }
 
       [ nil, '', " ", "　", "\n", "\r\n", "\n \n" ].each { |s|
         it {
-          h[:user] = s
-          expect { w = Weekly.create! h }.to raise_error
+          args[:user] = s
+          expect { w = Weekly.create! args }.to raise_error
         }
       }
     end
@@ -32,22 +37,49 @@ describe Weekly do
       let(:j1) { "あ" * 51 }
 
       it {
-        h[:user] = a0
+        args[:user] = a0
         w = nil
-        expect { w = Weekly.create! h }.not_to raise_error
+        expect { w = Weekly.create! args }.not_to raise_error
         expect { w.update! user: a1 }.to raise_error
       }
 
-      it { expect { Weekly.create! user: a1 }.to raise_error }
+      it {
+        args[:user] = a1
+        expect { Weekly.create! args }.to raise_error
+      }
 
       it {
-        h[:user] = j0
+        args[:user] = j0
         w = nil
-        expect { w = Weekly.create! h }.not_to raise_error
+        expect { w = Weekly.create! args }.not_to raise_error
         expect { w.update! user: j1 }.to raise_error
       }
 
-      it { expect { Weekly.create! user: j1 }.to raise_error }
+      it {
+        args[:user] = j1
+        expect { Weekly.create! args }.to raise_error
+      }
     end
   end # "user"
+
+  describe "wday" do
+    (0 .. 6).each { |x|
+      it {
+        args[:wday] = x
+        expect { Weekly.create! args }.not_to raise_error
+      }
+    }
+
+    it {
+      args[:wday] = 7
+      w = nil
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.wday).to eq 0
+    }
+
+    it {
+      args[:wday] = 8
+      expect { Weekly.create! args }.to raise_error
+    }
+  end # "wday"
 end

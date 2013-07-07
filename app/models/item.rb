@@ -9,4 +9,5 @@ class Item < ActiveRecord::Base
   include Removable
 
   validates :group_id, presence: true
+  validates_associated :group
 end
