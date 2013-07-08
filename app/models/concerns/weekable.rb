@@ -3,26 +3,29 @@
 module Weekable
   extend ActiveSupport::Concern
 
-  def infinity_year
-    9999
-  end
-
-  def infinity_date
-    Date.new infinity_year, 12, 31
-  end
-
-  # module_function :infinity_year, :infinity_date
-
-  def replace_nil_to_infinity_at_date_end
-    self.date_end = infinity_date if self.date_end.nil?
-  end
+  INFINITY_YEAR = 9999
 
   # --- --- --- --- --- --- --- --- --- --- --- ---
   included do
+    def self.infinity_date
+      Date.new INFINITY_YEAR, 12, 31
+    end
+
     before_validation :replace_nil_to_infinity_at_date_end
     validates :date_begin, presence: true
     validates :date_end, presence: true
     validate :validate_date_begin_end
+  end
+
+  # --- --- --- --- --- --- --- --- --- --- --- ---
+  def replace_nil_to_infinity_at_date_end
+    self.date_end = self.class.infinity_date if self.date_end.nil?
+  end
+
+  def validate_date_begin_end
+    # if has_end? && (self.date_begin >= self.date_end)
+    #   errors.add :date_end, "'end' must be later than 'begin'"
+    # end
   end
 
   # --- --- --- --- --- --- --- --- --- --- --- ---
@@ -31,7 +34,7 @@ module Weekable
   end
 
   def infinity?
-    self.date_end >= Date.new(infinity_year, 1, 1)
+    self.date_end >= self.class.infinity_date
   end
 
   alias forever? infinity?
@@ -43,10 +46,4 @@ module Weekable
   # def date_end
   #   infinity? ? nil : super
   # end
-
-  def validate_date_begin_end
-    # if has_date_end? && (self.date_begin >= self.date_end)
-    #   errors.add :date_end, "'end' must be later than 'begin'"
-    # end
-  end
 end

@@ -11,7 +11,12 @@ class Weekly < ActiveRecord::Base
   include Removable
 
   validates :item_id, presence: true
-  validates_associated :item
+  validate :validate_presence_item
+
+  def validate_presence_item
+    k = :item_id
+    errors.add k, "No such item" unless Item.exists? self[k]
+  end
 
   def self.default_icon
     "&#9834;" # 8th note
