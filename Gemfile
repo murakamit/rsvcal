@@ -49,6 +49,7 @@ gem 'rails-i18n'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
+  gem 'spring'
 end
 
 group :development do
