@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Timeable
+module Durationable
   extend ActiveSupport::Concern
 
   included do

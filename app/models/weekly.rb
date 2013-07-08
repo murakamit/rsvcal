@@ -4,7 +4,7 @@ class Weekly < ActiveRecord::Base
   belongs_to :item
 
   include Userable
-  include Timeable
+  include Durationable
   include Iconable
   include Memoable
   include Removable
