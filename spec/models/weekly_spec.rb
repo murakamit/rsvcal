@@ -66,8 +66,70 @@ describe Weekly do
   end # "user"
 
   describe "date_begin, date_end" do
-    pending ""
-  end # "wday"
+    it {
+      w = nil
+      d1 = Date.new 2013, 4,  1
+      d2 = Date.new 2014, 3, 31
+      args[:date_begin] = d1
+      args[:date_end]   = d2
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.date_begin).to eq d1
+      expect(w.date_end).to eq d2
+      expect(w.infinity?).to be_false
+
+      d1 = Date.new 2013, 5,  1
+      d2 = Date.new 2013, 5, 30
+      args[:date_begin] = "2013-05-01"
+      args[:date_end]   = "2013-05-30"
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.date_begin).to eq d1
+      expect(w.date_end).to   eq d2
+
+      args[:date_begin] = "2013-5-1"
+      args[:date_end]   = "2013-5-30"
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.date_begin).to eq d1
+      expect(w.date_end).to   eq d2
+    }
+
+    it {
+      args[:date_end] = "2014-03-31"
+      args.delete :date_begin
+      expect(args.has_key? :date_begin).to be_false
+      expect { Weekly.create! args }.to raise_error
+      args[:date_begin] = nil
+      expect { Weekly.create! args }.to raise_error
+      args[:date_begin] = "2013-04-99"
+      expect { Weekly.create! args }.to raise_error
+    }
+
+    it {
+      w = nil
+      args[:date_begin] = "2013-04-01"
+      args[:date_end]   = "2013-04-30"
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.infinity?).to be_false
+      expect(w.forever?).to be_false
+      expect(w.has_end?).to be_true
+
+      args[:date_end]   = nil
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.date_end).to eq Date.new(9999,12,31)
+      expect(w.infinity?).to be_true
+      expect(w.has_end?).to be_false
+
+      args.delete :date_end
+      expect(args.has_key? :date_end).to be_false
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.infinity?).to be_true
+      expect(w.has_end?).to be_false
+
+      args[:date_end] = "2013-04-99"
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.infinity?).to be_true
+      expect(w.has_end?).to be_false
+    }
+  end # "date_begin, date_end"
 
   describe "begin && end" do
     it {

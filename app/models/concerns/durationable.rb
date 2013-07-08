@@ -27,7 +27,7 @@ module Durationable
       numericality: { only_integer: true },
       inclusion: { in: [0, 30] },
     }
-    validate :validates_begin_end
+    validate :validate_begin_end
   end
 
   def begin2sec
@@ -54,7 +54,7 @@ module Durationable
     hm_to_s(self.end_h, self.end_m, padding_h, padding_m)
   end
 
-  def validates_begin_end
+  def validate_begin_end
     if begin2sec >= end2sec
       errors.add :end_h, "'end' must be later than 'begin'"
     end
