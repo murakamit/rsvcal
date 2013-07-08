@@ -64,10 +64,10 @@ describe Item do
       expect(obj.group).to eq g
 
       gid2 = g.id + 2
-      expect { Group.find gid2 }.to raise_error
+      expect { Group.unscoped.find gid2 }.to raise_error
       expect { obj.update! group_id: gid2 }.to raise_error
       expect(obj.valid?).to be_false
-      expect(Item.find(obj.id).group_id).to eq g.id
+      expect(Item.unscoped.find(obj.id).group_id).to eq g.id
     }
   end
 end

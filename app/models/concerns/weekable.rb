@@ -7,14 +7,14 @@ module Weekable
 
   # --- --- --- --- --- --- --- --- --- --- --- ---
   included do
-    def self.infinity_date
-      Date.new INFINITY_YEAR, 12, 31
-    end
-
     before_validation :replace_nil_to_infinity_at_date_end
     validates :date_begin, presence: true
     validates :date_end, presence: true
     validate :validate_date_begin_end
+
+    def self.infinity_date
+      Date.new INFINITY_YEAR, 12, 31
+    end
   end
 
   # --- --- --- --- --- --- --- --- --- --- --- ---
@@ -34,7 +34,7 @@ module Weekable
   end
 
   def infinity?
-    self.date_end >= self.class.infinity_date
+    self.date_end >= Date.new(INFINITY_YEAR, 1, 1)
   end
 
   alias forever? infinity?

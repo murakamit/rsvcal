@@ -65,7 +65,7 @@ describe Weekly do
     end
   end # "user"
 
-  describe "date_begin, date_end" do
+  describe "Weekable" do
     it {
       w = nil
       d1 = Date.new 2013, 4,  1
@@ -130,9 +130,9 @@ describe Weekly do
       expect(w.infinity?).to be_true
       expect(w.has_end?).to be_false
     }
-  end # "date_begin, date_end"
+  end # Weekable
 
-  describe "begin && end" do
+  describe "Durationable" do
     it {
       w = nil
       args[:begin_h] = 9
@@ -195,7 +195,7 @@ describe Weekly do
       args[:end_m] = 0
       expect { Weekly.create! args }.to raise_error
     }
-  end # "begin, end"
+  end # Durationable
 
   describe "icon" do
     context "blank" do
@@ -257,7 +257,30 @@ describe Weekly do
     end
   end # "icon"
 
-  describe "validates_associated :item" do
-    pending ""
+  describe "association: item" do
+    it {
+      n = Weekly.unscoped.size
+      expect(item.valid?).to be_true
+      id2 = Item.unscoped.last.id + 2
+      expect { Item.unscoped.find(id2) }.to raise_error
+      args.delete :item
+      expect(args.has_key? :item).to be_false
+      args[:item_id] = id2
+      expect { Weekly.create! args }.to raise_error
+      expect(Weekly.unscoped.size).to eq n
+    }
+
+    it {
+      w = nil
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.valid?).to be_true
+      expect(w.item).to eq item
+
+      id2 = Item.unscoped.last.id + 2
+      expect { Item.unscoped.find id2 }.to raise_error
+      expect { w.update! item_id: id2 }.to raise_error
+      expect(w.valid?).to be_false
+      expect(Weekly.unscoped.find(w.id).item_id).to eq item.id
+    }
   end
 end
