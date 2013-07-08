@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130707093408) do
+ActiveRecord::Schema.define(version: 20130708223846) do
 
   create_table "groups", force: true do |t|
     t.string   "name",         limit: 50,                                  null: false
@@ -42,6 +42,17 @@ ActiveRecord::Schema.define(version: 20130707093408) do
     t.integer  "end_h",                                                    null: false
     t.integer  "end_m",                                                    null: false
     t.string   "icon",         limit: 50,  default: "&#9834;",             null: false
+    t.string   "memo",         limit: 250, default: "",                    null: false
+    t.datetime "removed_at",               default: '1900-01-01 00:00:00', null: false
+    t.integer  "lock_version",             default: 0,                     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "weeklyrevokes", force: true do |t|
+    t.integer  "weekly_id",                                                null: false
+    t.string   "applicant",    limit: 50,                                  null: false
+    t.date     "date",                                                     null: false
     t.string   "memo",         limit: 250, default: "",                    null: false
     t.datetime "removed_at",               default: '1900-01-01 00:00:00', null: false
     t.integer  "lock_version",             default: 0,                     null: false
