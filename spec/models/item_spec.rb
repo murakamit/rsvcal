@@ -44,13 +44,30 @@ describe Item do
     }
   end
 
-  describe "validate associated :group" do
+  describe "association :group" do
     it {
       n = Item.unscoped.size
       expect(Group.unscoped.empty?).to be_true
       expect { Group.unscoped.find(1) }.to raise_error
       expect { Item.create! group_id: 1, name: "foo" }.to raise_error
       expect(Item.unscoped.size).to eq n
+    }
+
+    it {
+      g = nil
+      expect { g = Group.create! name: "g" }.not_to raise_error
+      expect(g.valid?).to be_true
+      expect(Group.unscoped.empty?).to be_false
+      obj = nil
+      expect { obj = Item.create! group: g, name: "foo" }.not_to raise_error
+      expect(obj.valid?).to be_true
+      expect(obj.group).to eq g
+
+      gid2 = g.id + 2
+      expect { Group.find gid2 }.to raise_error
+      expect { obj.update! group_id: gid2 }.to raise_error
+      expect(obj.valid?).to be_false
+      expect(Item.find(obj.id).group_id).to eq g.id
     }
   end
 end
