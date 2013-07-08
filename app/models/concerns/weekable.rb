@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module EveryWeekable
+module Weekable
   extend ActiveSupport::Concern
 
   def infinity_year

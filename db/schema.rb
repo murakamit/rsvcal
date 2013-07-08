@@ -35,7 +35,8 @@ ActiveRecord::Schema.define(version: 20130707093408) do
   create_table "weeklies", force: true do |t|
     t.integer  "item_id",                                                  null: false
     t.string   "user",         limit: 50,                                  null: false
-    t.integer  "wday",                                                     null: false
+    t.date     "date_begin",                                               null: false
+    t.date     "date_end",                                                 null: false
     t.integer  "begin_h",                                                  null: false
     t.integer  "begin_m",                                                  null: false
     t.integer  "end_h",                                                    null: false

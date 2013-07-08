@@ -3,7 +3,8 @@ class CreateWeeklies < ActiveRecord::Migration
     create_table :weeklies do |t|
       t.integer  :item_id, :null => false
       t.string   :user,    :null => false, :limit =>  50
-      t.integer  :wday,    :null => false
+      t.date  :date_begin, :null => false
+      t.date  :date_end,   :null => false
       t.integer  :begin_h, :null => false
       t.integer  :begin_m, :null => false
       t.integer  :end_h,   :null => false

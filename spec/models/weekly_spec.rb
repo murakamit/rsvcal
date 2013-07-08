@@ -8,7 +8,8 @@ describe Weekly do
     {
       item: item,
       user: "user",
-      wday: 0,
+      date_begin: Date.new(2013, 4,  1),
+      date_end:   Date.new(2013, 3, 31),
       begin_h: 9,
       begin_m: 0,
       end_h: 10,
@@ -64,25 +65,8 @@ describe Weekly do
     end
   end # "user"
 
-  describe "wday" do
-    (0 .. 6).each { |x|
-      it {
-        args[:wday] = x
-        expect { Weekly.create! args }.not_to raise_error
-      }
-    }
-
-    it {
-      args[:wday] = 7
-      w = nil
-      expect { w = Weekly.create! args }.not_to raise_error
-      expect(w.wday).to eq 0
-    }
-
-    it {
-      args[:wday] = 8
-      expect { Weekly.create! args }.to raise_error
-    }
+  describe "date_begin, date_end" do
+    pending ""
   end # "wday"
 
   describe "begin && end" do
