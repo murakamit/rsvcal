@@ -23,9 +23,9 @@ module Weekable
   end
 
   def validate_date_begin_end
-    # if has_end? && (self.date_begin >= self.date_end)
-    #   errors.add :date_end, "'end' must be later than 'begin'"
-    # end
+    if has_end? && (self.date_begin >= self.date_end)
+      errors.add :date_end, "'end' must be later than 'begin'"
+    end
   end
 
   # --- --- --- --- --- --- --- --- --- --- --- ---

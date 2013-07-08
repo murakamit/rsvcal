@@ -8,8 +8,8 @@ describe Weekly do
     {
       item: item,
       user: "user",
-      date_begin: Date.new(2013, 4,  1),
-      date_end:   Date.new(2013, 3, 31),
+      date_begin: "2013-04-01",
+      date_end:   "2014-03-31",
       begin_h: 9,
       begin_m: 0,
       end_h: 10,
