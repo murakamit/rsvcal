@@ -76,6 +76,7 @@ describe Weekly do
       expect(w.date_begin).to eq d1
       expect(w.date_end).to eq d2
       expect(w.infinity?).to be_false
+      expect(w.wday).to eq d1.wday
 
       d1 = Date.new 2013, 5,  1
       d2 = Date.new 2013, 5, 30
