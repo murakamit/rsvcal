@@ -35,9 +35,12 @@ ActiveRecord::Schema.define(version: 20130707093408) do
   create_table "weeklies", force: true do |t|
     t.integer  "item_id",                                                  null: false
     t.string   "user",         limit: 50,                                  null: false
-    t.integer  "wday",                                                     null: false
-    t.datetime "begin",                                                    null: false
-    t.datetime "end",                                                      null: false
+    t.date     "date_begin",                                               null: false
+    t.date     "date_end",                                                 null: false
+    t.integer  "begin_h",                                                  null: false
+    t.integer  "begin_m",                                                  null: false
+    t.integer  "end_h",                                                    null: false
+    t.integer  "end_m",                                                    null: false
     t.string   "icon",         limit: 50,  default: "&#9834;",             null: false
     t.string   "memo",         limit: 250, default: "",                    null: false
     t.datetime "removed_at",               default: '1900-01-01 00:00:00', null: false

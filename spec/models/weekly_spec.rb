@@ -8,9 +8,12 @@ describe Weekly do
     {
       item: item,
       user: "user",
-      wday: 0,
-      begin: "2010-01-01  9:00",
-      end:   "2010-01-01 10:00",
+      date_begin: Date.new(2013, 4,  1),
+      date_end:   Date.new(2013, 3, 31),
+      begin_h: 9,
+      begin_m: 0,
+      end_h: 10,
+      end_m: 0,
     }
   }
 
@@ -62,82 +65,135 @@ describe Weekly do
     end
   end # "user"
 
-  describe "wday" do
-    (0 .. 6).each { |x|
-      it {
-        args[:wday] = x
-        expect { Weekly.create! args }.not_to raise_error
-      }
-    }
-
+  describe "date_begin, date_end" do
     it {
-      args[:wday] = 7
       w = nil
+      d1 = Date.new 2013, 4,  1
+      d2 = Date.new 2014, 3, 31
+      args[:date_begin] = d1
+      args[:date_end]   = d2
       expect { w = Weekly.create! args }.not_to raise_error
-      expect(w.wday).to eq 0
+      expect(w.date_begin).to eq d1
+      expect(w.date_end).to eq d2
+      expect(w.infinity?).to be_false
+
+      d1 = Date.new 2013, 5,  1
+      d2 = Date.new 2013, 5, 30
+      args[:date_begin] = "2013-05-01"
+      args[:date_end]   = "2013-05-30"
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.date_begin).to eq d1
+      expect(w.date_end).to   eq d2
+
+      args[:date_begin] = "2013-5-1"
+      args[:date_end]   = "2013-5-30"
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.date_begin).to eq d1
+      expect(w.date_end).to   eq d2
     }
 
     it {
-      args[:wday] = 8
+      args[:date_end] = "2014-03-31"
+      args.delete :date_begin
+      expect(args.has_key? :date_begin).to be_false
+      expect { Weekly.create! args }.to raise_error
+      args[:date_begin] = nil
+      expect { Weekly.create! args }.to raise_error
+      args[:date_begin] = "2013-04-99"
       expect { Weekly.create! args }.to raise_error
     }
-  end # "wday"
 
-  describe do
-    describe "begin && end" do
-      [ [:begin, :end], [:end, :begin] ].each { |a|
-        it {
-          k = a.first
-          s = args[k]
-          args.delete k
-          expect(args.has_key? k).to be_false
-          expect(args.has_key? a.last).to be_true
-          expect { Weekly.create! args }.to raise_error
-        }
-      }
-    end
+    it {
+      w = nil
+      args[:date_begin] = "2013-04-01"
+      args[:date_end]   = "2013-04-30"
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.infinity?).to be_false
+      expect(w.forever?).to be_false
+      expect(w.has_end?).to be_true
 
-    context "begin < end" do
-      it {
-        args[:begin] = "2010-01-01  9:00"
-        args[:end]   = "2010-01-01 10:00"
-        expect { Weekly.create! args }.not_to raise_error
-      }
-    end
+      args[:date_end]   = nil
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.date_end).to eq Date.new(9999,12,31)
+      expect(w.infinity?).to be_true
+      expect(w.has_end?).to be_false
 
-    context "begin == end" do
-      it {
-        args[:begin] = "2010-01-01  9:00"
-        args[:end] = args[:begin].dup
-        expect { Weekly.create! args }.to raise_error
-      }
-    end
+      args.delete :date_end
+      expect(args.has_key? :date_end).to be_false
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.infinity?).to be_true
+      expect(w.has_end?).to be_false
 
-    context "begin > end" do
-      it {
-        args[:begin] = "2010-01-01 10:00"
-        args[:end]   = "2010-01-01  9:00"
-        expect { Weekly.create! args }.to raise_error
-      }
-    end
+      args[:date_end] = "2013-04-99"
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.infinity?).to be_true
+      expect(w.has_end?).to be_false
+    }
+  end # "date_begin, date_end"
 
-    context "(end - begin) < 15.minutes" do
-      it {
-        args[:begin] = "2010-01-01 9:00"
-        args[:end]   = "2010-01-01 9:14"
-        expect { Weekly.create! args }.to raise_error
-        args[:end]   = "2010-01-01 9:15"
-        expect { Weekly.create! args }.not_to raise_error
-      }
-    end
+  describe "begin && end" do
+    it {
+      w = nil
+      args[:begin_h] = 9
+      args[:begin_m] = 0
+      args[:end_h] = 10
+      args[:end_m] = 0
+      expect { w = Weekly.create! args }.not_to raise_error
+      expect(w.begin_to_s).to eq "9:00"
+      expect(w.begin_to_s(2)).to eq "09:00"
+      expect(w.end_to_s).to eq "10:00"
+      expect(w.end_to_s(2)).to eq "10:00"
+      expect { w.update! end_h: 10, end_m: 30 }.not_to raise_error
+      expect { w.update! end_h:  8, end_m:  0 }.to raise_error
+    }
 
-    context "until next day" do
-      it {
-        args[:begin] = "2010-01-01 21:00"
-        args[:end]   = "2010-01-02  9:00"
-        expect { Weekly.create! args }.to raise_error
-      }
-    end
+    it {
+      args[:begin_h] = 0
+      args[:begin_m] = 0
+      args[:end_h] = 0
+      args[:end_m] = 30
+      expect { Weekly.create! args }.not_to raise_error
+    }
+
+    it {
+      args[:begin_h] = 24
+      args[:begin_m] = 0
+      args[:end_h] = 24
+      args[:end_m] = 30
+      expect { Weekly.create! args }.to raise_error
+    }
+
+    it {
+      args[:begin_h] = 9
+      args[:begin_m] = 0
+      args[:end_h] = 9
+      args[:end_m] = 30
+      expect { Weekly.create! args }.not_to raise_error
+    }
+
+    it {
+      args[:begin_h] = 9
+      args[:begin_m] = 15
+      args[:end_h] = 9
+      args[:end_m] = 30
+      expect { Weekly.create! args }.to raise_error
+    }
+
+    it {
+      args[:begin_h] = 9
+      args[:begin_m] = 0
+      args[:end_h] = 9
+      args[:end_m] = 0
+      expect { Weekly.create! args }.to raise_error
+    }
+
+    it {
+      args[:begin_h] = 10
+      args[:begin_m] = 0
+      args[:end_h] = 9
+      args[:end_m] = 0
+      expect { Weekly.create! args }.to raise_error
+    }
   end # "begin, end"
 
   describe "icon" do
