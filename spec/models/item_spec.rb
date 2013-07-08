@@ -36,6 +36,7 @@ describe Item do
       expect(item.group).to eq g
       expect(g.items.include? item).to be_true
       expect(g.items.empty?).to be_false
+
       expect(g.remove).to be_false
       expect(item.remove).to be_true
       expect(g.items.empty?).to be_true
@@ -43,7 +44,13 @@ describe Item do
     }
   end
 
-  describe "validates_associated :group" do
-    pending ""
+  describe "validate associated :group" do
+    it {
+      n = Item.unscoped.size
+      expect(Group.unscoped.empty?).to be_true
+      expect { Group.unscoped.find(1) }.to raise_error
+      expect { Item.create! group_id: 1, name: "foo" }.to raise_error
+      expect(Item.unscoped.size).to eq n
+    }
   end
 end
