@@ -11,3 +11,13 @@
  *= require_self
  *= require_tree .
  */
+
+hr.timestamp {
+    margin-top: 1em;
+    margin-bottom: 0em;
+}
+
+time.timestamp {
+    font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+    font-size:small;
+}
