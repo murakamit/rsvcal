@@ -49,11 +49,12 @@ ActiveRecord::Schema.define(version: 20130709105948) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "name",            limit: 50,                  null: false
-    t.string   "password_digest",                             null: false
-    t.string   "memo",            limit: 250, default: "",    null: false
-    t.boolean  "admin",                       default: false, null: false
-    t.integer  "lock_version",                default: 0,     null: false
+    t.string   "name",            limit: 50,                                  null: false
+    t.string   "password_digest",                                             null: false
+    t.string   "memo",            limit: 250, default: "",                    null: false
+    t.boolean  "admin",                       default: false,                 null: false
+    t.datetime "removed_at",                  default: '1900-01-01 00:00:00', null: false
+    t.integer  "lock_version",                default: 0,                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

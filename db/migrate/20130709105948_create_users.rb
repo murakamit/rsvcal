@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string   :password_digest, :null => false
       t.string   :memo,         :null => false, :limit => 250, :default => ''
       t.boolean  :admin,        :null => false, :default => false
+      t.datetime :removed_at,   :null => false, :default => "1900-01-01"
       t.integer  :lock_version, :null => false, :default => 0
       t.timestamps
     end
