@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Rsvcal</title>
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= javascript_include_tag "application" %>
@@ -10,5 +11,7 @@
 
 <%= yield %>
 
+<hr style="margin-top:1em">
+<time style="font-size:small"><%= Time.now.strftime "%Y-%m-%d %H:%M" %></time>
 </body>
 </html>
