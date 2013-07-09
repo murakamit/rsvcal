@@ -160,6 +160,18 @@ describe Weekly do
         expect { Weekly.create! args }.to raise_error
       }
     end
+
+    describe "wday" do
+      it {
+        w = nil
+        d = Date.new 2013, 4, 1
+        args[:date_begin] = d
+        args.delete :date_end
+        expect(args.has_key? :date_end).not_to be_true
+        expect { w = Weekly.create! args }.not_to raise_error
+        expect(w.wday).to eq d.wday
+      }
+    end
   end # Weekable
 
   describe "Durationable" do
