@@ -55,4 +55,7 @@ Rsvcal::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  namespace :admin do
+    root to: "top#index"
+  end
 end
