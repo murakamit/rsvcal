@@ -105,7 +105,7 @@ describe Group do
     let(:subject) { Group.create! name: "a" }
 
     it {
-      expect(subject.removed_at).to be <= Group.threshold_time
+      expect(subject.removed_at).to be <= Group.threshold_remove_utc
       expect(subject.persisted?).to be_true
       expect(subject.active?).to be_true
       expect(subject.removed?).to be_false
