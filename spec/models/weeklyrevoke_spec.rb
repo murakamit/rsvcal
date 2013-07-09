@@ -107,4 +107,31 @@ describe Weeklyrevoke do
       }      
     end
   end # "date"
+
+  describe "association: weekly" do
+    it {
+      n = Weeklyrevoke.unscoped.size
+      expect(weekly.valid?).to be_true
+      id2 = Weekly.unscoped.last.id + 2
+      expect { Weekly.unscoped.find(id2) }.to raise_error
+      args.delete :weekly
+      expect(args.has_key? :weekly).to be_false
+      args[:weekly_id] = id2
+      expect { Weeklyrevoke.create! args }.to raise_error
+      expect(Weeklyrevoke.unscoped.size).to eq n
+    }
+
+    it {
+      r = nil
+      expect { r = Weeklyrevoke.create! args }.not_to raise_error
+      expect(r.valid?).to be_true
+      expect(r.weekly).to eq weekly
+
+      id2 = Weekly.unscoped.last.id + 2
+      expect { Weekly.unscoped.find id2 }.to raise_error
+      expect { r.update! weekly_id: id2 }.to raise_error
+      expect(r.valid?).to be_false
+      expect(Weeklyrevoke.unscoped.find(r.id).weekly_id).to eq weekly.id
+    }
+  end # association
 end
