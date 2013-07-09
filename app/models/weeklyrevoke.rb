@@ -23,8 +23,12 @@ class Weeklyrevoke < ActiveRecord::Base
 
   def validate_date
     if self.date.wday == self.weekly.wday
-      if self.date < self.weekly.date_begin
-        errors.add :date, "'revoke' must be later than 'reservation'"
+      s = "'revoke' is out of range"
+      w = self.weekly
+      if self.date < w.date_begin
+        errors.add :date, s
+      else
+        errors.add :date, s if w.has_end? && (w.date_end < self.date)
       end
     else
       errors.add :date, "different day of the week"
