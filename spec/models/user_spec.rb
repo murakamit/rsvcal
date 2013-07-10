@@ -12,37 +12,37 @@ describe User do
 
   it { expect { User.create! args }.not_to raise_error }
 
+  describe "name" do
+    [ nil, '', ' ', "　", "\n", "\r\n", "\n \n"  ].each { |s|
+      it {
+        args[:name] = s
+        expect { User.create! args }.to raise_error
+      }
+    }
+  end
+
   describe "password & password_confirmation" do
-    describe "is required" do
+    it {
+      h = { name: "foo" }
+      expect { User.create! h }.to raise_error
+      h[:password] = "123"
+      expect { User.create! h }.to raise_error
+      h[:password_confirmation] = "123"
+      expect { User.create! h }.not_to raise_error
+    }
+
+    it {
+      args[:password_confirmation] = "456"
+      expect { User.create! args }.to raise_error
+    }
+
+    [ nil, '', ' ', "　", "\n", "\r\n", "\n \n"  ].each { |s|
       it {
-        h = { name: "foo" }
-        expect { User.create! h }.to raise_error
-        h[:password] = "123"
-        expect { User.create! h }.to raise_error
-        h[:password_confirmation] = "123"
-        expect { User.create! h }.not_to raise_error
+        args[:password] = s
+        args[:password_confirmation] = s
+        expect { User.create! args }.to raise_error
       }
-
-      it {
-        h = { name: "foo",  password: "123", password_confirmation: "456" }
-        expect { User.create! h }.to raise_error
-      }
-
-      [ nil, '', ' ', "　", "\n", "\r\n", "\n \n"  ].each { |s|
-        it {
-          args[:name] = s
-          expect { User.create! args }.to raise_error
-        }
-      }
-
-      [ nil, '', ' ', "　", "\n", "\r\n", "\n \n"  ].each { |s|
-        it {
-          args[:password] = s
-          args[:password_confirmation] = s
-          expect { User.create! args }.to raise_error
-        }
-      }
-    end
+    }
   end # password & password_confirmation
 
   describe "admin" do
