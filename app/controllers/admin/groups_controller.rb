@@ -11,6 +11,15 @@ class Admin::GroupsController < Admin::Base
   end
 
   def create
+    @group = Group.create params.require(:group).permit(:name, :memo)
+    if @group.save
+      s = "created #{link_to_unless_current @group}"
+      redirect_to new_admin_group_path, notice: s
+    else
+      @page_title = "Create new group"
+      @errors = @group.errors
+      render :new
+    end
   end
 
   def edit

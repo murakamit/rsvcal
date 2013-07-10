@@ -67,6 +67,23 @@ section.main {
 }
 
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
+section.errors {
+    border: solid 1px #f00;
+    color: black;
+    background-color: #fdd;
+    padding: 8px;
+    margin: 1em 3em 1em;
+}
+
+section.errors h2 {
+    margin: 0px;
+}
+
+div.field_with_errors {
+    padding: 4px;
+    background-color: #f00;
+}
+
 section.alert {
     margin-top: 1em;
     margin-bottom: 1em;
@@ -76,6 +93,19 @@ section.alert article {
   border: solid 1px #f00;
   color: black;
   background-color: #fdd;
+  display: inline;
+  padding: 8px;
+}
+
+section.notice {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+section.notice article {
+  border: solid 1px #0f0;
+  color: black;
+  background-color: #dfd;
   display: inline;
   padding: 8px;
 }

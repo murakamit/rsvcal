@@ -39,9 +39,15 @@
 <%- end -%>
 
 <section class="main">
-<%- if flash[:alert] -%>
+<%= render "shared/errors" %>
+<%- if flash.alert -%>
 <section class="alert">
-  <article><%= flash[:alert] -%></article>
+  <article><%= flash.alert -%></article>
+</section>
+<%- end -%>
+<%- if flash.notice -%>
+<section class="notice">
+  <article><%= flash.notice -%></article>
 </section>
 <%- end -%>
 
