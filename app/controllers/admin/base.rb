@@ -3,7 +3,7 @@ class Admin::Base < ApplicationController
 
   private
   def admin_login_required
-    unless @login_user.try(:admin?)
+    unless @login_user.try :admin?
       render status: :forbidden, text: "not admin user"
     end
   end

@@ -10,6 +10,11 @@
 </head>
 <body>
 
+<div><%= link_to_unless_current "Top", root_path%></div>
+<%- if @login_user -%>
+<div><%= @login_user.name %> <%= link_to "logout?", :session, method: :delete, confirm: "logout?" %></div>
+<%- end -%>
+
 <%= yield %>
 <hr class="timestamp">
 <time class="timestamp"><%= Time.now.strftime "%Y-%m-%d %H:%M" %></time>
