@@ -12,12 +12,56 @@
  *= require_tree .
  */
 
-hr.timestamp {
-    margin-top: 1em;
-    margin-bottom: 0em;
+body {
+    margin: 0px;
+    padding: 0px;
 }
 
-time.timestamp {
+/* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
+nav.head {
+    color: black;
+    background-color: #ddd;
+    padding: 8px;
+}
+
+nav.head2 {
+    color: black;
+    background-color: #dfd;
+    padding: 8px;
+}
+
+nav a {
+    padding: 4px;
+}
+
+nav a:hover {
+    background-color: pink;
+}
+
+nav section.left {
+    float: left;
+}
+
+nav section.right {
+    float: right;
+}
+
+nav section.reset {
+    clear: both;
+}
+
+nav time.timestamp {
     font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
     font-size:small;
+}
+
+nav span.admin {
+    color: red;
+}
+
+/* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
+section.main {
+    color: black;
+    background-color: white;
+    margin: 8px;
 }

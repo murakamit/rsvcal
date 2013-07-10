@@ -4,7 +4,7 @@ class Admin::Base < ApplicationController
   private
   def admin_login_required
     unless @login_user.try :admin?
-      render status: :forbidden, text: "not admin user"
+      redirect_to new_session_path
     end
   end
 end
