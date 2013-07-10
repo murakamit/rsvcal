@@ -1,23 +1,19 @@
-<%- if flash[:alert] -%>
-<p id="notice"><%= flash[:alert] -%></p>
-<%- end -%>
-
 <%= form_tag :session do %>
-  <fieldset style="display:inline">
-    <legend>login</legend>
-    <table border="0">
-      <tr>
-        <td style="text-align:right"><%= label_tag :name, "name:" %></td>
-        <td><%= text_field_tag :name, @name %></td>
-      </tr>
-      <tr>
-        <td style="text-align:right"><%= label_tag :name, "password:" %></td>
-        <td><%= password_field_tag :password %></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><%= submit_tag "login" %></td>
-      </tr>
-    </table>
-  </fieldset>
+<fieldset>
+  <legend>login</legend>
+  <table border="0">
+    <tr>
+      <td class="right">name:</td>
+      <td class="left"><%= text_field_tag :name, @name %></td>
+    </tr>
+    <tr>
+      <td class="right">password:</td>
+      <td class="left"><%= password_field_tag :password %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= submit_tag "login" %></td>
+    </tr>
+  </table>
+</fieldset>
 <% end %>
