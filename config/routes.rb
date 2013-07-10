@@ -58,5 +58,6 @@ Rsvcal::Application.routes.draw do
   #   end
   namespace :admin do
     root to: "top#index"
+    resources :groups
   end
 end

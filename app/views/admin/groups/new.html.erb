@@ -1,0 +1,20 @@
+<%= form_for [:admin, @group] do |f| %>
+<fieldset>
+  <legend><%= @page_title %></legend>
+  <table border="0">
+    <tr>
+      <td class="right"><label class="required">name:</label></td>
+      <td class="left"><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td class="right">memo:</td>
+      <td class="left"><%= f.text_area :memo, style: "width:20em;height:5em;" %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= submit_tag "create!", class: "submit" %></td>
+    </tr>
+  </table>
+  <div style="text-align:right"><label class="required"></label> is required.</div>
+</fieldset>
+<% end %>

@@ -72,11 +72,43 @@ section.alert {
     margin-bottom: 1em;
 }
 
-
 section.alert article {
   border: solid 1px #f00;
   color: black;
   background-color: #fdd;
   display: inline;
   padding: 8px;
+}
+
+/* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
+fieldset {
+  display: inline;
+}
+
+fieldset table, td, th {
+  border-style: none;
+  vertical-align: top;
+}
+
+fieldset table {
+  border-collapse: separate;
+  border-spacing: 0.5em 1em;
+}
+
+fieldset td.right {
+  text-align: right;
+}
+
+fieldset td.left {
+  text-align: left;
+}
+
+fieldset label.required:before {
+  color: red;
+  content: "*";
+}
+
+fieldset input.submit {
+  -webkit-appearance: button;
+  font-size: 150%;
 }
