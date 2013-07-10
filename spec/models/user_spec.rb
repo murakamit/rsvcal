@@ -19,6 +19,13 @@ describe User do
         expect { User.create! args }.to raise_error
       }
     }
+
+    context "uniq" do
+      it {
+        expect { User.create! args }.not_to raise_error
+        expect { User.create! args }.to raise_error
+      }
+    end
   end
 
   describe "password & password_confirmation" do
