@@ -10,47 +10,12 @@
 </head>
 <body>
 
-<nav class="head">
-  <section class="left">
-    <%= link_to_unless_current "Top", root_path %>
-  </section>
-  <section class="right">
-    <time class="timestamp"><%= Time.now.strftime "%Y-%m-%d %H:%M" %></time>
-  </section>
-  <section class="reset"></section>
-</nav>
-
-<%- if @login_user -%>
-<nav class="head2">
-  <%- if @login_user.admin? -%>
-  <section class="left">
-    <%= link_to_unless_current "Admin", admin_root_path %>
-  </section>
-  <%- end -%>
-  <section class="right">
-    <span class="login-name"><%= @login_user.name %></span>
-    <%- if @login_user.admin? -%>
-    <span class="admin">(admin)</span>
-    <%- end -%>
-    <span><%= link_to "logout", :session, method: :delete, confirm: "logout?" %></span>
-  </section>
-  <section class="reset"></section>
-</nav>
-<%- end -%>
-
+<%= render "shared/header" %>
+<%= render "shared/login_header" %>
 <section class="main">
 <%= render "shared/errors" %>
-<%- if flash.alert -%>
-<section class="alert">
-  <article><%= flash.alert -%></article>
-</section>
-<%- end -%>
-<%- if flash.notice -%>
-<section class="notice">
-  <article><%= flash.notice -%></article>
-</section>
-<%- end -%>
-
+<%= render "shared/alert" %>
+<%= render "shared/notice" %>
 <%= yield %>
 </section>
 

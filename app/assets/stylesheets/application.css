@@ -18,13 +18,13 @@ body {
 }
 
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
-nav.head {
+nav.header {
     color: black;
     background-color: #ddd;
     padding: 8px;
 }
 
-nav.head2 {
+nav.login-header {
     color: black;
     background-color: #dfd;
     padding: 8px;
@@ -111,33 +111,6 @@ section.notice article {
 }
 
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
-fieldset {
-  display: inline;
-}
-
-fieldset table, td, th {
-  border-style: none;
-  vertical-align: top;
-}
-
-fieldset table {
-  border-collapse: separate;
-  border-spacing: 0.5em 1em;
-}
-
-fieldset td.right {
-  text-align: right;
-}
-
-fieldset td.left {
-  text-align: left;
-}
-
-fieldset label.required:before {
-  color: red;
-  content: "*";
-}
-
 fieldset input.submit {
   -webkit-appearance: button;
   font-size: 150%;
