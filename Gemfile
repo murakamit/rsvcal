@@ -52,6 +52,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
   gem 'spring'
+  gem 'factory_girl_rails'
 end
 
 group :development do
