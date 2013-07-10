@@ -24,5 +24,10 @@ module Rsvcal
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     # config.i18n.default_locale = :ja
+
+    # http://qiita.com/satoshin2071/items/66cee18b2b458b005ffa
+    config.action_view.field_error_proc = Proc.new { | html_tag, instance |
+      %Q(<span class="field-with-errors">#{html_tag}</span>).html_safe
+    }
   end
 end

@@ -17,7 +17,8 @@ class Admin::GroupsController < Admin::Base
       redirect_to new_admin_group_path, notice: s
     else
       @page_title = "Create new group"
-      @errors = @group.errors
+      n = @group.errors.size
+      flash.alert = "#{n} error#{'s' if n > 1}"
       render :new
     end
   end
