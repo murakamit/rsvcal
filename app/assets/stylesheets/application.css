@@ -22,12 +22,14 @@ nav.header {
   color: black;
   background-color: #ddd;
   padding: 8px;
+  border-bottom: solid 1px #bbb;
 }
 
 nav.login-header {
   color: black;
   background-color: #eef;
   padding: 8px;
+  border-bottom: solid 1px #ccf;
 }
 
 nav a {
