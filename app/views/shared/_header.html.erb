@@ -1,6 +1,7 @@
 <nav class="header">
   <section class="left">
     <%= link_to_unless_current "Top", root_path %>
+    <%= link_to_unless_current "Groups", groups_path %>
   </section>
   <section class="right">
     <time class="timestamp"><%= Time.now.strftime "%Y-%m-%d %H:%M" %></time>

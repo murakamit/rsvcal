@@ -2,7 +2,7 @@
   <h1><%= @page_title %></h1>
 
   <%= form_for [:admin, @group] do |f| %>
-  <%- errors = @group.errors -%>
+  <%- errors = @errors -%>
   <dl>
     <dt>
       <label class="required">name</label>

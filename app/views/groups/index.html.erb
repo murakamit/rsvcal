@@ -1,0 +1,19 @@
+<section>
+  <h1>Groups</h1>
+
+  <%- if Group.all.empty? -%>
+  (nothing)
+  <%- else -%>
+    <%- Group.all.each do |g| -%>
+  <ul>
+    <li><%= link_to g.name, g -%></li>
+      <%- memo = g.memo -%>
+      <%- if memo.present? -%>
+    <ul>
+      <li><%= memo %></li>
+    </ul>
+      <%- end -%>
+  </ul>
+    <%- end -%>
+  <%- end -%>
+<section>
