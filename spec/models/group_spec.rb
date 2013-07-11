@@ -84,10 +84,13 @@ describe Group do
 
   context "name uniq" do
     it {
-      pending "care active_only scope"
+      g = nil
       n = "foo"
-      expect { Group.create! name: n }.not_to raise_error
+      expect { g = Group.create! name: n }.not_to raise_error
       expect { Group.create! name: n }.to raise_error
+      expect { g.remove! }.not_to raise_error
+      expect(g.removed?).to be_true
+      expect { Group.create! name: n }.not_to raise_error
     }
   end
 

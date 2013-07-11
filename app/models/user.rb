@@ -9,9 +9,17 @@ class User < ActiveRecord::Base
 
   REX_PASSWORD = /\A[!-~]+\Z/
 
-  # validates :name, uniqueness: true
+  validate :uniq_name
   validates :password, format: { with: REX_PASSWORD }
 
+  # --- --- --- --- --- --- --- --- --- --- --- ---
+  def uniq_name
+    k = :name
+    a = self.class.active_only.where.not(id: self.id).pluck(k).flatten
+    errors.add k, "must be unique" if a.include? self[k]
+  end
+
+  # --- --- --- --- --- --- --- --- --- --- --- ---
   def self.valid_password?(s)
     REX_PASSWORD === s
   end

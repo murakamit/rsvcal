@@ -22,9 +22,12 @@ describe User do
 
     context "uniq" do
       it {
-        pending "care active_only scope"
-        expect { User.create! args }.not_to raise_error
+        u = nil
+        expect { u = User.create! args }.not_to raise_error
         expect { User.create! args }.to raise_error
+        expect { u.remove! }.not_to raise_error
+        expect(u.removed?).to be_true
+        expect { User.create! args }.not_to raise_error
       }
     end
   end
