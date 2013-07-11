@@ -1,0 +1,49 @@
+<%- submit_label ||= "submit!" -%>
+<h1><%= @page_title %></h1>
+
+<%- if Item.all.empty? -%>
+<p>nothing item yet.</p>
+  <%- if @login_user.try :admin? -%>
+<p>please <%= link_to "create new item", new_admin_item_path %>.<p>
+  <%- end -%>
+<%- else -%>
+  <%= form_for @weekly do |f| %>
+<dl>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">item</label>
+<%= render "shared/attach_errors", key: :item_id -%>
+  </dt>
+  <dd>
+    <%- items = Item.readonly.pluck(:name, :group, :id) -%>
+    <%- items.map! { |a| ["#{a[0]}@#{a[1]}", a[2]] } -%>
+    <%- if items.size > 1 -%>
+    <%= f.select :item_id, items, include_blank: true %>
+    <%- else -%>
+    <%= f.select :item_id, items %>
+    <%- end -%>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">user</label>
+<%= render "shared/attach_errors", key: :user -%>
+  </dt>
+  <dd>
+    <%= f.text_field :user, maxlength: 50 %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label>memo</label>
+<%= render "shared/attach_errors", key: :memo -%>
+  </dt>
+  <dd>
+    <%= f.text_area :memo, maxlength: 50, style: "width:20em;height:4em;" %>
+  </dd>
+</dl>
+<div>
+    <%= submit_tag submit_label %>
+</div>
+  <% end %>
+
+<p class="desc-required"><label class="required"></label> is required.</p>
+<%- end -%>

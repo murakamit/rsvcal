@@ -1,0 +1,18 @@
+<h1><%= @page_title %></h1>
+
+<%- if Weekly.all.empty? -%>
+(nothing)
+<%- else -%>
+  <%- a = Weekly.all.to_a.sort { |x,y| x.wday <=> y.wday } -%>
+  <%- a.each do |w| -%>
+<dl>
+  <dt><%= w.name %> <%= link_to "properties", w %></dt>
+    <%- if w.memo.present? -%>
+  <dd><%= w.memo %></dd>
+    <%- end -%>
+</dl>
+  <%- end -%>
+<%- end -%>
+
+<h2>Register</h2>
+<%= link_to "Create new weekly reservation...", new_weekly_path %>

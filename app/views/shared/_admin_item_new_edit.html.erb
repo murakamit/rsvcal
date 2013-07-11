@@ -3,7 +3,7 @@
 
 <%- if Group.all.empty? -%>
 <p>nothing group yet.</p>
-<p>please <= link_to "create new group", redirect_to new_admin_group_path %>.<p>
+<p>please <= link_to "create new group", new_admin_group_path %>.<p>
 <%- else -%>
   <%= form_for [:admin, @item] do |f| %>
 <dl>

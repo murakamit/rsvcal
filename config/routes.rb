@@ -18,6 +18,7 @@ Rsvcal::Application.routes.draw do
   get "session" => "sessions#index"
   resources :groups, only: [:index, :show]
   resources :items,  only: [:index, :show]
+  resources :weeklies
 
   # Example resource route with options:
   #   resources :products do

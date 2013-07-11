@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   REX_PASSWORD = /\A[!-~]+\Z/
 
-  validates :name, uniqueness: true
+  # validates :name, uniqueness: true
   validates :password, format: { with: REX_PASSWORD }
 
   def self.valid_password?(s)
