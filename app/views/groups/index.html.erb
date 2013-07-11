@@ -5,7 +5,7 @@
 <%- else -%>
   <%- Group.order(:name).each do |g| -%>
 <dl>
-  <dt><%= link_to g.name, g %></dt>
+  <dt><%= g.name %> <%= link_to "properties", g %></dt>
     <%- if g.memo.present? -%>
   <dd><%= g.memo %></dd>
     <%- end -%>

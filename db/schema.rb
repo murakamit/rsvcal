@@ -14,10 +14,10 @@
 ActiveRecord::Schema.define(version: 20130709105948) do
 
   create_table "groups", force: true do |t|
-    t.string   "name",         limit: 50,                                  null: false
-    t.string   "memo",         limit: 250, default: "",                    null: false
-    t.datetime "removed_at",               default: '1900-01-01 00:00:00', null: false
-    t.integer  "lock_version",             default: 0,                     null: false
+    t.string   "name",         limit: 50,                                 null: false
+    t.string   "memo",         limit: 50, default: "",                    null: false
+    t.datetime "removed_at",              default: '1900-01-01 00:00:00', null: false
+    t.integer  "lock_version",            default: 0,                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -25,11 +25,11 @@ ActiveRecord::Schema.define(version: 20130709105948) do
   add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
 
   create_table "items", force: true do |t|
-    t.integer  "group_id",                                                 null: false
-    t.string   "name",         limit: 50,                                  null: false
-    t.string   "memo",         limit: 250, default: "",                    null: false
-    t.datetime "removed_at",               default: '1900-01-01 00:00:00', null: false
-    t.integer  "lock_version",             default: 0,                     null: false
+    t.integer  "group_id",                                                null: false
+    t.string   "name",         limit: 50,                                 null: false
+    t.string   "memo",         limit: 50, default: "",                    null: false
+    t.datetime "removed_at",              default: '1900-01-01 00:00:00', null: false
+    t.integer  "lock_version",            default: 0,                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -37,28 +37,28 @@ ActiveRecord::Schema.define(version: 20130709105948) do
   add_index "items", ["name"], name: "index_items_on_name", unique: true, using: :btree
 
   create_table "reservations", force: true do |t|
-    t.integer  "item_id",                                                  null: false
-    t.string   "user",         limit: 50,                                  null: false
-    t.date     "date",                                                     null: false
-    t.integer  "begin_h",                                                  null: false
-    t.integer  "begin_m",                                                  null: false
-    t.integer  "end_h",                                                    null: false
-    t.integer  "end_m",                                                    null: false
-    t.string   "icon",         limit: 50,  default: "&#9734;",             null: false
-    t.string   "memo",         limit: 250, default: "",                    null: false
-    t.datetime "removed_at",               default: '1900-01-01 00:00:00', null: false
-    t.integer  "lock_version",             default: 0,                     null: false
+    t.integer  "item_id",                                                 null: false
+    t.string   "user",         limit: 50,                                 null: false
+    t.date     "date",                                                    null: false
+    t.integer  "begin_h",                                                 null: false
+    t.integer  "begin_m",                                                 null: false
+    t.integer  "end_h",                                                   null: false
+    t.integer  "end_m",                                                   null: false
+    t.string   "icon",         limit: 50, default: "&#9734;",             null: false
+    t.string   "memo",         limit: 50, default: "",                    null: false
+    t.datetime "removed_at",              default: '1900-01-01 00:00:00', null: false
+    t.integer  "lock_version",            default: 0,                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
-    t.string   "name",            limit: 50,                                  null: false
-    t.string   "password_digest",                                             null: false
-    t.string   "memo",            limit: 250, default: "",                    null: false
-    t.boolean  "admin",                       default: false,                 null: false
-    t.datetime "removed_at",                  default: '1900-01-01 00:00:00', null: false
-    t.integer  "lock_version",                default: 0,                     null: false
+    t.string   "name",            limit: 50,                                 null: false
+    t.string   "password_digest",                                            null: false
+    t.string   "memo",            limit: 50, default: "",                    null: false
+    t.boolean  "admin",                      default: false,                 null: false
+    t.datetime "removed_at",                 default: '1900-01-01 00:00:00', null: false
+    t.integer  "lock_version",               default: 0,                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -66,29 +66,29 @@ ActiveRecord::Schema.define(version: 20130709105948) do
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
 
   create_table "weeklies", force: true do |t|
-    t.integer  "item_id",                                                  null: false
-    t.string   "user",         limit: 50,                                  null: false
-    t.date     "date_begin",                                               null: false
-    t.date     "date_end",                                                 null: false
-    t.integer  "begin_h",                                                  null: false
-    t.integer  "begin_m",                                                  null: false
-    t.integer  "end_h",                                                    null: false
-    t.integer  "end_m",                                                    null: false
-    t.string   "icon",         limit: 50,  default: "&#9834;",             null: false
-    t.string   "memo",         limit: 250, default: "",                    null: false
-    t.datetime "removed_at",               default: '1900-01-01 00:00:00', null: false
-    t.integer  "lock_version",             default: 0,                     null: false
+    t.integer  "item_id",                                                 null: false
+    t.string   "user",         limit: 50,                                 null: false
+    t.date     "date_begin",                                              null: false
+    t.date     "date_end",                                                null: false
+    t.integer  "begin_h",                                                 null: false
+    t.integer  "begin_m",                                                 null: false
+    t.integer  "end_h",                                                   null: false
+    t.integer  "end_m",                                                   null: false
+    t.string   "icon",         limit: 50, default: "&#9834;",             null: false
+    t.string   "memo",         limit: 50, default: "",                    null: false
+    t.datetime "removed_at",              default: '1900-01-01 00:00:00', null: false
+    t.integer  "lock_version",            default: 0,                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "weeklyrevokes", force: true do |t|
-    t.integer  "weekly_id",                                                null: false
-    t.string   "applicant",    limit: 50,                                  null: false
-    t.date     "date",                                                     null: false
-    t.string   "memo",         limit: 250, default: "",                    null: false
-    t.datetime "removed_at",               default: '1900-01-01 00:00:00', null: false
-    t.integer  "lock_version",             default: 0,                     null: false
+    t.integer  "weekly_id",                                               null: false
+    t.string   "applicant",    limit: 50,                                 null: false
+    t.date     "date",                                                    null: false
+    t.string   "memo",         limit: 50, default: "",                    null: false
+    t.datetime "removed_at",              default: '1900-01-01 00:00:00', null: false
+    t.integer  "lock_version",            default: 0,                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

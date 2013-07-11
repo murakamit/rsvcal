@@ -1,6 +1,4 @@
 Rsvcal::Application.routes.draw do
-  get "groups/index"
-  get "top/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -19,6 +17,7 @@ Rsvcal::Application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   get "session" => "sessions#index"
   resources :groups, only: [:index, :show]
+  resources :items,  only: [:index, :show]
 
   # Example resource route with options:
   #   resources :products do
@@ -62,5 +61,6 @@ Rsvcal::Application.routes.draw do
   namespace :admin do
     root "top#index"
     resources :groups, only: [:new, :create, :edit, :update, :destroy]
+    resources :items,  only: [:new, :create, :edit, :update, :destroy]
   end
 end

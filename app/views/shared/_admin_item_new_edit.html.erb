@@ -1,7 +1,7 @@
 <%- submit_label ||= "submit!" -%>
 <h1><%= @page_title %></h1>
 
-<%= form_for [:admin, @group] do |f| %>
+<%= form_for [:admin, @item] do |f| %>
   <%- errors = @errors -%>
 <dl>
   <dt>
@@ -12,7 +12,7 @@
       <%- end -%>
     <%- end -%>
   </dt>
-  <dd><%= f.text_field :name, maxlength: 50 %></dd>
+  <dd><%= f.text_field :name %></dd>
 </dl>
 <dl>
   <dt>
@@ -23,7 +23,7 @@
       <%- end -%>
     <%- end -%>
   </dt>
-  <dd><%= f.text_area :memo, maxlength: 50, style: "width:20em;height:5em;" %></dd>
+  <dd><%= f.text_area :memo, style: "width:20em;height:5em;" %></dd>
 </dl>
 <div>
   <%= submit_tag submit_label, class: "submit" %>

@@ -5,7 +5,7 @@ module Memoable
 
   included do
     before_validation :replace_nil_to_empty_at_memo
-    validates :memo, length: { maximum: 250 }
+    validates :memo, length: { maximum: 50 }
   end
 
   def replace_nil_to_empty_at_memo
