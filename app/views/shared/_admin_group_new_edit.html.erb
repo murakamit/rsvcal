@@ -3,21 +3,25 @@
 
 <%= form_for [:admin, @group] do |f| %>
 <dl>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
     <label class="required">name</label>
 <%= render "shared/attach_errors", key: :name -%>
   </dt>
-  <dd><%= f.text_field :name, maxlength: 50 %></dd>
-</dl>
-<dl>
+  <dd>
+    <%= f.text_field :name, maxlength: 50 %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
     <label>memo</label>
 <%= render "shared/attach_errors", key: :memo -%>
   </dt>
-  <dd><%= f.text_area :memo, maxlength: 50, style: "width:20em;height:5em;" %></dd>
+  <dd>
+    <%= f.text_area :memo, maxlength: 50, style: "width:20em;height:4em;" %>
+  </dd>
 </dl>
 <div>
-  <%= submit_tag submit_label, class: "submit" %>
+  <%= submit_tag submit_label %>
 </div>
 <% end %>
 

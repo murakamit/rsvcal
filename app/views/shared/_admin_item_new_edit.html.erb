@@ -6,31 +6,39 @@
 <p>please <= link_to "create new group", redirect_to new_admin_group_path %>.<p>
 <%- else -%>
   <%= form_for [:admin, @item] do |f| %>
-    <%- errors = @errors -%>
 <dl>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">group</label>
+<%= render "shared/attach_errors", key: :group_id -%>
+  </dt>
+  <dd>
+    <%- groups = Group.readonly.pluck(:name, :id) -%>
+    <%- if groups.size > 1 -%>
+    <%= f.select :group_id, groups, include_blank: true %>
+    <%- else -%>
+    <%= f.select :group_id, groups %>
+    <%- end -%>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
     <label class="required">name</label>
-      <%- if errors && errors[:name].try(:present?) -%>
-        <%- errors[:name].each_with_index do |s| -%>
-    <span class="error-message"><%= s %></span>
-        <%- end -%>
-      <%- end -%>
+<%= render "shared/attach_errors", key: :name -%>
   </dt>
-  <dd><%= f.text_field :name %></dd>
-</dl>
-<dl>
+  <dd>
+    <%= f.text_field :name, maxlength: 50 %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
     <label>memo</label>
-      <%- if errors && errors[:memo].try(:present?) -%>
-        <%- errors[:memo].each_with_index do |s| -%>
-    <span class="error-message"><%= s %></span>
-        <%- end -%>
-      <%- end -%>
+<%= render "shared/attach_errors", key: :memo -%>
   </dt>
-  <dd><%= f.text_area :memo, style: "width:20em;height:5em;" %></dd>
+  <dd>
+    <%= f.text_area :memo, maxlength: 50, style: "width:20em;height:4em;" %>
+  </dd>
 </dl>
 <div>
-    <%= submit_tag submit_label, class: "submit" %>
+    <%= submit_tag submit_label %>
 </div>
   <% end %>
 

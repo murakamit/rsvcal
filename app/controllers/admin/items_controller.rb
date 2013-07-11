@@ -2,7 +2,7 @@ class Admin::ItemsController < Admin::Base
   def new
     @page_title = "Create new item"
     @errors = flash[:errors]
-    @group = Item.new
+    @item = Item.new
   end
 
   def create

@@ -132,7 +132,11 @@ label.required:before {
   content: "*";
 }
 
-input.submit {
+select {
+  font-size: 100%;
+}
+
+input[type="submit"] {
   -webkit-appearance: button;
   font-size: 150%;
 }
