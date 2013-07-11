@@ -1,4 +1,9 @@
 class SessionsController < ApplicationController
+  def index
+    redirect_to new_session_path unless @login_user
+    @page_title = "logout?"
+  end
+
   def new
     redirect_to admin_root_path if @login_user.try :admin?
     @name = flash[:name]

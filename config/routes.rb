@@ -16,7 +16,8 @@ Rsvcal::Application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resource  :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy]
+  get "session" => "sessions#index"
   resources :groups,  only: [:index, :show]
 
   # Example resource route with options:
