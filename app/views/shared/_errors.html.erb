@@ -1,10 +1,10 @@
 <%- if @errors.present? -%>
-<section class="errors">
+<div class="errors">
   <h2>Error</h2>
   <ul>
     <%- @errors.full_messages.each do |s| -%>
     <li><%= s %></li>
     <%- end -%>
   </ul>
-</section>
+</div>
 <%- end -%>

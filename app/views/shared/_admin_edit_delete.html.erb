@@ -1,11 +1,9 @@
 <%# [args] obj, delmes -%>
 <%- if @login_user.try :admin? -%>
-<section>
-  <h2>Admin</h2>
+<h2>Admin</h2>
 
-  <ul style="list-style-type:none">
-    <li style="margin-bottom:1em"><%= button_to "edit...", [:edit, :admin, obj], method: :get, class: "submit" %></li>
-    <li><%= button_to "delete?", [:admin, obj], method: :delete, confirm: delmes, class: "submit" %></li>
-  </ul>
-</section>
+<ul style="list-style-type:none">
+  <li style="margin-bottom:1em"><%= button_to "edit...", [:edit, :admin, obj], method: :get, class: "submit" %></li>
+  <li><%= button_to "delete?", [:admin, obj], method: :delete, confirm: delmes, class: "submit" %></li>
+</ul>
 <%- end -%>

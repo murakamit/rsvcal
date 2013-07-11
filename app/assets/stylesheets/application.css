@@ -40,15 +40,15 @@ nav a:hover {
   background-color: pink;
 }
 
-nav section.left {
+nav div.left {
   float: left;
 }
 
-nav section.right {
+nav div.right {
   float: right;
 }
 
-nav section.reset {
+nav div.reset {
   clear: both;
 }
 
@@ -62,7 +62,7 @@ nav span.admin {
 }
 
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
-section.main {
+div.main {
   color: black;
   background-color: white;
   margin: 8px;
@@ -70,7 +70,7 @@ section.main {
 
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
 /*
-section.errors {
+div.errors {
     border: solid 1px #f00;
     color: black;
     background-color: #fdd;
@@ -78,7 +78,7 @@ section.errors {
     margin: 1em 3em 1em;
 }
 
-section.errors h2 {
+div.errors h2 {
     margin: 0px;
 }
 */
@@ -95,12 +95,12 @@ span.error-message {
 }
 
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
-section.alert {
+div.alert {
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
-section.alert article {
+div.alert article {
   border: solid 1px #f00;
   color: black;
   background-color: #fdd;
@@ -108,12 +108,12 @@ section.alert article {
   padding: 8px;
 }
 
-section.notice {
+div.notice {
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
-section.notice article {
+div.notice article {
   border: solid 1px #0f0;
   color: black;
   background-color: #dfd;

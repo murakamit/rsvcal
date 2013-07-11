@@ -1,10 +1,10 @@
 <nav class="header">
-  <section class="left">
+  <div class="left">
     <%= link_to_unless_current "Top", root_path %>
     <%= link_to_unless_current "Groups", groups_path %>
-  </section>
-  <section class="right">
+  </div>
+  <div class="right">
     <time class="timestamp"><%= Time.now.strftime "%Y-%m-%d %H:%M" %></time>
-  </section>
-  <section class="reset"></section>
+  </div>
+  <div class="reset"></div>
 </nav>

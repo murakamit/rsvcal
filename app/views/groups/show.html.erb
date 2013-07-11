@@ -1,20 +1,18 @@
 <h1><%= @page_title %></h1>
 
-<section>
-  <h2>Properties</h2>
-  <dl>
-    <dt>name</dt>
-    <dd><%= @group.name %></dd>
+<h2>Properties</h2>
+<dl>
+  <dt>name</dt>
+  <dd><%= @group.name %></dd>
 
-    <dt>memo</dt>
-    <dd><%= @group.memo %></dd>
+  <dt>memo</dt>
+  <dd><%= @group.memo %></dd>
 
-    <dt>created at</dt>
-    <dd><%= @group.created_at %></dd>
+  <dt>created at</dt>
+  <dd><%= @group.created_at %></dd>
 
-    <dt>updated at</dt>
-    <dd><%= @group.updated_at %></dd>
-  </dl>
-</section>
+  <dt>updated at</dt>
+  <dd><%= @group.updated_at %></dd>
+</dl>
 
 <%= render "shared/admin_edit_delete", obj: @group, delmes: "Are you sure you want to delete '#{@group.name}'" %>
