@@ -1,33 +1,38 @@
 <%- submit_label ||= "submit!" -%>
 <h1><%= @page_title %></h1>
 
-<%= form_for [:admin, @item] do |f| %>
-  <%- errors = @errors -%>
+<%- if Group.all.empty? -%>
+<p>nothing group yet.</p>
+<p>please <= link_to "create new group", redirect_to new_admin_group_path %>.<p>
+<%- else -%>
+  <%= form_for [:admin, @item] do |f| %>
+    <%- errors = @errors -%>
 <dl>
   <dt>
     <label class="required">name</label>
-    <%- if errors && errors[:name].try(:present?) -%>
-      <%- errors[:name].each_with_index do |s| -%>
+      <%- if errors && errors[:name].try(:present?) -%>
+        <%- errors[:name].each_with_index do |s| -%>
     <span class="error-message"><%= s %></span>
+        <%- end -%>
       <%- end -%>
-    <%- end -%>
   </dt>
   <dd><%= f.text_field :name %></dd>
 </dl>
 <dl>
   <dt>
     <label>memo</label>
-    <%- if errors && errors[:memo].try(:present?) -%>
-      <%- errors[:memo].each_with_index do |s| -%>
+      <%- if errors && errors[:memo].try(:present?) -%>
+        <%- errors[:memo].each_with_index do |s| -%>
     <span class="error-message"><%= s %></span>
+        <%- end -%>
       <%- end -%>
-    <%- end -%>
   </dt>
   <dd><%= f.text_area :memo, style: "width:20em;height:5em;" %></dd>
 </dl>
 <div>
-  <%= submit_tag submit_label, class: "submit" %>
+    <%= submit_tag submit_label, class: "submit" %>
 </div>
-<% end %>
+  <% end %>
 
 <p class="desc-required"><label class="required"></label> is required.</p>
+<%- end -%>

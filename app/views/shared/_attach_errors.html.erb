@@ -1,0 +1,6 @@
+<%# args: key (, @errors) -%>
+<%- if @errors && @errors[key].try(:present?) -%>
+  <%- @errors[key].each do |s| -%>
+    <span class="error-message"><%= s %></span>
+  <%- end -%>
+<%- end -%>
