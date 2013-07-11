@@ -82,6 +82,14 @@ describe Group do
     it { expect { Group.create! name: j1 }.to raise_error }
   end
 
+  context "name uniq" do
+    it {
+      n = "foo"
+      expect { Group.create! name: n }.not_to raise_error
+      expect { Group.create! name: n }.to raise_error
+    }
+  end
+
   context "memo.size" do
     let(:a0) { "a"  * 250 }
     let(:j0) { "あ" * 250 }

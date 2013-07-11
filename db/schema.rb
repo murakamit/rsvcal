@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20130709105948) do
     t.datetime "updated_at"
   end
 
+  add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
+
   create_table "items", force: true do |t|
     t.integer  "group_id",                                                 null: false
     t.string   "name",         limit: 50,                                  null: false
@@ -31,6 +33,8 @@ ActiveRecord::Schema.define(version: 20130709105948) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "items", ["name"], name: "index_items_on_name", unique: true, using: :btree
 
   create_table "reservations", force: true do |t|
     t.integer  "item_id",                                                  null: false
@@ -58,6 +62,8 @@ ActiveRecord::Schema.define(version: 20130709105948) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
 
   create_table "weeklies", force: true do |t|
     t.integer  "item_id",                                                  null: false

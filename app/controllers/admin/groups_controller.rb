@@ -8,7 +8,7 @@ class Admin::GroupsController < Admin::Base
   def create
     @group = Group.create params.require(:group).permit(:name, :memo)
     if @group.save
-      redirect_to new_admin_group_path, notice: "created #{url_for @group}"
+      redirect_to groups_path, notice: "created."
     else
       e = @group.errors
       flash[:errors] = e
@@ -19,7 +19,7 @@ class Admin::GroupsController < Admin::Base
 
   def edit
     @group = Group.find params[:id]
-    @page_title = "Edit #{@group.name}"
+    @page_title = "#{@group.name}"
     @errors = flash[:errors]
   rescue
     redirect_to groups_path
@@ -40,5 +40,10 @@ class Admin::GroupsController < Admin::Base
   end
 
   def destroy
+    g = Group.find params[:id]    
+    g.remove
+    redirect_to groups_path, notice: "deleted."
+  rescue
+    redirect_to groups_path
   end
 end

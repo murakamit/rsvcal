@@ -5,6 +5,7 @@ module Nameable
 
   included do
     validates :name, presence: true
+    validates :name, uniqueness: true
     validates :name, length: { in: 1 .. 50 }
     validates :name, format: { without: /\A(\s|　)+\Z/ }
   end
