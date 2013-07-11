@@ -4,8 +4,8 @@
   <h2>Admin</h2>
 
   <ul style="list-style-type:none">
-    <li style="margin-bottom:1em"><%= button_to "edit...", [:edit, :admin, obj], class: "submit" %></li>
-    <li><%= button_to "delete?", [:admin, obj], method: :delete, confirm: delmes, class: "submit" %></li>
+    <li style="margin-bottom:1em"><%= button_to "edit...", [:edit, :admin, obj], method: :get, class: "submit" %></li>
+    <li><%= button_to "delete?", obj, method: :delete, confirm: delmes, class: "submit" %></li>
   </ul>
 </section>
 <%- end -%>

@@ -4,16 +4,26 @@
   <%- if Group.all.empty? -%>
   (nothing)
   <%- else -%>
-    <%- Group.all.each do |g| -%>
-  <ul>
-    <li><%= link_to g.name, g -%></li>
-      <%- memo = g.memo -%>
-      <%- if memo.present? -%>
-    <ul>
-      <li><%= memo %></li>
-    </ul>
+    <%- Group.order(:name).each do |g| -%>
+  <dl>
+    <dt><%= link_to g.name, g %></dt>
+    <%- if g.memo.present? -%>
+    <dd><%= g.memo %></dd>
+    <%- end -%>
+    <%- if g.items.empty? -%>
+    <dd>(no items)</dd>
+    <%- else -%>
+    <dl>
+      <%- g.items.each do |i| -%>
+      <dt><%= link_to i.name, i %></dt>
+        <%- if i.memo.present? -%>
+      <dd><%= i.memo %></dd>
+        <%- end -%>
       <%- end -%>
-  </ul>
+    </dl>
+    <%- end -%>
+  </dl>
     <%- end -%>
   <%- end -%>
+
 <section>

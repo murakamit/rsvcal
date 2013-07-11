@@ -18,7 +18,7 @@ Rsvcal::Application.routes.draw do
   #   resources :products
   resource :session, only: [:new, :create, :destroy]
   get "session" => "sessions#index"
-  resources :groups,  only: [:index, :show]
+  resources :groups, only: [:index, :show]
 
   # Example resource route with options:
   #   resources :products do
@@ -60,7 +60,7 @@ Rsvcal::Application.routes.draw do
   #     resources :products
   #   end
   namespace :admin do
-    root to: "top#index"
-    resources :groups,  only: [:new, :create, :edit, :update, :destroy]
+    root "top#index"
+    resources :groups, only: [:new, :create, :edit, :update, :destroy]
   end
 end
