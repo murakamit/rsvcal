@@ -2,11 +2,14 @@
 
 <h2>Properties</h2>
 <dl>
+  <dt>ID</dt>
+  <dd><%= @group.id %></dd>
+
   <dt>name</dt>
   <dd><%= @group.name %></dd>
 
   <dt>memo</dt>
-  <dd><%= @group.memo %></dd>
+  <dd><%= @group.memo.presence || "(N/A)" %></dd>
 
   <dt>created at</dt>
   <dd><%= @group.created_at %></dd>

@@ -2,14 +2,17 @@
 
 <h2>Properties</h2>
 <dl>
-  <dt>groupname</dt>
+  <dt>ID</dt>
+  <dd><%= @item.id %></dd>
+
+  <dt>group</dt>
   <dd><%= link_to @item.group.name, @item.group %></dd>
 
   <dt>name</dt>
   <dd><%= @item.name %></dd>
 
   <dt>memo</dt>
-  <dd><%= @item.memo %></dd>
+  <dd><%= @item.memo.presence || "(N/A)" %></dd>
 
   <dt>created at</dt>
   <dd><%= @item.created_at %></dd>

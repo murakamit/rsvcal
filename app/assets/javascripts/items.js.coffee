@@ -138,6 +138,7 @@ generate_weeks = (year, month, sunday_end = false) ->
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 build_week = (days) ->
   s = ''
+  url = location.href.replace(/\/$/, '')
   for day in days
     y = day[0]
     m = day[1]
@@ -146,7 +147,8 @@ build_week = (days) ->
     s += ' year="' + y + '"'
     s += ' month="' + m + '"'
     s += ' day="' + d + '"'
-    s += '><a href="' + y + '-' + m + '-' + d + '">' + d + '</a></td>'
+    href = "#{url}/#{y}-#{m}-#{d}"
+    s += '><a href="' + href + '">' + d + '</a></td>'
   # end for
 
   return $("<tr>#{s}</tr>")
