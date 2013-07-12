@@ -16,8 +16,19 @@ Rsvcal::Application.routes.draw do
   #   resources :products
   resource :session, only: [:new, :create, :destroy]
   get "session" => "sessions#index"
+
   resources :groups, only: [:index, :show]
-  resources :items,  only: [:index, :show]
+
+  resources :items, only: [:index, :show]
+
+  resources :items do
+    member do
+      get "cal"
+    end
+  end
+
+  get "/:items/:id/:year/:month" => "items#year_month", constraints: { year: /\d{4}/, month: /\d{1,2}/ }, as: :ym_item
+
   resources :weeklies
 
   # Example resource route with options:

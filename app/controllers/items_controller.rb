@@ -10,4 +10,12 @@ class ItemsController < ApplicationController
   rescue
     redirect_to items_index_path, alert: "No such item(##{id})"
   end
+
+  def cal
+    id = params[:id]
+    @item = Item.find id
+    @page_title = @item.name
+  rescue
+    redirect_to items_index_path, alert: "No such item(##{id})"
+  end
 end
