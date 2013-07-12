@@ -16,7 +16,7 @@ class Reservation < ActiveRecord::Base
 
   def validate_presence_item
     k = :item_id
-    errors.add k, "No such item" unless Item.exists? self[k]
+    errors.add k, "No such item" if Item.where(id: self[k]).empty?
   end
 
   def self.default_icon

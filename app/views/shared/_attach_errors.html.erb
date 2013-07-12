@@ -1,6 +1,11 @@
 <%# args: key (, @errors) -%>
-<%- if @errors && @errors[key].try(:present?) -%>
-  <%- @errors[key].each do |s| -%>
+<%- if @errors -%>
+  <%- key = [key] unless key.is_a? Array -%>
+  <%- key.each do |k| -%>
+    <%- if @errors[k].try(:present?) -%>
+      <%- @errors[k].each do |s| -%>
     <span class="error-message"><%= s %></span>
+      <%- end -%>
+    <%- end -%>
   <%- end -%>
 <%- end -%>

@@ -1,7 +1,7 @@
 class Admin::ItemsController < Admin::Base
   def new
     @page_title = "Create new item"
-    @errors = flash[:errors]
+    # @errors = flash[:errors]
     @item = Item.new
   end
 
@@ -10,10 +10,15 @@ class Admin::ItemsController < Admin::Base
     if @item.save
       redirect_to items_path, notice: "created."
     else
-      e = @item.errors
-      flash[:errors] = e
-      n = e.size
-      redirect_to new_admin_item_path, alert: "#{n} error#{'s' if n > 1}"
+      # e = @item.errors
+      # flash[:errors] = e
+      # n = e.size
+      # redirect_to new_admin_item_path, alert: "#{n} error#{'s' if n > 1}"
+      @page_title = "Create new item"
+      @errors = @item.errors
+      n = @errors.size
+      flash[:alert] = "#{n} error#{'s' if n > 1}"
+      render :new
     end
   end
 

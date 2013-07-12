@@ -13,6 +13,6 @@ class Item < ActiveRecord::Base
 
   def validate_presence_group
     k = :group_id
-    errors.add k, "No such group" unless Group.exists? self[k]
+    errors.add k, "No such group" if Group.where(id: self[k]).empty?
   end
 end

@@ -18,7 +18,9 @@ class Weeklyrevoke < ActiveRecord::Base
 
   def validate1
     k = :weekly_id
-    if Weekly.exists? self[k]
+    if Weekly.where(id: self[k]).empty?
+      errors.add k, "No such weekly reservation"
+    else
       if self.date.wday == self.weekly.wday
         s = "'revoke' is out of range"
         w = self.weekly
@@ -30,8 +32,6 @@ class Weeklyrevoke < ActiveRecord::Base
       else
         errors.add :date, "different day of the week"
       end
-    else
-      errors.add k, "No such weekly reservation"
     end
   end
 end

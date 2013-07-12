@@ -55,7 +55,14 @@ module Durationable
   end
 
   def validate_begin_end
-    if begin2sec >= end2sec
+    b = false
+    [:begin_h, :begin_m, :end_h, :end_m].each { |k|
+      if self[k].blank?
+        b = true
+        break
+      end
+    }
+    if (! b) && (begin2sec >= end2sec)
       errors.add :end_h, "'end' must be later than 'begin'"
     end
   end
