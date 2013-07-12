@@ -27,7 +27,9 @@ Rsvcal::Application.routes.draw do
     end
   end
 
-  get "/:items/:id/:year/:month" => "items#year_month", constraints: { year: /\d{4}/, month: /\d{1,2}/ }, as: :ym_item
+  get "/:items/:id/:year-:month" => "items#year_month", constraints: { year: /\d{4}/, month: /\d{1,2}/ }, as: :ym_item
+
+  # get "/:items/:id/:year-:month-:day" => "items#year_month", constraints: { year: /\d{4}/, month: /\d{1,2}/, day: /\d{1,2}/ }, as: :ymd_item
 
   resources :weeklies
 
