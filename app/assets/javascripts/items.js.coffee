@@ -47,14 +47,10 @@ get_holidays = (year) ->
 
   for a in happy_mondays
     d = new Date(year, a[0] - 1, 1)
-    n = 0
-    while true
+    n = if d.getDay() == 1 then 1 else 0
+    while n < a[1]
+      d.setDate(d.getDate() + 1)
       n += 1 if d.getDay() == 1
-      if n < a[1]
-        d.setDate(d.getDate() + 1)
-      else
-        break
-      # end if
     #end while
     holidays[a[0]].push d.getDate()
   # end for
@@ -170,13 +166,35 @@ colorize_week = (week, sunday_end = false) ->
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 colorize_holidays = (year, month) ->
-  for hol in get_holidays(year)[month]
-    td = get_calendar_td(year, month, hol)
-    td.addClass("holiday") if td.length > 0
+  h = get_holidays(year)
+  tupple = [year, month, h[month]]
+  all = [ tupple ]
+
+  switch month
+    when 1
+      all.push [year, 2, h[2]]
+      h = get_holidays(year-1)
+      all.push [year-1, 12, h[12]]
+    when 12
+      all.push [year, 11, h[11]]
+      h = get_holidays(year+1)
+      all.push [year+1, 1, h[1]]
+    else
+      all.push [year, month-1, h[month-1]]
+      all.push [year, month+1, h[month+1]]
+  # end switch
+
+  for t in all
+    y = t[0]
+    m = t[1]
+    for hol in t[2]
+      td = get_calendar_td(y, m, hol)
+      td.addClass("holiday") if td.length > 0
+    # end for
   # end for
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-build_calendar = (table, year, month, sunday_end = false) ->
+build_calendar_main = (table, year, month, sunday_end = false) ->
   table.empty()
   obj = $('<thead></thead>')
   obj.append build_header(sunday_end), sunday_end
@@ -189,17 +207,27 @@ build_calendar = (table, year, month, sunday_end = false) ->
     table.append obj
   # end for
 
-  colorize_holidays year, month - 1
   colorize_holidays year, month
-  colorize_holidays year, month + 1
 
   for m in [month - 1, month + 1]
     $("table#calendar td[month=#{m}]").addClass "out-of-range"
   # end for
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-$ ->
+build_calendar = () ->
   year  = parseInt $('span#calendar-y').html()
+  return false unless year?
   month = parseInt $('span#calendar-m').html()
-  build_calendar $("table#calendar"), year, month
+  return false unless month?
+  calendar = $("table#calendar")
+  if calendar.length > 0
+    build_calendar_main calendar, year, month
+    return true
+  else
+    return false
+  # end if
+
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+$ ->
+  build_calendar()
   # put_icons_on_calendar $('tr.reservation')

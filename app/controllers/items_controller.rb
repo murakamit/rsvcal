@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
     redirect_to items_index_path, alert: "No such item(##{id})"
   end
 
-  def cal
+  def prop
     id = params[:id]
     @item = Item.find id
     @page_title = @item.name

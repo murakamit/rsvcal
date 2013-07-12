@@ -5,7 +5,7 @@
 <%- else -%>
   <%- Item.order(:name).each do | item | -%>
 <dl>
-  <dt><%= link_to item.name, [:cal, item] %> <%= link_to "properties", item %></dt>
+  <dt><%= link_to item.name, item %> <%= link_to "properties", [:prop, item] %></dt>
     <%- if item.memo.present? -%>
   <dd><%= item.memo %></dd>
     <%- end -%>

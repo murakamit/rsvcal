@@ -23,7 +23,7 @@ Rsvcal::Application.routes.draw do
 
   resources :items do
     member do
-      get "cal"
+      get "prop"
     end
   end
 
