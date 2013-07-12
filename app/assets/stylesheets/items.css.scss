@@ -14,10 +14,10 @@ table.calendar {
     }
 
     th, td {
-      /* margin: 0px; */
-      /* padding: 2px; */
       width:  4em;
       color: black;
+      /* margin: 0px; */
+      /* padding: 2px; */
     }
 
     th {
@@ -72,13 +72,14 @@ table.calendar {
 
     a {
       color: black;
-    /* cursor: pointer; */
+      margin-left: 4px;
+      /* cursor: pointer; */
     }
 
     a.icon {
       margin-right: 0.5em;
-      /* text-decoration: underline; */
       text-decoration: none;
       border-bottom: 1px dashed;
+      /* text-decoration: underline; */
     }
 }

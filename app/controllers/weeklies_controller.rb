@@ -13,7 +13,6 @@ class WeekliesController < ApplicationController
 
   def new
     @page_title = "Create new weekly reservation"
-    # @errors = flash[:errors]
     @weekly = Weekly.new
   end
 
@@ -24,14 +23,10 @@ class WeekliesController < ApplicationController
     if @weekly.save
       redirect_to :index, notice: "created."
     else
-      # e = @weekly.errors
-      # flash[:errors] = e
-      # n = e.size
-      # redirect_to new_weekly_path, alert: "#{n} error#{'s' if n > 1}"
       @page_title = "Create new weekly reservation"
       @errors = @weekly.errors
       n = @errors.size
-      flash[:alert] = "#{n} error#{'s' if n > 1}"
+      @errormes = "#{n} error#{'s' if n > 1}"
       render :new
     end
   end

@@ -69,23 +69,26 @@ div.main {
 }
 
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
-/*
 div.errors {
-    border: solid 1px #f00;
-    color: black;
-    background-color: #fdd;
-    padding: 8px;
-    margin: 1em 3em 1em;
+  width: 50%;
+  margin: 1em 3em 1em;
+  padding: 0px;
+  border: solid 1px #a00;
+  color: black;
+  background-color: #fee;
 }
 
-div.errors h2 {
-    margin: 0px;
+div.errors div.title {
+  padding: 4px 8px 4px;
+  border-bottom: solid 1px #a00;
+  color: white;
+  background-color: #a00;
+  font-weight: bold;
 }
-*/
-/*
-span.field-with-errors {
+
+div.errors div.mes {
+  padding: 4px 8px 4px;
 }
-*/
 
 span.error-message {
   border: solid 1px #f00;
@@ -93,6 +96,11 @@ span.error-message {
   background-color: #fee;
   padding: 2px;
 }
+
+/*
+span.field-with-errors {
+}
+*/
 
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
 div.alert {
