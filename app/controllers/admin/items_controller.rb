@@ -5,7 +5,7 @@ class Admin::ItemsController < Admin::Base
   end
 
   def create
-    @item = Item.create params.require(:item).permit(:group_id, :name, :memo)
+    @item = Item.create myparams
     if @item.save
       redirect_to items_path, notice: "created."
     else
@@ -26,7 +26,7 @@ class Admin::ItemsController < Admin::Base
 
   def update
     @item = Item.find params[:id]
-    if @item.update params.require(:item).permit(:group_id, :name, :memo)
+    if @item.update myparams
       redirect_to [:prop, @item], notice: "updated."
     else
       @page_title = "#{@item.name}"
@@ -45,5 +45,10 @@ class Admin::ItemsController < Admin::Base
     redirect_to items_path, notice: "deleted."
   rescue
     redirect_to items_path
+  end
+
+  private
+  def myparams
+    params.require(:item).permit(:group_id, :name, :memo)
   end
 end
