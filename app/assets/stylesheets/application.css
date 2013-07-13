@@ -70,8 +70,9 @@ div.main {
 
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
 div.errors {
-  width: 50%;
-  margin: 1em 3em 1em;
+  width: 75%;
+  margin-left:  auto;
+  margin-right: auto;
   padding: 0px;
   border: solid 1px #a00;
   color: black;
