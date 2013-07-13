@@ -1,18 +1,24 @@
 <h1><%= @page_title %></h1>
 
-<%- if Weekly.all.empty? -%>
+<%- weeklies = Weekly.all -%>
+<%- if weeklies.empty? -%>
 (nothing)
 <%- else -%>
-  <%- a = Weekly.all.to_a.sort { |x,y| x.wday <=> y.wday } -%>
-  <%- a.each do |w| -%>
-<dl>
-  <dt><%= w.name %> <%= link_to "properties", w %></dt>
-    <%- if w.memo.present? -%>
-  <dd><%= w.memo %></dd>
+  <%- wdays = %W(Sunday Monday Tuesday Wednesday Thursday Friday Saturday) -%>
+  <%- wdays.each_with_index do |h2,i| -%>
+<h2><%= h2 %></h2>
+    <%- a = weeklies.select { |x| x.wday == i } -%>
+    <%- if a.empty? -%>
+(nothing)
+    <%- else -%>
+<ol>
+      <%- a.each do |w| -%>
+  <li><%= link_to w,name, w %></li>
+        <%- if w.memo.present? -%>
+  <ul><li style="list-style:none"><%= w.memo %></li></ul>
+        <%- end -%>
+      <%- end -%>
+</ol>
     <%- end -%>
-</dl>
   <%- end -%>
 <%- end -%>
-
-<h2>Register</h2>
-<%= link_to "Create new weekly reservation...", new_weekly_path %>
