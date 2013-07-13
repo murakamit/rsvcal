@@ -20,20 +20,20 @@ class Admin::ItemsController < Admin::Base
   def edit
     @item = Item.find params[:id]
     @page_title = "#{@item.name}"
-    @errors = flash[:errors]
   rescue
     redirect_to items_path
   end
 
   def update
-    item = Item.find params[:id]
-    if item.update params.require(:item).permit(:group_id, :name, :memo)
-      redirect_to item, notice: "updated."
+    @item = Item.find params[:id]
+    if @item.update params.require(:item).permit(:group_id, :name, :memo)
+      redirect_to [:prop, @item], notice: "updated."
     else
-      e = item.errors
-      flash[:errors] = e
-      n = e.size
-      redirect_to [:edit, :admin, item], alert: "#{n} error#{'s' if n > 1}"
+      @page_title = "#{@item.name}"
+      @errors = @item.errors
+      n = @errors.size
+      @errormes = "#{n} error#{'s' if n > 1}"
+      render :edit
     end
   rescue
     redirect_to items_path

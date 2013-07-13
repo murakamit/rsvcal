@@ -4,7 +4,11 @@
 (nothing)
 <%- else -%>
   <%- Group.order(:name).each do |g| -%>
+    <%- if @login_user.try :admin? -%>
+<h2><%= link_to g.name, g %></h2>
+    <%- else -%>
 <h2><%= g.name %></h2>
+    <%- end -%>
     <%- if g.memo.present? -%>
 <div><%= g.memo %></div>
     <%- end -%>
@@ -16,6 +20,9 @@
   <li><%= link_to i.name, i %></li>
         <%- if i.memo.present? -%>
   <ul><li style="list-style:none "><%= i.memo %></li></ul>
+        <%- end -%>
+        <%- if @login_user.try :admin? -%>
+  <ul><li style="list-style:none "><%= link_to "properties", [:prop, i] %></li></ul>
         <%- end -%>
       <%- end -%>
 </ol>

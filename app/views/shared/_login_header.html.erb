@@ -3,6 +3,7 @@
   <%- if @login_user.admin? -%>
   <div class="left">
     <%= link_to_unless_current "Admin", admin_root_path %>
+    <%= link_to_unless_current "Groups", groups_path %>
   </div>
   <%- end -%>
   <div class="right">
