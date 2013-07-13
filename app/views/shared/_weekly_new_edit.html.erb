@@ -31,11 +31,11 @@
 <%= render "shared/attach_errors", key: :date_begin -%>
   </dt>
   <dd>
-    <%= @weekly.date_begin %>
+    <input type="text" class="datepicker" value="<%= @weekly.date_begin %>" %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
-    <label class="required">end date</label>
+    <label>end date</label>
 <%= render "shared/attach_errors", key: :date_end -%>
   </dt>
   <dd>
@@ -43,11 +43,9 @@
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
-    <label>week of day</label>
+    <label>week of day (by start date)</label>
   </dt>
-  <dd>
-    ???
-  </dd>
+  <dd id="wday"></dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
     <label class="required">start time</label>

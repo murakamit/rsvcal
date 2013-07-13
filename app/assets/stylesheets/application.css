@@ -148,3 +148,10 @@ input[type="submit"] {
   -webkit-appearance: button;
   font-size: 150%;
 }
+
+/* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
+img.ui-datepicker-trigger {
+  margin-left: 4px;
+  vertical-align: -8px;
+  cursor: pointer;
+}
