@@ -1,3 +1,85 @@
 // Place all the styles related to the items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
+table.calendar {
+    border: 1px black solid;
+    border-collapse: collapse;
+    /* empty-cells: show; */
+    /* table-layout: fixed; */
+
+    tbody {
+      font-size: 150%;
+    }
+
+    th, td {
+      width:  4em;
+      color: black;
+      /* margin: 0px; */
+      /* padding: 2px; */
+    }
+
+    th {
+      height: 1em;
+      border: 1px black solid;
+      border-bottom: 3px black double;
+      background-color: #ccc;
+    }
+
+    td {
+      height: 3em;
+      border: 1px black solid;
+      background-color: white;
+      vertical-align: top;
+      word-wrap: break-word;
+    }
+
+    th.sunday {
+      color: #f00;
+    }
+
+    td.sunday {
+      color: #f00;
+      background-color: #fee;
+
+      a {
+        color: #f00;
+      }
+    }
+
+    th.saturday {
+      color: #00f;
+    }
+
+    td.saturday {
+      color: #00f;
+      background-color: #eef;
+
+      a {
+        color: #00f;
+      }
+    }
+
+    td.holiday {
+      color: #f00 !important;
+      background-color: #fee !important;
+    }
+
+    td.out-of-range {
+      background-color: #ddd !important;
+    }
+
+    a {
+      color: black;
+      margin-left: 4px;
+      /* cursor: pointer; */
+    }
+
+    a.icon {
+      margin-right: 0.5em;
+      text-decoration: none;
+      border-bottom: 1px dashed;
+      /* text-decoration: underline; */
+    }
+}

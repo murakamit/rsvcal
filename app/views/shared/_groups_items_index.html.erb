@@ -1,0 +1,30 @@
+<h1><%= @page_title %></h1>
+
+<%- if Group.all.empty? -%>
+(nothing)
+<%- else -%>
+  <%- Group.order(:name).each do |g| -%>
+<h2><%= g.name %></h2>
+    <%- if g.memo.present? -%>
+<div><%= g.memo %></div>
+    <%- end -%>
+    <%- if g.items.empty? -%>
+<div>(no items)</div>
+    <%- else -%>
+<ol>
+      <%- g.items.order(:name).each do |i| -%>
+  <li><%= link_to i.name, i %></li>
+        <%- if i.memo.present? -%>
+  <ul><li style="list-style:none "><%= i.memo %></li></ul>
+        <%- end -%>
+      <%- end -%>
+</ol>
+    <%- end -%>
+  <%- end -%>
+<%- end -%>
+
+<%- if @login_user.try :admin? -%>
+<hr>
+<div><%= link_to "Create new group...", new_admin_group_path %></div>
+<div><%= link_to "Create new item...", new_admin_item_path %></div>
+<%- end -%>

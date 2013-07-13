@@ -13,8 +13,16 @@ class WeekliesController < ApplicationController
 
   def new
     @page_title = "Create new weekly reservation"
-    # @errors = flash[:errors]
     @weekly = Weekly.new
+    k = :item_id
+    x = params[k]
+    @weekly[k] = x if x.present? && Item.where(id: x).present?
+    k = :date_begin
+    m = /\A(\d{4})-(\d{1,2})-(\d{1,2})\Z/.match params[k]
+    if m
+      a = m[1..3].map(&:to_i)
+      @weekly[k] = Date.new(*a) if Date.valid_date?(*a)
+    end
   end
 
   def create
@@ -24,14 +32,10 @@ class WeekliesController < ApplicationController
     if @weekly.save
       redirect_to :index, notice: "created."
     else
-      # e = @weekly.errors
-      # flash[:errors] = e
-      # n = e.size
-      # redirect_to new_weekly_path, alert: "#{n} error#{'s' if n > 1}"
       @page_title = "Create new weekly reservation"
       @errors = @weekly.errors
       n = @errors.size
-      flash[:alert] = "#{n} error#{'s' if n > 1}"
+      @errormes = "#{n} error#{'s' if n > 1}"
       render :new
     end
   end

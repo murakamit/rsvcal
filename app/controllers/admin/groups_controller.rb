@@ -1,7 +1,6 @@
 class Admin::GroupsController < Admin::Base
   def new
     @page_title = "Create new group"
-    # @errors = flash[:errors]
     @group = Group.new
   end
 
@@ -10,14 +9,10 @@ class Admin::GroupsController < Admin::Base
     if @group.save
       redirect_to groups_path, notice: "created."
     else
-      # e = @group.errors
-      # flash[:errors] = e
-      # n = e.size
-      # redirect_to new_admin_group_path, alert: "#{n} error#{'s' if n > 1}"
       @page_title = "Create new group"
       @errors = @group.errors
       n = @errors.size
-      flash[:alert] = "#{n} error#{'s' if n > 1}"
+      @errormes = "#{n} error#{'s' if n > 1}"
       render :new
     end
   end
