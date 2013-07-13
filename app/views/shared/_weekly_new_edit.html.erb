@@ -15,13 +15,7 @@
 <%= render "shared/attach_errors", key: :item_id -%>
   </dt>
   <dd>
-    <%- items = Item.readonly.pluck(:name, :group_id, :id) -%>
-    <%- items.map! { |a| ["#{a[0]}@#{Group.find(a[1]).name}", a[2]] } -%>
-    <%- if items.size > 1 -%>
-    <%= f.select :item_id, items, include_blank: true %>
-    <%- else -%>
-    <%= f.select :item_id, items %>
-    <%- end -%>
+    <%= select_items_tag f, :item_id, @weekly.item_id %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
@@ -30,13 +24,6 @@
   </dt>
   <dd>
     <%= f.text_field :user, maxlength: 50 %>
-  </dd>
-  <%# --- --- --- --- --- --- --- --- --- --- -%>
-  <dt>
-    <label class="required">week of day</label>
-  </dt>
-  <dd>
-    ???
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
@@ -50,6 +37,13 @@
   <dt>
     <label class="required">end date</label>
 <%= render "shared/attach_errors", key: :date_end -%>
+  </dt>
+  <dd>
+    ???
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label>week of day</label>
   </dt>
   <dd>
     ???
