@@ -1,5 +1,18 @@
 <h1><%= @page_title %></h1>
 
+<div><%= link_to "reserve...", "x" %></div>
+<%- args = { controller: :weeklies, action: :new, item_id: @item, date_begin: @date } -%>
+<div><%= link_to "reserve(weekly)...", args %></div>
+
+<%- reservations = Reservation.all -%>
+<h2>Reservation<%= 's' if reservations.size > 1 %></h2>
+<%- if reservations.empty? -%>
+(nothing)
+<%- else -%>
+hello
+<%- end -%>
+
+<hr>
 <pre>
 <%= params.inspect %>
 </pre>

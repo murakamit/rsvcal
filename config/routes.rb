@@ -32,7 +32,7 @@ Rsvcal::Application.routes.draw do
 
   get "/items/:id/:year-:month-:day" => "items#year_month_day", constraints: { year: /\d{4}/, month: /\d{1,2}/, day: /\d{1,2}/ }, as: :ymd_item
 
-  resources :weeklies, only: [:index, :show]
+  resources :weeklies, only: [:index, :show, :new, :create]
 
   # Example resource route with options:
   #   resources :products do

@@ -14,6 +14,15 @@ class WeekliesController < ApplicationController
   def new
     @page_title = "Create new weekly reservation"
     @weekly = Weekly.new
+    k = :item_id
+    x = params[k]
+    @weekly[k] = x if x.present? && Item.where(id: x).present?
+    k = :date_begin
+    m = /\A(\d{4})-(\d{1,2})-(\d{1,2})\Z/.match params[k]
+    if m
+      a = m[1..3].map(&:to_i)
+      @weekly[k] = Date.new(*a) if Date.valid_date?(*a)
+    end
   end
 
   def create
