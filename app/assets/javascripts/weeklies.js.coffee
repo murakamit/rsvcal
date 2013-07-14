@@ -3,9 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-on_change_date_begin = () ->
+set_week_of_day = () ->
   $('#wday').html "(by start date)"
-  ymd = $(this).val()
+  ymd = $('#weekly_date_begin').val()
   return unless ymd? || ymd.length == 0
   a = ymd.match /(\d{4})-(\d{1,2})-(\d{1,2})/
   return unless a?
@@ -16,7 +16,7 @@ on_change_date_begin = () ->
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 set_callback_date_begin = () ->
   obj = $('#weekly_date_begin')
-  obj.change(on_change_date_begin) if obj?
+  obj.change(set_week_of_day) if obj?
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 set_radio_on_at_date_end = () ->
@@ -29,5 +29,6 @@ set_callback_date_end = () ->
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 $ ->
+  set_week_of_day()
   set_callback_date_begin()
   set_callback_date_end()
