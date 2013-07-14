@@ -1,4 +1,6 @@
 class Admin::ItemsController < Admin::Base
+  include ErrorDisplayable
+
   def new
     @page_title = "Create new item"
     @item = Item.new
@@ -9,11 +11,7 @@ class Admin::ItemsController < Admin::Base
     if @item.save
       redirect_to items_path, notice: "created."
     else
-      @page_title = "Create new item"
-      @errors = @item.errors
-      n = @errors.size
-      @errormes = "#{n} error#{'s' if n > 1}"
-      render :new
+      display_errors @item.errors, :new, "Create new item"
     end
   end
 
@@ -26,14 +24,11 @@ class Admin::ItemsController < Admin::Base
 
   def update
     @item = Item.find params[:id]
+    name = @item.name
     if @item.update myparams
       redirect_to [:prop, @item], notice: "updated."
     else
-      @page_title = "#{@item.name}"
-      @errors = @item.errors
-      n = @errors.size
-      @errormes = "#{n} error#{'s' if n > 1}"
-      render :edit
+      display_errors @item.errors, :edit, name
     end
   rescue
     redirect_to items_path

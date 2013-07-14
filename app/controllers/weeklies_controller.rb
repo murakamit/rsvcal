@@ -1,4 +1,6 @@
 class WeekliesController < ApplicationController
+  include ErrorDisplayable
+
   def index
     @page_title = "Weekly Reservations"
   end
@@ -20,17 +22,11 @@ class WeekliesController < ApplicationController
   end
 
   def create
-    a = [ :item_id, :user, :date_begin, :date_end,
-          :begin_h, :begin_m, :end_h, :end_m, :icon, :memo ]
-    @weekly = Weekly.create params.require(:weekly).permit(a)
+    @weekly = Weekly.create myparams
     if @weekly.save
       redirect_to :index, notice: "created."
     else
-      @page_title = "Create new weekly reservation"
-      @errors = @weekly.errors
-      n = @errors.size
-      @errormes = "#{n} error#{'s' if n > 1}"
-      render :new
+      display_errors @weekly.errors, :new, "Create weekly reservation"
     end
   end
 
@@ -44,6 +40,12 @@ class WeekliesController < ApplicationController
   end
 
   private
+  def myparams
+    a = [ :item_id, :user, :date_begin, :date_end,
+          :begin_h, :begin_m, :end_h, :end_m, :icon, :memo ]
+    params.require(:weekly).permit(a)
+  end
+
   def set_date_begin(obj)
     k = :date_begin
     m = /\A(\d{4})-(\d{1,2})-(\d{1,2})\Z/.match params[k]

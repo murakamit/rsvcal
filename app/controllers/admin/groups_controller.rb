@@ -1,4 +1,6 @@
 class Admin::GroupsController < Admin::Base
+  include ErrorDisplayable
+
   def new
     @page_title = "Create new group"
     @group = Group.new
@@ -9,11 +11,7 @@ class Admin::GroupsController < Admin::Base
     if @group.save
       redirect_to groups_path, notice: "created."
     else
-      @page_title = "Create new group"
-      @errors = @group.errors
-      n = @errors.size
-      @errormes = "#{n} error#{'s' if n > 1}"
-      render :new
+      display_errors @group.errors, :new, "Create new group"
     end
   end
 
@@ -26,14 +24,11 @@ class Admin::GroupsController < Admin::Base
 
   def update
     @group = Group.find params[:id]
+    name = @group.name
     if @group.update myparams
       redirect_to @group, notice: "updated."
     else
-      @page_title = "#{@group.name}"
-      @errors = @group.errors
-      n = @errors.size
-      @errormes = "#{n} error#{'s' if n > 1}"
-      render :edit
+      display_errors @group.errors, :edit, name
     end
   rescue
     redirect_to groups_path
