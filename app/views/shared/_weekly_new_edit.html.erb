@@ -38,17 +38,16 @@
     <label>end date</label>
 <%= render "shared/attach_errors", key: :date_end -%>
   </dt>
+  <%- radio_name = "date_end_radio" -%>
   <dd>
-    <%- s = "date_end_using" -%>
     <label>
-      <input type="radio" id="date_end_forever" name="<%= s %>" value="0" checked>
+      <input type="radio" id="date_end_forever" name="<%= radio_name %>" value="0" checked>
       forever
     </label>
-    <br>
-    <label>
-      <input type="radio" id="date_end_setting" name="<%= s %>" value="1">
-      <%= f.text_field :date_end, maxlength: 10, class: "datepicker" %>
-    </label>
+  </dd>
+  <dd>
+    <input type="radio" id="date_end_setting" name="<%= radio_name %>" value="1">
+    <%= f.text_field :date_end, maxlength: 10, class: "datepicker" %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
@@ -76,11 +75,30 @@
     <label>icon</label>
 <%= render "shared/attach_errors", key: :icon -%>
   </dt>
+  <%- m = /\A(\d+)\Z/.match @weekly.icon.to_s -%>
+  <%- icon_number = m ? m[1].to_i : nil  -%>
+  <%- marks = [9834, 9835, 9836] -%>
+  <%- marks += [9825, 9826, 9828, 9831] -%>
+  <%- marks += [9997, 9888] -%>
+  <%- marks += [9832, 9872, 10048] -%>
+  <%- marks += [9812, 9813, 9814, 9815, 9816, 9817] -%>
+  <%- marks_included = marks.include? icon_number  -%>
+  <%- radio_name = "date_icon_radio" -%>
   <dd>
-    <%= f.text_field :icon, maxlength: 50, style: "width:5em;" %>
+    <input type="radio" name="<%= radio_name %>" value="0"<%= " checked" if marks_included -%>>
+    <select id="date_icon_list" name="date_icon_select" onChange="document.getElementsByName('<%= radio_name %>')[0].checked = true;">
+      <%- marks.each do |x| -%>
+        <%- z = (icon_number && (x == icon_number)) ? " selected" : nil -%>
+      <option value="<%= x %>"<%= z %>>&#<%= x %>;</option>
+      <%- end -%>
+    </select>
   </dd>
   <dd>
-    blank <%= "=>" %> <%= Weekly.default_icon.html_safe %>(default)
+    <input type="radio" name="<%= radio_name %>" value="1"<%= " checked" unless marks_included -%>>
+    <%- args = { maxlength: 1, style: "width:2em;" } -%>
+    <%- args[:value] = "" if marks_included -%>
+    <%- args[:onChange] = "document.getElementsByName('#{radio_name}')[1].checked = true;".html_safe -%>
+    <%= f.text_field :icon, args %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>

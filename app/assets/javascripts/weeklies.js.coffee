@@ -20,7 +20,7 @@ set_callback_date_begin = () ->
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 set_radio_on_at_date_end = () ->
-  $('input[name="date_end_using"]:radio').val([1])
+  $('input[name="date_end_radio"]:radio').val([1])
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 set_callback_date_end = () ->
