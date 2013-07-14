@@ -18,7 +18,7 @@ class WeekliesController < ApplicationController
     @weekly = Weekly.new
     x = params[:item_id]
     @weekly[:item_id] = x if x.present? && Item.where(id: x).present?
-    set_date_begin(@weekly)
+    set_date_begin @weekly
   end
 
   def create
@@ -26,7 +26,8 @@ class WeekliesController < ApplicationController
     if @weekly.save
       redirect_to :index, notice: "created."
     else
-      display_errors @weekly.errors, :new, "Create weekly reservation"
+      # display_errors @weekly.errors, :new, "Create weekly reservation"
+      render text: "#{myparams.inspect}<br>#{params[:date_end_using]}"
     end
   end
 

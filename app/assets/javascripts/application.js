@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//# require_tree .
+//= require_directory ./jquery-ui
+//= require application.js
+//= require_directory .
 
 $(function() {
     $(".datepicker").datepicker({

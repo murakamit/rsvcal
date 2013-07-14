@@ -31,7 +31,7 @@
 <%= render "shared/attach_errors", key: :date_begin -%>
   </dt>
   <dd>
-    <input type="text" class="datepicker" value="<%= @weekly.date_begin %>" %>
+    <%= f.text_field :date_begin, maxlength: 10, class: "datepicker" %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
@@ -39,13 +39,22 @@
 <%= render "shared/attach_errors", key: :date_end -%>
   </dt>
   <dd>
-    ???
+    <%- s = "date_end_using" -%>
+    <label>
+      <input type="radio" id="date_end_forever" name="<%= s %>" value="0" checked>
+      forever
+    </label>
+    <br>
+    <label>
+      <input type="radio" id="date_end_setting" name="<%= s %>" value="1">
+      <%= f.text_field :date_end, maxlength: 10, class: "datepicker" %>
+    </label>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
-    <label>week of day (by start date)</label>
+    <label>week of day</label>
   </dt>
-  <dd id="wday"></dd>
+  <dd id="wday">(by start date)</dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
     <label class="required">start time</label>
