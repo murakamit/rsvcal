@@ -8,9 +8,9 @@ class WeekliesController < ApplicationController
   def show
     id = params[:id]
     @weekly = Weekly.find id
-    @page_title = @weekly.name
+    @page_title = @weekly.user
   rescue
-    redirect_to weeklies_index_path, alert: "No such weekly reservation(##{id})"
+    redirect_to weeklies_path, alert: "No such weekly reservation(##{id})"
   end
 
   def new
@@ -19,13 +19,17 @@ class WeekliesController < ApplicationController
     x = params[:item_id]
     @weekly[:item_id] = x if x.present? && Item.where(id: x).present?
     set_date_begin @weekly, params[:date_begin]
+    @weekly[:begin_h] = "13"
+    @weekly[:begin_m] = "00"
+    @weekly[:end_h] = "14"
+    @weekly[:end_m] = "00"
     set_icon_on_new @weekly
   end
 
   def create
     @weekly = Weekly.create myparams
     if @weekly.save
-      redirect_to :index, notice: "created."
+      redirect_to weeklies_path, notice: "created."
     else
       # display_errors @weekly.errors, :new, "Create weekly reservation"
       s = myparams.inspect

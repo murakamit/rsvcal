@@ -1,0 +1,46 @@
+<h1><%= @page_title %></h1>
+
+<h2>Properties</h2>
+<dl>
+  <dt>ID</dt>
+  <dd><%= @weekly.id %></dd>
+
+  <dt>user</dt>
+  <dd><%= @weekly.user %></dd>
+
+  <dt>start date</dt>
+  <dd><%= @weekly.date_begin %></dd>
+
+  <dt>end date</dt>
+  <dd>
+  <%- if @weekly.forever? -%>
+    (forever)
+  <%- else -%>
+    <%= @weekly.date_end %>
+  <%- end -%>
+  </dd>
+
+  <dt>week of day</dt>
+  <dd><%= @weekly.date_begin.strftime "%A" %></dd>
+
+  <dt>start time</dt>
+  <dd><%= combine_hm @weekly, :begin %></dd>
+
+  <dt>end time</dt>
+  <dd><%= combine_hm @weekly, :end %></dd>
+
+  <dt>icon</dt>
+  <%- s = @weekly.icon.presence || "(N/A)" -%>
+  <dd><%= s.html_safe %></dd>
+
+  <dt>memo</dt>
+  <dd><%= @weekly.memo.presence || "(N/A)" %></dd>
+
+  <dt>created at</dt>
+  <dd><%= @weekly.created_at %></dd>
+
+  <dt>updated at</dt>
+  <dd><%= @weekly.updated_at %></dd>
+</dl>
+
+<%= render "shared/edit_delete", obj: @weekly, delmes: "Are you sure you want to delete '#{@weekly.user}'" %>

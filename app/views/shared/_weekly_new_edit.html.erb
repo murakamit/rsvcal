@@ -59,8 +59,11 @@
     <label class="required">start time</label>
 <%= render "shared/attach_errors", key: [:begin_h, :begin_m] -%>
   </dt>
+  <%- ah = [] %>
+  <%- 8.upto(20) { |x| ah.push x } %>
+  <%- am = %w(00 30) %>
   <dd>
-    ???
+    <%= f.select :begin_h, ah %> : <%= f.select :begin_m, am %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
@@ -68,11 +71,11 @@
 <%= render "shared/attach_errors", key: [:end_h, :end_m] -%>
   </dt>
   <dd>
-    ???
+    <%= f.select :end_h, ah %> : <%= f.select :end_m, am %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
-    <label>icon</label>
+    <label class="required">icon</label>
 <%= render "shared/attach_errors", key: :icon -%>
   </dt>
   <%- m = /\A(\d+)\Z/.match @weekly.icon.to_s -%>

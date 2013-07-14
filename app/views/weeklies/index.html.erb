@@ -8,18 +8,18 @@
   <%- wdays.each_with_index do |h2,i| -%>
 <h2><%= h2 %></h2>
     <%- a = weeklies.select { |x| x.wday == i } -%>
+<ul>
     <%- if a.empty? -%>
-(nothing)
+  <li style="list-style:none">(nothing)</li>
     <%- else -%>
-<ol>
       <%- a.each do |w| -%>
-  <li><%= link_to w,name, w %></li>
+  <li><%= link_to w.user, w %></li>
         <%- if w.memo.present? -%>
   <ul><li style="list-style:none"><%= w.memo %></li></ul>
         <%- end -%>
       <%- end -%>
-</ol>
     <%- end -%>
+</ul>
   <%- end -%>
 <%- end -%>
 

@@ -1,0 +1,5 @@
+<%# [args] obj, delmes -%>
+<hr style="margin-top:2em">
+<%= button_to "edit...", [:edit, obj], method: :get %>
+<br>
+<%= button_to "delete?", obj, method: :delete, confirm: delmes %>
