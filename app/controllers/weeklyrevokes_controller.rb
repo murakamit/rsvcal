@@ -4,7 +4,7 @@ class WeeklyrevokesController < ApplicationController
   def show
     id = params[:id]
     @revoke = Weeklyrevoke.find id
-    @page_title = "Revocation #{generate_title @revoke}"
+    @page_title = "Revocation of #{generate_title @revoke}"
   rescue
     redirect_to @revoke, alert: "No such revocation(##{id})"
   end

@@ -1,0 +1,24 @@
+<h1><%= @page_title %></h1>
+
+<%= link_to "retrieve", @revoke, method: :delete, confirm: "Are you sure you want to retrieve this revocation?" %>
+
+<h2>Properties</h2>
+<dl>
+  <dt>ID</dt>
+  <dd><%= @revoke.id %></dd>
+
+  <dt>Weekly Reservation</dt>
+  <dd><%= link_to @revoke.weekly.user, @revoke.weekly %></dd>
+
+  <dt>applicant</dt>
+  <dd><%= @revoke.applicant %></dd>
+
+  <dt>date</dt>
+  <dd><%= @revoke.date %></dd>
+
+  <dt>memo</dt>
+  <dd><%= @revoke.memo.presence || "(N/A)" %></dd>
+
+  <dt>created at</dt>
+  <dd><%= @revoke.created_at %></dd>
+</dl>

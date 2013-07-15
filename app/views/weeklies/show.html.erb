@@ -1,7 +1,7 @@
 <h1><%= @page_title %></h1>
 
 <%= link_to "edit",   [:edit, @weekly] %>
-<%= link_to "delete", @weekly, method: :delete, confirm: "Are you sure you want to delete reservation? (user: #{@weekly.user})" %>
+<%= link_to "delete", @weekly, method: :delete, confirm: "Are you sure you want to delete this reservation?" %>
 <%- args = { controller: :weeklyrevokes, action: :new, weekly_id: @weekly } -%>
 <%= link_to "revoke a day...", args %>
 
