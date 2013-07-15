@@ -3,6 +3,7 @@
     <%= link_to_unless_current "Top", root_path %>
     <%= link_to_unless_current "Items", items_path %>
     <%= link_to_unless_current "Weeklies", weeklies_path %>
+    <%= link_to_unless_current "Reservations", reservations_path %>
   </div>
   <div class="right">
     <time class="timestamp"><%= Time.now.strftime "%Y-%m-%d %H:%M" %></time>

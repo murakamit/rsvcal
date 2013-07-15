@@ -17,6 +17,14 @@ body {
   padding: 0px;
 }
 
+a {
+  padding: 4px;
+}
+
+a:hover {
+  background-color: pink;
+}
+
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
 nav.header {
   color: black;
@@ -34,10 +42,6 @@ nav.login-header {
 
 nav a {
   padding: 4px;
-}
-
-nav a:hover {
-  background-color: pink;
 }
 
 nav div.left {

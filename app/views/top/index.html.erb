@@ -1,10 +1,9 @@
 <h1><%= @today.strftime "%Y-%m-%d (%a)" %></h1>
 
-<hr>
-<%- if @login_user -%>
-  <%- if @login_user.admin? -%>
-<%= link_to "admin top", admin_root_path %>
-  <%- end -%>
-<%- else -%>
-<%= link_to "login...", new_session_path %>
-<%- end -%>
+<ul>
+  <li><%= link_to "Item(s)", items_path %></li>
+  <li><%= link_to "Weekly Reservation(s)", weeklies_path %></li>
+  <li><%= link_to "Reservation(s)", reservations_path %></li>
+</ul>
+
+<%= link_to "login", new_session_path unless @login_user %>
