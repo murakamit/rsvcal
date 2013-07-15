@@ -14,19 +14,5 @@
 //= require jquery_ujs
 //# require_tree .
 //= require_directory ./jquery-ui
-//= require application.js
+//= require 00.js.coffee
 //= require_directory .
-
-$(function() {
-    $(".datepicker").datepicker({
-      dateFormat: "yy-mm-dd",
-      changeYear: true,
-      changeMonth: true,
-      showOn: "button",
-      // buttonImage: "images/pyconic-040.png",
-      buttonImage: "/images/pyconic-040.png",
-      buttonImageOnly: true,
-      buttonText: "date picker",
-      // onSelect: hello,
-    });
-});
