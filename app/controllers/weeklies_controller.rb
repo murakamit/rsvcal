@@ -33,11 +33,6 @@ class WeekliesController < ApplicationController
       redirect_to weeklies_path, notice: "created."
     else
       display_errors @weekly.errors, :new, "Create weekly reservation"
-      # s = myparams.inspect
-      # [:date_end_radio, :date_icon_radio, :date_icon_select].each { |k|
-      #   s += "<br>params[#{k}] = #{params[k]}"
-      # }
-      # render text: s.html_safe
     end
   end
 
@@ -87,9 +82,9 @@ class WeekliesController < ApplicationController
       h.delete :date_end
     end
 
-    case params[:date_icon_radio]
+    case params[:icon_radio]
     when 0, "0"
-      m = /\A(\d+)\Z/.match params[:date_icon_select]
+      m = /\A(\d+)\Z/.match params[:icon_select]
       h[:icon] = "&##{m[1]};" if m
     end
 

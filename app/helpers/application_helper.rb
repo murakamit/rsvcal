@@ -13,7 +13,11 @@ module ApplicationHelper
           h[g.name] << [item.name, item.id]
         }
       }
-      form.select key, grouped_options_for_select(h, selected: selected)
+      if selected
+        form.select key, grouped_options_for_select(h, selected: selected)
+      else
+        form.select key, grouped_options_for_select(h, selected: selected), include_blank: true
+      end
     end
   end
 
@@ -62,7 +66,59 @@ module ApplicationHelper
       [WDAYS_EN[wday], b]
     }
 
-    form.select key, grouped_options_for_select(ary, selected: selected)
+    if selected
+      form.select key, grouped_options_for_select(ary, selected: selected)
+    else
+      form.select key, grouped_options_for_select(ary, selected: selected), include_blank: true
+    end
   end
 
+  # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+  def select_hm_tag(form, prekey)
+    sh = form.select :"#{prekey}_h", (8..20).to_a
+    sm = form.select :"#{prekey}_m", [["00", 0],  ["30", 30]]
+    sh + " : " + sm
+  end
+
+  # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+  def select_icon_tag0(marks, icon_number,
+                       radio_name = "icon_radio", select_name = "icon_select")
+    s = %Q(<input type="radio" name="#{radio_name}" value="0" style="margin-right:8px")
+    s += " checked" if marks.include?(icon_number)
+    s += ">"
+
+    s += %Q(<select name="#{select_name}" onChange="document.getElementsByName('#{radio_name}')[0].checked = true;">)
+
+    marks.each { |x|
+      z = (icon_number && (x == icon_number)) ? " selected" : nil
+      s += %Q(<option value="#{x}"#{z}>&##{x};</option>)
+    }
+
+    (s + "</select>").html_safe
+  end
+
+
+  # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+  def select_icon_tag1(form, marks, icon_number,
+                       radio_name = "icon_radio", select_name = "icon_select")
+    marks_included = marks.include? icon_number
+
+    s = %Q(<input type="radio" name="#{radio_name}" value="1" style="margin-right:8px")
+    s += " checked" unless marks_included
+    s += ">"
+
+    args = {
+      maxlength: 1,
+      style: "width:2em;",
+      onChange: "document.getElementsByName('#{radio_name}')[1].checked = true;".html_safe
+    }
+
+    if marks_included
+      args[:value] = ""
+    else
+      args[:value] = "" if icon_number
+    end
+
+    (s + form.text_field(:icon, args)).html_safe
+  end
 end

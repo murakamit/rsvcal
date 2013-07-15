@@ -59,11 +59,8 @@
     <label class="required">begin time</label>
 <%= render "shared/attach_errors", key: [:begin_h, :begin_m] -%>
   </dt>
-  <%- ah = [] %>
-  <%- 8.upto(20) { |x| ah.push x } %>
-  <%- am = %w(00 30) %>
   <dd>
-    <%= f.select :begin_h, ah %> : <%= f.select :begin_m, am %>
+    <%= select_hm_tag f, :begin %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
@@ -71,7 +68,7 @@
 <%= render "shared/attach_errors", key: [:end_h, :end_m] -%>
   </dt>
   <dd>
-    <%= f.select :end_h, ah %> : <%= f.select :end_m, am %>
+    <%= select_hm_tag f, :end %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
@@ -84,23 +81,11 @@
   <%- marks += [9825, 9826, 9828, 9831] -%>
   <%- marks += [9997, 9888] -%>
   <%- marks += [9832, 9872, 10048] -%>
-  <%- marks_included = marks.include? icon_number  -%>
-  <%- radio_name = "date_icon_radio" -%>
   <dd>
-    <input type="radio" name="<%= radio_name %>" value="0"<%= " checked" if marks_included -%>>
-    <select id="date_icon_list" name="date_icon_select" onChange="document.getElementsByName('<%= radio_name %>')[0].checked = true;">
-      <%- marks.each do |x| -%>
-        <%- z = (icon_number && (x == icon_number)) ? " selected" : nil -%>
-      <option value="<%= x %>"<%= z %>>&#<%= x %>;</option>
-      <%- end -%>
-    </select>
+    <%= select_icon_tag0 marks, icon_number %>
   </dd>
   <dd>
-    <input type="radio" name="<%= radio_name %>" value="1"<%= " checked" unless marks_included -%>>
-    <%- args = { maxlength: 1, style: "width:2em;" } -%>
-    <%- args[:value] = "" if marks_included || (icon_number && (! marks_included)) -%>
-    <%- args[:onChange] = "document.getElementsByName('#{radio_name}')[1].checked = true;".html_safe -%>
-    <%= f.text_field :icon, args %>
+    <%= select_icon_tag1 f, marks, icon_number %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>

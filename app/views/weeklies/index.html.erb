@@ -1,3 +1,5 @@
+<%= link_to "Create new weekly reservation...", [:new, :weekly] %>
+
 <h1><%= @page_title %></h1>
 
 <%- weeklies = Weekly.all -%>
@@ -22,6 +24,3 @@
 </ul>
   <%- end -%>
 <%- end -%>
-
-<hr>
-<%= link_to "Create new weekly reservation...", [:new, :weekly] %>
