@@ -1,9 +1,16 @@
 <h1><%= @page_title %></h1>
 
+<%= link_to "edit",   [:edit, @weekly] %>
+<%= link_to "delete", @weekly, method: :delete, confirm: "Are you sure you want to delete reservation? (user: #{@weekly.user})" %>
+<%# link_to "revoke the day...", %>
+
 <h2>Properties</h2>
 <dl>
   <dt>ID</dt>
   <dd><%= @weekly.id %></dd>
+
+  <dt>Item</dt>
+  <dd><%= link_to @weekly.item.name, @weekly.item %></dd>
 
   <dt>user</dt>
   <dd><%= @weekly.user %></dd>
@@ -43,4 +50,4 @@
   <dd><%= @weekly.updated_at %></dd>
 </dl>
 
-<%= render "shared/edit_delete", obj: @weekly, delmes: "Are you sure you want to delete '#{@weekly.user}'" %>
+<h2>Revocations</h2>

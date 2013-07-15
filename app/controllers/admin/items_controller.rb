@@ -17,7 +17,7 @@ class Admin::ItemsController < Admin::Base
 
   def edit
     @item = Item.find params[:id]
-    @page_title = "#{@item.name}"
+    @page_title = @item.name
   rescue
     redirect_to items_path
   end

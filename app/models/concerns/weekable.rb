@@ -15,6 +15,29 @@ module Weekable
     def self.infinity_date
       Date.new INFINITY_YEAR, 12, 31
     end
+
+    def self.infinity?(date)
+      xday = Date.new INFINITY_YEAR, 1, 1
+      if date.is_a? Date
+        date >= xday
+      elsif date.is_a? String
+        m = /\A(\d{4})-(\d{1,2})-(\d{1,2})\Z/.match date
+        if m
+          date = Date.new *(m[1..3].map(&:to_i))
+          date >= xday
+        else
+          false
+        end
+      elsif date.is_a? NilClass
+        true
+      else
+        raise ArgumentError
+      end
+    end
+
+    def self.forever?(date)
+      self.infinity? date
+    end
   end
 
   # --- --- --- --- --- --- --- --- --- --- --- ---
@@ -38,7 +61,7 @@ module Weekable
   end
 
   def infinity?
-    self.date_end >= Date.new(INFINITY_YEAR, 1, 1)
+    self.class.infinity? self.date_end
   end
 
   alias forever? infinity?
@@ -50,4 +73,8 @@ module Weekable
   # def date_end
   #   infinity? ? nil : super
   # end
+
+  def date_end_or_nil
+    infinity? ? nil : date_end
+  end
 end

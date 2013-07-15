@@ -27,7 +27,7 @@
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
-    <label class="required">start date</label>
+    <label class="required">begin date</label>
 <%= render "shared/attach_errors", key: :date_begin -%>
   </dt>
   <dd>
@@ -41,22 +41,22 @@
   <%- radio_name = "date_end_radio" -%>
   <dd>
     <label>
-      <input type="radio" id="date_end_forever" name="<%= radio_name %>" value="0" checked>
+      <input type="radio" id="date_end_forever" name="<%= radio_name %>" value="0"<%= " checked" if @weekly.forever? -%>>
       forever
     </label>
   </dd>
   <dd>
-    <input type="radio" id="date_end_setting" name="<%= radio_name %>" value="1">
+    <input type="radio" id="date_end_setting" name="<%= radio_name %>" value="1"<%= " checked" unless @weekly.forever? -%>>
     <%= f.text_field :date_end, maxlength: 10, class: "datepicker" %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
     <label>week of day</label>
   </dt>
-  <dd id="wday">(by start date)</dd>
+  <dd id="wday">(by begin date)</dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
-    <label class="required">start time</label>
+    <label class="required">begin time</label>
 <%= render "shared/attach_errors", key: [:begin_h, :begin_m] -%>
   </dt>
   <%- ah = [] %>
@@ -84,7 +84,6 @@
   <%- marks += [9825, 9826, 9828, 9831] -%>
   <%- marks += [9997, 9888] -%>
   <%- marks += [9832, 9872, 10048] -%>
-  <%- marks += [9812, 9813, 9814, 9815, 9816, 9817] -%>
   <%- marks_included = marks.include? icon_number  -%>
   <%- radio_name = "date_icon_radio" -%>
   <dd>
@@ -99,7 +98,7 @@
   <dd>
     <input type="radio" name="<%= radio_name %>" value="1"<%= " checked" unless marks_included -%>>
     <%- args = { maxlength: 1, style: "width:2em;" } -%>
-    <%- args[:value] = "" if marks_included -%>
+    <%- args[:value] = "" if marks_included || (icon_number && (! marks_included)) -%>
     <%- args[:onChange] = "document.getElementsByName('#{radio_name}')[1].checked = true;".html_safe -%>
     <%= f.text_field :icon, args %>
   </dd>

@@ -17,7 +17,7 @@ class Admin::GroupsController < Admin::Base
 
   def edit
     @group = Group.find params[:id]
-    @page_title = "#{@group.name}"
+    @page_title = @group.name
   rescue
     redirect_to groups_path
   end

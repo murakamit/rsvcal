@@ -8,7 +8,7 @@ class WeekliesController < ApplicationController
   def show
     id = params[:id]
     @weekly = Weekly.find id
-    @page_title = @weekly.user
+    @page_title = generate_title @weekly
   rescue
     redirect_to weeklies_path, alert: "No such weekly reservation(##{id})"
   end
@@ -23,7 +23,8 @@ class WeekliesController < ApplicationController
     @weekly[:begin_m] = "00"
     @weekly[:end_h] = "14"
     @weekly[:end_m] = "00"
-    set_icon_on_new @weekly
+    x = icon2number @weekly.icon
+    @weekly.icon = x if x
   end
 
   def create
@@ -31,29 +32,50 @@ class WeekliesController < ApplicationController
     if @weekly.save
       redirect_to weeklies_path, notice: "created."
     else
-      # display_errors @weekly.errors, :new, "Create weekly reservation"
-      s = myparams.inspect
-      [:date_end_radio, :date_icon_radio, :date_icon_select].each { |k|
-        s += "<br>params[#{k}] = #{params[k]}"
-      }
-      render text: s.html_safe
+      display_errors @weekly.errors, :new, "Create weekly reservation"
+      # s = myparams.inspect
+      # [:date_end_radio, :date_icon_radio, :date_icon_select].each { |k|
+      #   s += "<br>params[#{k}] = #{params[k]}"
+      # }
+      # render text: s.html_safe
     end
   end
 
   def edit
+    @weekly = Weekly.find params[:id]
+    @weekly.date_end = nil if @weekly.forever?
+    x = icon2number @weekly.icon
+    @weekly.icon = x if x
+    @page_title = generate_title @weekly
+  rescue
+    redirect_to weeklies_path
   end
 
   def update
+    @weekly = Weekly.find params[:id]
+    user = @weekly.user
+    if @weekly.update myparams
+      redirect_to @weekly, notice: "updated."
+    else
+      display_errors @weekly.errors, :edit, generate_title(@weekly)
+    end
+  rescue
+    redirect_to weeklies_path
   end
 
   def destroy
   end
 
+  # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
   private
   def myparams
     a = [ :item_id, :user, :date_begin, :date_end,
           :begin_h, :begin_m, :end_h, :end_m, :icon, :memo ]
     h = params.require(:weekly).permit(a)
+
+    k = :date_end
+    x = h[k]
+    h.delete k if x && Weekly.forever?(x)
 
     case params[:date_end_radio]
     when 0, "0"
@@ -84,26 +106,26 @@ class WeekliesController < ApplicationController
     m ? m[1] : nil
   end
 
-  def set_icon_on_new(obj)
-    k = :icon
-    s = Weekly.default_icon
-    if s
-      x = icon2number s
-      obj[k] = x.presence || s
-    else
-      obj[k] = 9834
-    end
+  # def set_icon(obj, s)
+  #   k = :icon
+  #   case s
+  #   when /\A&#\d+;\Z/
+  #     obj[k] = s
+  #   when /\A(\d+)\Z/
+  #     obj[k] = "&##{$1};"
+  #   else
+  #     obj[k] = s
+  #   end
+  # end
+
+  def generate_title(obj)
+    "#{obj.user}@#{obj.date_begin.strftime "%A"}"
   end
 
-  def set_icon(obj, s)
-    k = :icon
-    case s
-    when /\A&#\d+;\Z/
-      obj[k] = s
-    when /\A(\d+)\Z/
-      obj[k] = "&##{$1};"
-    else
-      obj[k] = s
-    end
+  def display_errors(errors, rendering_page, page_title)
+    @weekly.date_end = nil if @weekly.forever?
+    x = icon2number @weekly.icon
+    @weekly.icon = x if x
+    super
   end
 end
