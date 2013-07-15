@@ -1,0 +1,2 @@
+module WeeklyrevokesHelper
+end

@@ -34,6 +34,8 @@ Rsvcal::Application.routes.draw do
 
   resources :weeklies
 
+  resources :weeklyrevokes, only: [:show, :new, :create, :destroy]
+
   # Example resource route with options:
   #   resources :products do
   #     member do

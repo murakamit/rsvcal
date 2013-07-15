@@ -1,0 +1,43 @@
+<h1><%= @page_title %></h1>
+
+<%= form_for @revoke do |f| %>
+<dl>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">weekly reservation</label>
+<%= render "shared/attach_errors", key: :weekly_id -%>
+  </dt>
+  <dd>
+    <%= f.select :weekly_id, [@revoke.weekly.user, @revoke.weekly_id] %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">applicant</label>
+<%= render "shared/attach_errors", key: :applicant -%>
+  </dt>
+  <dd>
+    <%= f.text_field :applicant, maxlength: 50 %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">date</label>
+<%= render "shared/attach_errors", key: :date -%>
+  </dt>
+  <dd>
+    <%= f.text_field :date, maxlength: 10, class: "datepicker" %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label>memo</label>
+<%= render "shared/attach_errors", key: :memo -%>
+  </dt>
+  <dd>
+    <%= f.text_area :memo, maxlength: 50, style: "width:20em;height:4em;" %>
+  </dd>
+</dl>
+<div>
+  <%= submit_tag 'Create!' %>
+</div>
+<% end %>
+
+<p class="desc-required"><label class="required"></label> is required.</p>

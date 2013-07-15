@@ -2,7 +2,8 @@
 
 <%= link_to "edit",   [:edit, @weekly] %>
 <%= link_to "delete", @weekly, method: :delete, confirm: "Are you sure you want to delete reservation? (user: #{@weekly.user})" %>
-<%# link_to "revoke the day...", %>
+<%- args = { controller: :weeklyrevokes, action: :new, weekly_id: @weekly } -%>
+<%= link_to "revoke a day...", args %>
 
 <h2>Properties</h2>
 <dl>
@@ -51,3 +52,15 @@
 </dl>
 
 <h2>Revocations</h2>
+<%- revokes = @weekly.weeklyrevokes -%>
+<%- if revokes.empty? -%>
+(N/A)
+<%- else -%>
+<ul>
+  <%- revokes.each do |r| -%>
+    <%- s = "#{r.applicant}, #{r.date}" -%>
+    <%- s += ", #{r.memo}" if r.memo.present? -%>
+  <li><%= link_to s, r %></li>
+  <%- end -%>
+</ul>
+<%- end -%>

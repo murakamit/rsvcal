@@ -2,6 +2,7 @@
 
 class Weekly < ActiveRecord::Base
   belongs_to :item
+  has_many :weeklyrevokes
 
   include Userable
   include Weekable
