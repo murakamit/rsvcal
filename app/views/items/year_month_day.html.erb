@@ -1,6 +1,7 @@
 <h1><%= @page_title %></h1>
 
-<div><%= link_to "reserve...", "x" %></div>
+<%- args = { controller: :reservations, action: :new, item_id: @item, date: @date } -%>
+<div><%= link_to "reserve...", args %></div>
 <%- args = { controller: :weeklies, action: :new, item_id: @item, date_begin: @date } -%>
 <div><%= link_to "reserve(weekly)...", args %></div>
 

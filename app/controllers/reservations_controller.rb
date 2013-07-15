@@ -3,7 +3,7 @@ class ReservationsController < ApplicationController
   include DateValidatable
 
   def index
-    @page_title = "Reservations"
+    @page_title = "Reservation(s)"
   end
 
   def show

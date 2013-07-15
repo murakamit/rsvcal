@@ -1,0 +1,68 @@
+<%- submit_label ||= "submit!" -%>
+<h1><%= @page_title %></h1>
+
+<%= form_for @rsv do |f| %>
+<dl>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">item</label>
+<%= render "shared/attach_errors", key: :item_id -%>
+  </dt>
+  <dd>
+    ???
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">user</label>
+<%= render "shared/attach_errors", key: :user -%>
+  </dt>
+  <dd>
+    <%= f.text_field :user, maxlength: 50 %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">date</label>
+<%= render "shared/attach_errors", key: :date -%>
+  </dt>
+  <dd>
+    ???
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">begin time</label>
+<%= render "shared/attach_errors", key: [:begin_h, :begin_m] -%>
+  </dt>
+  <dd>
+    ???
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">end time</label>
+<%= render "shared/attach_errors", key: [:end_h, :end_m] -%>
+  </dt>
+  <dd>
+    ???
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">icon</label>
+<%= render "shared/attach_errors", key: :icon -%>
+  </dt>
+  <dd>
+    <%= f.text_field :icon, maxlength: 50 %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label>memo</label>
+<%= render "shared/attach_errors", key: :memo -%>
+  </dt>
+  <dd>
+    <%= f.text_area :memo, maxlength: 50, style: "width:20em;height:4em;" %>
+  </dd>
+</dl>
+<div>
+  <%= submit_tag submit_label %>
+</div>
+<% end %>
+
+<p class="desc-required"><label class="required"></label> is required.</p>

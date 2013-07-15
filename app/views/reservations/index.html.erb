@@ -1,0 +1,25 @@
+<div><%= link_to "Create new reservation", new_reservation_path %></div>
+
+<h1><%= @page_title %></h1>
+
+<%- rsvs = Reservation.order(:id).reverse_order.first(100) -%>
+<%- if rsvs.empty? -%>
+(no reservations)
+<%- else -%>
+  <%- n = rsvs.size -%>
+<h2>Recent <%= n %></h2>
+<table border="1">
+  <tr><th>ID</th><th>date</th><th>group</th><th>item</th><th>user</th><th>memo</th></tr>
+  <%- rsvs.each do | r | -%>
+  <tr>
+    <td><%= r.id %></td>
+    <td><%= r.date %></td>
+    <%- item = r.item -%>
+    <td><%= item.group.name %></td>
+    <td><%= item.name %></td>
+    <td><%= r.user.presence || "(N/a)" %></td>
+    <td><%= r.memo.presence || "(N/a)" %></td>
+  </tr>
+  <%- end -%>
+</table>
+<%- end -%>
