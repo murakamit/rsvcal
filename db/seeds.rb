@@ -12,3 +12,9 @@ User.create(name: "admin",
             admin: true,
             password: "123",
             password_confirmation: "123")
+
+g1 = Group.create(name: "会議室")
+
+%w(１ ２ ３).each { |s|
+  Item.create(group_id: g1.id, name: (g1.name + s))
+}
