@@ -64,6 +64,11 @@ class WeekliesController < ApplicationController
   end
 
   def destroy
+    w = Weekly.find params[:id]    
+    w.remove
+    redirect_to weeklies_path, notice: "deleted."
+  rescue
+    redirect_to weeklies_path
   end
 
   # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
