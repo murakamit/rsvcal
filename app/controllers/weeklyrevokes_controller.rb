@@ -4,7 +4,7 @@ class WeeklyrevokesController < ApplicationController
   def show
     id = params[:id]
     @revoke = Weeklyrevoke.find id
-    @page_title = generate_title @revoke
+    @page_title = "Revocation #{generate_title @revoke}"
   rescue
     redirect_to @revoke, alert: "No such revocation(##{id})"
   end
@@ -14,16 +14,15 @@ class WeeklyrevokesController < ApplicationController
     x = params[:weekly_id]
     @revoke[:weekly_id] = x if x.present? && Weekly.where(id: x).present?
     set_date @revoke, params[:date]
-    @page_title = generate_title @revoke
+    @page_title = "Revoke the day"
   end
 
   def create
-    # render text: myparams.inspect.html_safe
     @revoke = Weeklyrevoke.create myparams
     if @revoke.save
-      redirect_to @revoke.weekly, notice: "revoked."
+      redirect_to @revoke.weekly, notice: "revoked. (#{@revoke.date})"
     else
-      display_errors @revoke.errors, :new, generate_title(@revoke)
+      display_errors @revoke.errors, :new, "Revoke the day"
     end
   end
 

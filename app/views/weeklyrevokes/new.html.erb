@@ -4,15 +4,15 @@
 <dl>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
-    <label class="required">weekly reservation</label>
+    <label class="required">weekly reservation ID</label>
 <%= render "shared/attach_errors", key: :weekly_id -%>
   </dt>
   <dd>
-    <%= f.select :weekly_id, [@revoke.weekly.user, @revoke.weekly_id] %>
+    <%= select_revoke_tag f, :weekly_id, @revoke.weekly_id %>
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
-    <label class="required">applicant</label>
+    <label class="required">applicant name</label>
 <%= render "shared/attach_errors", key: :applicant -%>
   </dt>
   <dd>
@@ -36,7 +36,7 @@
   </dd>
 </dl>
 <div>
-  <%= submit_tag 'Create!' %>
+  <%= submit_tag 'Revoke!' %>
 </div>
 <% end %>
 
