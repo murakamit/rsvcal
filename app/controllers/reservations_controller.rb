@@ -1,6 +1,7 @@
 class ReservationsController < ApplicationController
   include ErrorDisplayable
   include DateValidatable
+  include IconHelper
 
   def index
     @page_title = "Reservation(s)"
@@ -15,12 +16,18 @@ class ReservationsController < ApplicationController
   end
 
   def new
+    @page_title = "Create new reservation"
     @rsv = Reservation.new
     x = params[:item_id]
     @rsv[:item_id] = x if x.present? && Item.where(id: x).present?
     d = generate_date_if_valid params[:date]
     @rsv[:date] = d if d
-    @page_title = "Create new reservation"
+    @rsv[:begin_h] = "13"
+    @rsv[:begin_m] = "00"
+    @rsv[:end_h] = "14"
+    @rsv[:end_m] = "00"
+    x = icon2number @rsv.icon
+    @rsv.icon = x if x
   end
 
   def create
@@ -65,6 +72,20 @@ class ReservationsController < ApplicationController
   def myparams
     a = [ :item_id, :user, :date,
           :begin_h, :begin_m, :end_h, :end_m, :icon, :memo ]
-    params.require(:reservation).permit(a)
+    h = params.require(:reservation).permit(a)
+
+    case params[:icon_radio]
+    when 0, "0"
+      m = /\A(\d+)\Z/.match params[:icon_select]
+      h[:icon] = "&##{m[1]};" if m
+    end
+
+    h
+  end
+
+  def display_errors(errors, rendering_page, page_title)
+    x = icon2number @rsv.icon
+    @rsv.icon = x if x
+    super
   end
 end

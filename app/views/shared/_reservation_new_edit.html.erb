@@ -33,6 +33,48 @@
   <dd>
     <%= f.text_field :date, maxlength: 10, class: "datepicker" %>
   </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">begin time</label>
+<%= render "shared/attach_errors", key: [:begin_h, :begin_m] -%>
+  </dt>
+  <dd>
+    <%= select_hm_tag f, :begin %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">end time</label>
+<%= render "shared/attach_errors", key: [:end_h, :end_m] -%>
+  </dt>
+  <dd>
+    <%= select_hm_tag f, :end %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label class="required">icon</label>
+<%= render "shared/attach_errors", key: :icon -%>
+  </dt>
+  <%- m = /\A(\d+)\Z/.match @rsv.icon.to_s -%>
+  <%- icon_number = m ? m[1].to_i : nil  -%>
+  <%- marks = [9734] -%>
+  <%- marks += [9825, 9826, 9828, 9831] -%>
+  <%- marks += [9997, 9888] -%>
+  <%- marks += [9832, 9872, 10048] -%>
+  <dd>
+    <%= select_icon_tag0 marks, icon_number %>
+  </dd>
+  <dd>
+    <%= select_icon_tag1 f, marks, icon_number %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
+    <label>memo</label>
+<%= render "shared/attach_errors", key: :memo -%>
+  </dt>
+  <dd>
+    <%= f.text_area :memo, maxlength: 50, style: "width:20em;height:4em;" %>
+  </dd>
+
 </dl>
 <div>
     <%= submit_tag submit_label %>

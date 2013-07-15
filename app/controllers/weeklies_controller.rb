@@ -1,5 +1,6 @@
 class WeekliesController < ApplicationController
   include ErrorDisplayable
+  include IconHelper
 
   def index
     @page_title = "Weekly Reservations"
@@ -100,23 +101,6 @@ class WeekliesController < ApplicationController
     end
     obj[k] = Date.today if obj[k].blank?
   end
-
-  def icon2number(s)
-    m = /\A&#(\d+);\Z/.match s.to_s
-    m ? m[1] : nil
-  end
-
-  # def set_icon(obj, s)
-  #   k = :icon
-  #   case s
-  #   when /\A&#\d+;\Z/
-  #     obj[k] = s
-  #   when /\A(\d+)\Z/
-  #     obj[k] = "&##{$1};"
-  #   else
-  #     obj[k] = s
-  #   end
-  # end
 
   def generate_title(obj)
     "#{obj.user}@#{obj.date_begin.strftime "%A"}"
