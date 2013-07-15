@@ -1,5 +1,6 @@
 class WeeklyrevokesController < ApplicationController
   include ErrorDisplayable
+  include DateValidatable
 
   def show
     id = params[:id]
@@ -13,7 +14,8 @@ class WeeklyrevokesController < ApplicationController
     @revoke = Weeklyrevoke.new
     x = params[:weekly_id]
     @revoke[:weekly_id] = x if x.present? && Weekly.where(id: x).present?
-    set_date @revoke, params[:date]
+    d = generate_date_if_valid params[:date]
+    @revoke[:date] = d if d
     @page_title = "Revoke the day"
   end
 
@@ -39,14 +41,6 @@ class WeeklyrevokesController < ApplicationController
   def generate_title(obj)
     w = obj.weekly
     "#{w.item.name}@#{w.date_begin.strftime "%A"}"
-  end
-
-  def set_date(obj, s)
-    k = :date
-    m = /\A(\d{4})-(\d{1,2})-(\d{1,2})\Z/.match s
-    return unless m
-    a = m[1..3].map(&:to_i)
-    obj[k] = Date.new(*a) if Date.valid_date?(*a)
   end
 
   def myparams
