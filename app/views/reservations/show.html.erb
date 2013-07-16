@@ -1,0 +1,29 @@
+<h1><%= @page_title %></h1>
+
+<dl>
+  <dt>ID</dt>
+  <dd><%= @rsv.id %></dd>
+
+  <dt>item</dt>
+  <%- item = @rsv.item -%>
+  <dd><%= link_to item.name, item %></dd>
+
+  <dt>user</dt>
+  <dd><%= @rsv.user %></dd>
+
+  <dt>date</dt>
+  <%- date = @rsv.date -%>
+  <dd><%= link_to date, controller: :items, action: :year_month_day, year: date.year, month: date.month, day: date.day  %></dd>
+
+  <dt>begin time</dt>
+  <dd><%= combine_hm @rsv, :begin %></dd>
+
+  <dt>end time</dt>
+  <dd><%= combine_hm @rsv, :end %></dd>
+
+  <dt>icon</dt>
+  <dd><%= @rsv.icon.html_safe %></dd>
+
+  <dt>memo</dt>
+  <dd><%= @rsv.memo.presence || "(N/A)" %></dd>
+</dl>
