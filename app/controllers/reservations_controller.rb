@@ -43,6 +43,8 @@ class ReservationsController < ApplicationController
     id = params[:id]
     @rsv = Reservation.find id
     @page_title = "Edit reservation ##{id}"
+    x = icon2number @rsv.icon
+    @rsv.icon = x if x
   rescue
     redirect_to reservations_path
   end
@@ -62,7 +64,7 @@ class ReservationsController < ApplicationController
   def destroy
     r = Reservation.find params[:id]    
     r.remove
-    redirect_to r.item, notice: "deleted."
+    redirect_to r.item, notice: "canceled."
   rescue
     redirect_to r.item
   end
