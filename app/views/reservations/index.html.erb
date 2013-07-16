@@ -7,9 +7,9 @@
 (no reservations)
 <%- else -%>
   <%- n = rsvs.size -%>
-<h2>Recent <%= n %></h2>
+<h2>Recent <%= n %> reservation<%= 's' if n > 1 %></h2>
 <table border="1">
-  <tr><th>ID</th><th>date</th><th>group</th><th>item</th><th>user</th><th>memo</th></tr>
+  <tr><th>ID</th><th>date</th><th>group</th><th>item</th><th>user</th><th>memo</th><th>command</th></tr>
   <%- rsvs.each do | r | -%>
   <tr>
     <td><%= r.id %></td>
@@ -19,6 +19,7 @@
     <td><%= item.name %></td>
     <td><%= r.user.presence || "(N/a)" %></td>
     <td><%= r.memo.presence || "(N/a)" %></td>
+    <td><%= link_to "show", r %> <%= link_to "edit", [:edit, r] %> <%= link_to "cancel", r, method: :delete, confirm: "Are you sure you want to cancel ##{r.id}?" %></td>
   </tr>
   <%- end -%>
 </table>
