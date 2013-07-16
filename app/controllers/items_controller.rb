@@ -17,6 +17,9 @@ class ItemsController < ApplicationController
     @page_title = @item.name
     @year = params[:year]
     @month = params[:month]
+    d = Date.new @year, @month
+    @reservations = Reservation.order(:date).order(:begin_h).order(:begin_m).order(:end_h).order(:end_m).where(item: @item).where("date >= ? AND date <= ?", d.beginning_of_month, d.end_of_month)
+    # @weeklies = Weekly.all
   rescue
     redirect_to items_index_path, alert: "No such item(##{id})"
   end
@@ -31,8 +34,7 @@ class ItemsController < ApplicationController
   def year_month_day
     @date = Date.new params[:year].to_i, params[:month].to_i, params[:day].to_i
     @item = Item.find params[:id]
-    ymd = @date.strftime "%Y-%m-%d(%a)"
-    @page_title = "#{@item.name}, #{ymd}"
+    @page_title = "#{@item.name}, #{@date.ymdw}"
   rescue
     redirect_to items_path
   end
