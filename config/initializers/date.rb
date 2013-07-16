@@ -1,7 +1,7 @@
 Date.class_eval {
   alias ymd iso8601
 
-  def to_s
+  def ymdw
     iso8601 + "(#{strftime '%A'})"
   end  
 }

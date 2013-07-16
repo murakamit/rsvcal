@@ -13,7 +13,7 @@
 
   <dt>date</dt>
   <%- date = @rsv.date -%>
-  <dd><%= link_to date, controller: :items, action: :year_month_day, year: date.year, month: date.month, day: date.day  %></dd>
+  <dd><%= link_to date.ymdw, controller: :items, action: :year_month_day, year: date.year, month: date.month, day: date.day  %></dd>
 
   <dt>begin time</dt>
   <dd><%= combine_hm @rsv, :begin %></dd>
