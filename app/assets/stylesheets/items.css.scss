@@ -90,6 +90,10 @@ table.calendar {
       border-bottom: 1px dashed;
       /* text-decoration: underline; */
     }
+
+    a.newrid {
+      color: #080;
+    }
 }
 
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
@@ -117,10 +121,15 @@ table.reservations {
     tr:nth-child(2n) {
       background-color: #efe;
     }
+
+    tr.newrid {
+      background-color: #0c0;
+    }
   }
 
   th, td {
-    width: 4em;
+    padding-left:  0.5em;
+    padding-right: 0.5em;
     color: black;
   }
 
@@ -129,16 +138,8 @@ table.reservations {
     /* font-family: monospace; */
   }
 
-  td.rid:after, td.begin:after, td.end:after {
-    content: "_";
-    opacity: 0.0;
-    /* color: transparent;    */
-  }
-
-  td.user:before {
-    content: "_";
-    opacity: 0.0;
-    /* color: transparent;    */
+  th.rid, td.rid {
+    display: none;
   }
 
   td.icon, td.more {

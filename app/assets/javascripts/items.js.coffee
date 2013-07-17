@@ -242,6 +242,7 @@ reservation_tr2hash = (tr) ->
   h = {}
   for k in ['rid', 'icon', 'date', 'begin', 'end', 'user']
     h[k] = columns.filter('td[class=' + k + ']').html();
+    h['new'] = $(tr).hasClass('newrid')
   # end for
 
   ymd = h['date']
@@ -273,7 +274,10 @@ put_icons_on_calendar = () ->
     td = get_calendar_td h['year'], h['month'], h['day']
     td.append '<br>' if td.children('br').length == 0
     url = "/reservations/#{h['rid']}"
-    s = '<a href="' + url + '" class="icon"'
+    s = '<a href="' + url + '"'
+    s += ' class="icon'
+    s += ' newrid' if h['new']
+    s += '"'
     s += ' rid="' + h["rid"] + '">'
     s += h["icon"] + '</a>'
     obj = $(s)

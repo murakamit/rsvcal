@@ -23,7 +23,8 @@ no Reservation
   </thead>
   <tbody>
     <%- @reservations.each do |r|-%>
-    <tr class="reservation" rid="<%= r.id %>" ymd="<%= r.date %>">
+      <%- newrid = (flash[:newrid] == r.id) ? " newrid" : nil -%>
+    <tr class="reservation<%= newrid %>" rid="<%= r.id %>" ymd="<%= r.date %>">
       <td class="rid"><%= r.id %></td>
       <td class="icon"><%= r.icon.html_safe %></td>
       <td class="date"><%= r.date %></td>

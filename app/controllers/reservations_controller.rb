@@ -33,6 +33,7 @@ class ReservationsController < ApplicationController
   def create
     @rsv = Reservation.create myparams
     if @rsv.save
+      flash[:newrid] = @rsv.id
       redirect_to @rsv.item, notice: "reserved."
     else
       display_errors @rsv.errors, :new, "Create new reservation"

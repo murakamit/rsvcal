@@ -29,4 +29,10 @@
 
   <dt>memo</dt>
   <dd><%= @rsv.memo.presence || "(N/A)" %></dd>
+
+  <dt>created at</dt>
+  <dd><%= @rsv.created_at.ymdw_hm %></dd>
+
+  <dt>updated at</dt>
+  <dd><%= @rsv.updated_at.ymdw_hm %></dd>
 </dl>
