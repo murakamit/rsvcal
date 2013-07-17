@@ -17,8 +17,9 @@ class ItemsController < ApplicationController
     @page_title = @item.name
     @year = params[:year].to_i
     @month = params[:month].to_i
-    @reservations = get_reservations(@year, @month, id)
-    # @weeklies = Weekly.all
+    range = get_range @year, @month
+    @reservations = get_reservations(id, range)
+    # @weeklies = get_weeklies(id, range)
   rescue
     redirect_to items_path, alert: "No such item(##{id})"
   end
@@ -47,13 +48,29 @@ class ItemsController < ApplicationController
 
   # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
   private
-  def get_reservations(year, month, item_id)
-    r = Reservation.order :date ,:begin_h, :begin_m, :end_h, :end_m
-    r = r.where item_id: item_id
+  def get_range(year, month)
     d = Date.new year, month
     d0 = d - d.wday.days
     d9 = d.end_of_month
     d9 += (7 - d9.wday).days
-    r.where("date >= ? AND date <= ?", d0, d9)
+    (d0 .. d9)
   end
+
+  def get_reservations(item_id, range)
+    r = Reservation.order :date, :begin_h, :begin_m, :end_h, :end_m
+    r = r.where item_id: item_id
+    r.where("date >= ? AND date <= ?", range.first, range.last)
+  end
+
+  # def get_weeklies(item_id, range)
+  #   r = Weekly.order :date_begin, :begin_h, :begin_m, :end_h, :end_m
+  #   r = r.where item_id: item_id
+  #   r = r.where("date_begin >= ? AND date_begin <= ?", *range)
+  #   weeklies = r.to_a.map { |w| [w.date_begin, w] }
+  #   result = []
+  #   range.each { |d|
+  #
+  #   }
+  #   result
+  # end
 end
