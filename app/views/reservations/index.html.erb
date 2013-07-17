@@ -17,8 +17,8 @@
     <%- item = r.item -%>
     <td><%= item.group.name %></td>
     <td><%= item.name %></td>
-    <td><%= r.user.presence || "(N/a)" %></td>
-    <td><%= r.memo.presence || "(N/a)" %></td>
+    <td><%= r.user.presence || "(N/A)" %></td>
+    <td><%= r.memo.presence || "(N/A)" %></td>
     <td><%= link_to "show", r %> <%= link_to "edit", [:edit, r] %> <%= link_to "cancel", r, method: :delete, confirm: "Are you sure you want to cancel ##{r.id}?" %></td>
   </tr>
   <%- end -%>

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 module ApplicationHelper
   # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
   WDAYS_EN = %W(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)

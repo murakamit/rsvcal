@@ -15,13 +15,12 @@ class ItemsController < ApplicationController
     id = params[:id]
     @item = Item.find id
     @page_title = @item.name
-    @year = params[:year]
-    @month = params[:month]
-    d = Date.new @year, @month
-    @reservations = Reservation.order(:date).order(:begin_h).order(:begin_m).order(:end_h).order(:end_m).where(item: @item).where("date >= ? AND date <= ?", d.beginning_of_month, d.end_of_month)
+    @year = params[:year].to_i
+    @month = params[:month].to_i
+    @reservations = get_reservations(@year, @month, id)
     # @weeklies = Weekly.all
   rescue
-    redirect_to items_index_path, alert: "No such item(##{id})"
+    redirect_to items_path, alert: "No such item(##{id})"
   end
 
   def show
@@ -44,5 +43,18 @@ class ItemsController < ApplicationController
     [:year, :month, :day].each { |k| params[k] = d.send k }
     year_month_day
     render action: :year_month_day
+  end
+
+  # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+  private
+  def get_reservations(year, month, item_id)
+    r = Reservation.order(:date)
+    r = r.order(:begin_h).order(:begin_m).order(:end_h).order(:end_m)
+    r = r.where(item_id: item_id)
+    d = Date.new year, month
+    d0 = d - d.wday.days
+    d9 = d.end_of_month
+    d9 += (7 - d9.wday).days
+    r.where("date >= ? AND date <= ?", d0, d9)
   end
 end

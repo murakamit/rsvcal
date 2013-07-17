@@ -1,11 +1,12 @@
 <h1><%= @page_title %></h1>
 
-<h2><span id="calendar-m"><%= @month %></span>, <span id="calendar-y"><%= @year %></span></h2>
+<h2 style="margin-bottom: 0px"><span id="calendar-m"><%= @month %></span>, <span id="calendar-y"><%= @year %></span></h2>
+<nav><%= nav_prev @year, @month %> <%= nav_next @year, @month %></nav>
 
 <table border="1" class="calendar" id="calendar"></table>
 
 <h2>Reservation(s)</h2>
-<%- if @reservations.empty? -%>
+<%- if @reservations.blank? -%>
 no Reservation
 <%- else -%>
 <table border="1" class="reservations" id="reservations">
