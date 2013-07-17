@@ -125,6 +125,19 @@ table.reservations {
     tr.newrid {
       background-color: #0c0;
     }
+
+    tr.canceled {
+      text-decoration: line-through;
+    }
+
+    td.icon, td.more {
+      text-align: center;
+    }
+
+    td.rid, td.begin, td.end {
+      text-align: right;
+      /* font-family: monospace; */
+    }
   }
 
   th, td {
@@ -133,16 +146,7 @@ table.reservations {
     color: black;
   }
 
-  td.rid, td.begin, td.end {
-    text-align: right;
-    /* font-family: monospace; */
-  }
-
-  th.rid, td.rid {
+  th.rid, td.rid, th.wid, td.wid {
     display: none;
-  }
-
-  td.icon, td.more {
-    text-align: center;
   }
 }

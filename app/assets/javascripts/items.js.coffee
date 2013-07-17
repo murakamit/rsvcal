@@ -217,7 +217,17 @@ build_calendar_main = (table, year, month, sunday_end = false) ->
 
   colorize_holidays year, month
 
-  for m in [month - 1, month + 1]
+  a = []
+  switch month
+    when 1
+      a = [12, 2]
+    when 12
+      a = [11, 1]
+    else
+      a = [month - 1, month + 1]
+  # end switch
+
+  for m in a
     $("table#calendar td[month=#{m}]").addClass "out-of-range"
   # end for
 
@@ -240,7 +250,7 @@ reservation_tr2hash = (tr) ->
   columns = $(tr).children()
   return {} if columns?.length == 0
   h = {}
-  for k in ['rid', 'icon', 'date', 'begin', 'end', 'user']
+  for k in ['rid', 'wid', 'icon', 'date', 'begin', 'end', 'user']
     h[k] = columns.filter('td[class=' + k + ']').html();
     h['new'] = $(tr).hasClass('newrid')
   # end for
@@ -252,6 +262,9 @@ reservation_tr2hash = (tr) ->
     h['month'] = a[1]
     h['day'] = a[2]
   # end if
+
+  k = 'canceled'
+  h[k] = true if $(tr).hasClass(k)
 
   return h
 
@@ -271,15 +284,29 @@ put_icons_on_calendar = () ->
   for tr in ary_tr
     h = reservation_tr2hash(tr)
     continue unless h?
+    continue if h['canceled']
     td = get_calendar_td h['year'], h['month'], h['day']
     td.append '<br>' if td.children('br').length == 0
-    url = "/reservations/#{h['rid']}"
+
+    url = ''
+    rid = h['rid']
+    wid = ''
+    if rid?.length > 0
+      url = "/reservations/#{rid}"
+    else
+      wid = h['wid']
+      url = "/weeklies/#{wid}" if wid?.length > 0
+    # end if
+
     s = '<a href="' + url + '"'
     s += ' class="icon'
     s += ' newrid' if h['new']
     s += '"'
-    s += ' rid="' + h["rid"] + '">'
-    s += h["icon"] + '</a>'
+    s += ' rid="' + h["rid"] + '"' if rid.length > 0
+    s += ' wid="' + h["wid"] + '"' if wid.length > 0
+
+    s += '>' + h["icon"] + '</a>'
+
     obj = $(s)
     obj.attr 'title', generate_hover_tips(h)
     td.append obj
