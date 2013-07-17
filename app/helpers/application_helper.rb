@@ -31,8 +31,8 @@ module ApplicationHelper
 
   # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
   def combine_hm(obj, prekey)
-    h = obj["#{prekey}_h"]
-    m = obj["#{prekey}_m"]
+    h = obj[:"#{prekey}_h"]
+    m = obj[:"#{prekey}_m"]
     return nil if h.blank? || m.blank?
     sprintf "%d:%02d", h.to_i, m.to_i
   end

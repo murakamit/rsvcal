@@ -1,0 +1,60 @@
+<h1><%= @page_title %></h1>
+
+<h2 style="margin-bottom: 0px"><span id="calendar-m"><%= @month %></span>, <span id="calendar-y"><%= @year %></span></h2>
+<%- today ||= Date.today -%>
+<nav><%= nav_prev @year, @month %> <%= nav_next @year, @month %></nav>
+<%- if (today.year != @year) || (today.month != @month) -%>
+<nav><%= link_to "go to this month", action: :year_month, year: today.year, month: today.month %></nav>
+<%- end -%>
+
+<table border="1" class="calendar" id="calendar"></table>
+
+<h2>Reservation(s)</h2>
+<%- if @reservations.blank? -%>
+no Reservation
+<%- else -%>
+<table border="1" class="reservations" id="reservations">
+  <thead>
+    <tr>
+      <th class="rid">RID</th>
+      <th class="wid">WID</th>
+      <th>icon</th>
+      <th>date</th>
+      <th>begin</th>
+      <th>end</th>
+      <th>user</th>
+      <th>more...</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- @reservations.each do |r|-%>
+      <%- rid = nil -%>
+      <%- wid = nil -%>
+      <%- if r.is_a? Hash -%>
+        <%- wid = r[:id] -%>
+      <%- else -%>
+        <%- rid = r[:id] -%>
+      <%- end -%>
+      <%- newrid = (rid && (rid == flash[:newrid])) ? " newrid" : nil -%>
+      <%- canceled = r[:revoked] ? " canceled" : nil -%>
+    <tr class="reservation<%= newrid %><%= canceled %>"<%= " rid=#{rid}" if rid %><%= " wid=#{wid}" if wid %> ymd="<%= r[:date] %>">
+      <td class="rid"><%= rid %></td>
+      <td class="wid"><%= wid %></td>
+      <td class="icon"><%= r[:icon].html_safe %></td>
+      <td class="date"><%= r[:date] %></td>
+      <td class="begin"><%= combine_hm r, :begin %></td>
+      <td class="end"><%= combine_hm r, :end %></td>
+      <td class="user"><%= r[:user] %></td>
+      <td></td>
+    </tr>
+    <%- end -%>
+  </tbody>
+</table>
+<%- end -%>
+
+<hr>
+<pre>
+<%- @reservations.each do |r|  -%>
+<%=   r.inspect -%> + "\n"
+<%- end -%>
+</pre>

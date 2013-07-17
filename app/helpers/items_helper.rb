@@ -4,7 +4,7 @@ module ItemsHelper
   def nav_prev(year, month)
     y = year
     m = month - 1
-    if month < 1
+    if m < 1
       y -= 1
       m = 12
     end
@@ -14,7 +14,7 @@ module ItemsHelper
   def nav_next(year, month)
     y = year
     m = month + 1
-    if month > 12
+    if m > 12
       y += 1
       m = 1
     end
