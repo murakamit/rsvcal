@@ -18,8 +18,9 @@ body {
 }
 
 a {
-  padding: 4px;
+  padding: 2px;
 }
+
 
 a:hover {
   background-color: pink;

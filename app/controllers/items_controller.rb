@@ -48,9 +48,8 @@ class ItemsController < ApplicationController
   # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
   private
   def get_reservations(year, month, item_id)
-    r = Reservation.order(:date)
-    r = r.order(:begin_h).order(:begin_m).order(:end_h).order(:end_m)
-    r = r.where(item_id: item_id)
+    r = Reservation.order :date ,:begin_h, :begin_m, :end_h, :end_m
+    r = r.where item_id: item_id
     d = Date.new year, month
     d0 = d - d.wday.days
     d9 = d.end_of_month

@@ -143,7 +143,8 @@ generate_weeks = (year, month, sunday_end = false) ->
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 build_week = (days) ->
   s = ''
-  url = location.href.replace(/\/$/, '')
+  a = location.href.match /^(.+\/items\/\d+).*$/
+  url = a[1]
   for day in days
     y = day[0]
     m = day[1]
@@ -222,7 +223,7 @@ build_calendar_main = (table, year, month, sunday_end = false) ->
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 build_calendar = () ->
-  year  = parseInt $('span#calendar-y').html()
+  year = parseInt $('span#calendar-y').html()
   return false unless year?
   month = parseInt $('span#calendar-m').html()
   return false unless month?
@@ -236,7 +237,7 @@ build_calendar = () ->
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 reservation_tr2hash = (tr) ->
-  columns = tr.children()
+  columns = $(tr).children()
   return {} if columns?.length == 0
   h = {}
   for k in ['rid', 'icon', 'date', 'begin', 'end', 'user']
@@ -246,28 +247,40 @@ reservation_tr2hash = (tr) ->
   ymd = h['date']
   if ymd?
     a = isolate_ymd ymd
-    h['year'] = a[1]
-    h['month'] = a[2]
-    h['day'] = a[3]
+    h['year'] = a[0]
+    h['month'] = a[1]
+    h['day'] = a[2]
   # end if
 
   return h
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-put_icons_on_calendar = () ->
-  alert 1
-  tr = $('tr.reservation')
-  return unless tr?.length == 0
-  alert 2
-  h = reservation_tr2hash $(this)
-  return unless h?
-  alert h
-  alert 3
+generate_hover_tips = (h) ->
+  s = "#{h['icon']}\n"
+  s += "#{h['date']}\n"
+  s += "#{h['begin']} - #{h['end']}\n"
+  s += h['user']
+  return s
 
-  td = get_calendar_td
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+put_icons_on_calendar = () ->
+  return unless $("table#calendar")?
+  ary_tr = $('tr.reservation')
+  return if tr?.length == 0
+  for tr in ary_tr
+    h = reservation_tr2hash(tr)
+    continue unless h?
+    td = get_calendar_td h['year'], h['month'], h['day']
+    td.append '<br>' if td.children('br').length == 0
+    url = "/reservations/#{h['rid']}"
+    s = '<a href="' + url + '" class="icon"'
+    s += ' rid="' + h["rid"] + '">'
+    s += h["icon"] + '</a>'
+    obj = $(s)
+    obj.attr 'title', generate_hover_tips(h)
+    td.append obj
+  # end for
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 $ ->
-  build_calendar()
-  alert 0
-  put_icons_on_calendar()
+  put_icons_on_calendar() if build_calendar()

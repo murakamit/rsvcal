@@ -8,7 +8,11 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
+<%- if @onload -%>
+<body onload="<%= @onload %>">
+<%- else -%>
 <body>
+<%- end -%>
 
 <%= render "shared/header" %>
 <%= render "shared/login_header" %>

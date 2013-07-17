@@ -46,6 +46,10 @@ table.calendar {
       a {
         color: #f00;
       }
+
+      a.icon {
+        color: black;
+      }
     }
 
     th.saturday {
@@ -58,6 +62,10 @@ table.calendar {
 
       a {
         color: #00f;
+      }
+
+      a.icon {
+        color: black;
       }
     }
 
@@ -77,7 +85,7 @@ table.calendar {
     }
 
     a.icon {
-      margin-right: 0.5em;
+      /* margin-right: 0.5em; */
       text-decoration: none;
       border-bottom: 1px dashed;
       /* text-decoration: underline; */
