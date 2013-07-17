@@ -77,6 +77,11 @@ get_holidays = (year) ->
   return holidays
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+isolate_ymd = (ymd) ->
+  a = ymd.match /^(\d{4})-(\d{1,2})-(\d{1,2})$/
+  return if a? then [parseInt(a[1]), parseInt(a[2]), parseInt(a[3])] else null
+
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 generate_ymd = (y, m, d) ->
   return "#{y}-#{m}-#{d}"
 
@@ -230,6 +235,39 @@ build_calendar = () ->
   # end if
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+reservation_tr2hash = (tr) ->
+  columns = tr.children()
+  return {} if columns?.length == 0
+  h = {}
+  for k in ['rid', 'icon', 'date', 'begin', 'end', 'user']
+    h[k] = columns.filter('td[class=' + k + ']').html();
+  # end for
+
+  ymd = h['date']
+  if ymd?
+    a = isolate_ymd ymd
+    h['year'] = a[1]
+    h['month'] = a[2]
+    h['day'] = a[3]
+  # end if
+
+  return h
+
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+put_icons_on_calendar = () ->
+  alert 1
+  tr = $('tr.reservation')
+  return unless tr?.length == 0
+  alert 2
+  h = reservation_tr2hash $(this)
+  return unless h?
+  alert h
+  alert 3
+
+  td = get_calendar_td
+
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 $ ->
   build_calendar()
-  # put_icons_on_calendar $('tr.reservation')
+  alert 0
+  put_icons_on_calendar()

@@ -26,7 +26,7 @@ no Reservation
     <tr class="reservation" rid="<%= r.id %>" ymd="<%= r.date %>">
       <td class="rid"><%= r.id %></td>
       <td class="icon"><%= r.icon.html_safe %></td>
-      <td><%= r.date %></td>
+      <td class="date"><%= r.date %></td>
       <td class="begin"><%= combine_hm r, :begin %></td>
       <td class="end"><%= combine_hm r, :end %></td>
       <td class="user"><%= r.user %></td>

@@ -28,7 +28,7 @@ set_callback_date_end = () ->
   obj.change(set_radio_on_at_date_end) if obj?
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-$ ->
-  set_week_of_day()
-  set_callback_date_begin()
-  set_callback_date_end()
+# $ ->
+#   set_week_of_day()
+#   set_callback_date_begin()
+#   set_callback_date_end()
