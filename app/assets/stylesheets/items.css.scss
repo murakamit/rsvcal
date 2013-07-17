@@ -83,3 +83,57 @@ table.calendar {
       /* text-decoration: underline; */
     }
 }
+
+/* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
+table.reservations {
+  border: 1px black solid;
+  border-collapse: collapse;
+  white-space: nowrap;
+
+  thead {
+    th {
+      border: 1px black solid;
+      border-bottom: 3px black double;
+    }
+
+    tr {
+      background-color: #aba;
+    }
+  }
+
+  tbody {
+    tr:nth-child(2n+1) {
+      background-color: white;
+    }
+
+    tr:nth-child(2n) {
+      background-color: #efe;
+    }
+  }
+
+  th, td {
+    width: 4em;
+    color: black;
+  }
+
+  td.rid, td.begin, td.end {
+    text-align: right;
+    /* font-family: monospace; */
+  }
+
+  td.rid:after, td.begin:after, td.end:after {
+    content: "_";
+    opacity: 0.0;
+    /* color: transparent;    */
+  }
+
+  td.user:before {
+    content: "_";
+    opacity: 0.0;
+    /* color: transparent;    */
+  }
+
+  td.icon, td.more {
+    text-align: center;
+  }
+}

@@ -10,30 +10,29 @@
 no Reservation
 <%- else -%>
 <table border="1" class="reservations" id="reservations">
-  <tr>
-    <th class="rid">ID</th>
-    <th>icon</th>
-    <th>date</th>
-    <th>begin</th>
-    <th>end</th>
-    <th>user</th>
-    <th>more...</th>
-  </tr>
-  <%- @reservations.each do |r|-%>
-  <tr class="reservation" rid="<%= r.id %>" ymd="<%= r.date %>">
-    <td class="rid"><%= r.id %></td>
-    <td><%= r.icon.html_safe %></td>
-    <td><%= r.date %></td>
-    <td><%= combine_hm r, :begin %></td>
-    <td><%= combine_hm r, :end %></td>
-    <td><%= r.user %></td>
-    <td></td>
-  </tr>
-  <%- end -%>
+  <thead>
+    <tr>
+      <th class="rid">ID</th>
+      <th>icon</th>
+      <th>date</th>
+      <th>begin</th>
+      <th>end</th>
+      <th>user</th>
+      <th>more...</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- @reservations.each do |r|-%>
+    <tr class="reservation" rid="<%= r.id %>" ymd="<%= r.date %>">
+      <td class="rid"><%= r.id %></td>
+      <td class="icon"><%= r.icon.html_safe %></td>
+      <td><%= r.date %></td>
+      <td class="begin"><%= combine_hm r, :begin %></td>
+      <td class="end"><%= combine_hm r, :end %></td>
+      <td class="user"><%= r.user %></td>
+      <td></td>
+    </tr>
+    <%- end -%>
+  </tbody>
 </table>
 <%- end -%>
-
-<pre>
-<%= params.inspect %>
-<%= @reservations.to_a.inspect %>
-</pre>
