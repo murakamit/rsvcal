@@ -1,9 +1,9 @@
 <h1><%= @today.strftime "%Y-%m-%d (%a)" %></h1>
 
 <ul>
-  <li><%= link_to "Item(s)", items_path %></li>
-  <li><%= link_to "Weekly Reservation(s)", weeklies_path %></li>
-  <li><%= link_to "Reservation(s)", reservations_path %></li>
+  <li><%= link_to "Items", items_path %></li>
+  <li><%= link_to "Weekly Reservations", weeklies_path %></li>
+  <li><%= link_to "Reservations", reservations_path %></li>
 </ul>
 
 <%= link_to "login", new_session_path unless @login_user %>

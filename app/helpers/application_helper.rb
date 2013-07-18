@@ -123,4 +123,25 @@ module ApplicationHelper
 
     (s + form.text_field(:icon, args)).html_safe
   end
+
+  # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+  def command_tags_rsv_wkly(x)
+    tags = []
+    controller = (x.is_a? Hash) ? :weeklies : :reservations
+
+    [
+     {
+       action: :show,
+       text: "show",
+     },
+     # {
+     #   action: :edit,
+     #   text: "edit",
+     # },
+    ].each { |h|
+      tags << link_to(h[:text], controller: controller, action: h[:action], id: x[:id])
+    }
+
+    tags
+  end
 end

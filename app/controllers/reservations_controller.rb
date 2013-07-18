@@ -5,6 +5,7 @@ class ReservationsController < ApplicationController
 
   def index
     @page_title = "Reservation(s)"
+    @reservations = Reservation.order(:id).reverse_order.first(100)
   end
 
   def show

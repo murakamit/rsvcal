@@ -1,26 +1,39 @@
-<div><%= link_to "Create new reservation", new_reservation_path %></div>
+<%= link_to "Create new reservation", new_reservation_path %>
 
 <h1><%= @page_title %></h1>
 
-<%- rsvs = Reservation.order(:id).reverse_order.first(100) -%>
-<%- if rsvs.empty? -%>
-(no reservations)
+<%- if @reservations.empty? -%>
+(N/A)
 <%- else -%>
-  <%- n = rsvs.size -%>
+  <%- n = @reservations.size -%>
 <h2>Recent <%= n %> reservation<%= 's' if n > 1 %></h2>
-<table border="1">
-  <tr><th>ID</th><th>date</th><th>group</th><th>item</th><th>user</th><th>memo</th><th>command</th></tr>
-  <%- rsvs.each do | r | -%>
-  <tr>
-    <td><%= r.id %></td>
-    <td><%= r.date %></td>
-    <%- item = r.item -%>
-    <td><%= item.group.name %></td>
-    <td><%= item.name %></td>
-    <td><%= r.user.presence || "(N/A)" %></td>
-    <td><%= r.memo.presence || "(N/A)" %></td>
-    <td><%= link_to "show", r %> <%= link_to "edit", [:edit, r] %> <%= link_to "cancel", r, method: :delete, confirm: "Are you sure you want to cancel ##{r.id}?" %></td>
-  </tr>
-  <%- end -%>
+<table border="1" class="reservations">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>date</th>
+      <th>group</th>
+      <th>item</th>
+      <th>user</th>
+      <th>memo</th>
+      <th>updated at</th>
+      <th>command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- @reservations.each do | r | -%>
+    <tr>
+      <td><%= r.id %></td>
+      <td><%= r.date %></td>
+      <%- item = r.item -%>
+      <td><%= link_to item.group.name, item.group %></td>
+      <td><%= link_to item.name, item  %></td>
+      <td><%= r.user %></td>
+      <td><%= r.memo %></td>
+      <td><%= r.updated_at.ymdw_hm %></td>
+      <td><%= link_to "show", r %></td>
+    </tr>
+    <%- end -%>
+  </tbody>
 </table>
 <%- end -%>

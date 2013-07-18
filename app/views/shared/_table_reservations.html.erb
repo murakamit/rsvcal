@@ -1,5 +1,6 @@
-<%# args: reservations -%>
-<h2>Reservation</h2>
+<%# args: reservations, (h2) -%>
+<%- h2 ||= "Reservation" -%>
+<h2><%= h2 %></h2>
 <%- if reservations.blank? -%>
 (N/A)
 <%- else -%>
@@ -13,29 +14,35 @@
       <th>begin</th>
       <th>end</th>
       <th>user</th>
-      <th>more...</th>
+      <th>memo</th>
+      <th>command</th>
     </tr>
   </thead>
   <tbody>
-    <%- reservations.each do |r|-%>
+    <%- reservations.each do |x|-%>
       <%- rid = nil -%>
       <%- wid = nil -%>
-      <%- if r.is_a? Hash -%>
-        <%- wid = r[:id] -%>
+      <%- if x.is_a? Hash -%>
+        <%- wid = x[:id] -%>
       <%- else -%>
-        <%- rid = r[:id] -%>
+        <%- rid = x[:id] -%>
       <%- end -%>
       <%- newrid = (rid && (rid == flash[:newrid])) ? " newrid" : nil -%>
-      <%- canceled = r[:revoked] ? " canceled" : nil -%>
-    <tr class="reservation<%= newrid %><%= canceled %>"<%= " rid=#{rid}" if rid %><%= " wid=#{wid}" if wid %> ymd="<%= r[:date] %>">
+      <%- canceled = x[:revoked] ? " canceled" : nil -%>
+    <tr class="reservation<%= newrid %><%= canceled %>"<%= " rid=#{rid}" if rid %><%= " wid=#{wid}" if wid %> ymd="<%= x[:date] %>">
       <td class="rid"><%= rid %></td>
       <td class="wid"><%= wid %></td>
-      <td class="icon"><%= r[:icon].html_safe %></td>
-      <td class="date"><%= r[:date] %></td>
-      <td class="begin"><%= combine_hm r, :begin %></td>
-      <td class="end"><%= combine_hm r, :end %></td>
-      <td class="user"><%= r[:user] %></td>
-      <td></td>
+      <td class="icon"><%= x[:icon].html_safe %></td>
+      <td class="date"><%= x[:date] %></td>
+      <td class="begin"><%= combine_hm x, :begin %></td>
+      <td class="end"><%= combine_hm x, :end %></td>
+      <td class="user"><%= x[:user] %></td>
+      <td><%= x[:memo] %></td>
+      <td>
+        <%- command_tags_rsv_wkly(x).each do |tag| -%>
+        <%= tag %>
+        <%- end -%>
+      </td>
     </tr>
     <%- end -%>
   </tbody>
