@@ -6,6 +6,7 @@
     <%= link_to_unless_current "Reservations", reservations_path %>
   </div>
   <div class="right">
+    <%= link_to_unless_current "login", new_session_path unless @login_user %>
     <time class="timestamp"><%= Time.now.strftime "%Y-%m-%d %H:%M" %></time>
   </div>
   <div class="reset"></div>

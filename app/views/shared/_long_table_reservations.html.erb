@@ -1,0 +1,35 @@
+<%# arg: reservations -%>
+<%- reservations ||= @reservations -%>
+<table border="1" class="reservations">
+  <thead>
+    <tr>
+      <th>icon</th>
+      <th>date</th>
+      <th>begin</th>
+      <th>end</th>
+      <th>group</th>
+      <th>item</th>
+      <th>user</th>
+      <th>memo</th>
+      <th>updated at</th>
+      <th>command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- reservations.each do | r | -%>
+    <tr>
+      <td class="icon"><%= r.icon.html_safe %></td>
+      <td><%= r.date %></td>
+      <td><%= combine_hm r, :begin %></td>
+      <td><%= combine_hm r, :end %></td>
+      <%- item = r.item -%>
+      <td><%= link_to item.group.name, item.group %></td>
+      <td><%= link_to item.name, item  %></td>
+      <td><%= r.user %></td>
+      <td><%= r.memo %></td>
+      <td><%= r.updated_at.ymdw_hm %></td>
+      <td><%= link_to "show", r %></td>
+    </tr>
+    <%- end -%>
+  </tbody>
+</table>

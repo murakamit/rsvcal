@@ -1,9 +1,22 @@
-<h1><%= @today.strftime "%Y-%m-%d (%a)" %></h1>
+<h1><%= @page_title %></h1>
 
+<h2>Today's Resevation(s)</h2>
+<%- if @reservations.empty? -%>
+(N/A)
+<%- else -%>
+<%= render "shared/long_table_reservations" %>
+<%- end -%>
+
+<h2><%= @recent_days %> days Resevation(s)</h2>
+<%- if @recents.empty? -%>
+(N/A)
+<%- else -%>
+<%= render "shared/long_table_reservations", reservations: @recents %>
+<%- end -%>
+
+<h2>Lists</h2>
 <ul>
   <li><%= link_to "Items", items_path %></li>
   <li><%= link_to "Weekly Reservations", weeklies_path %></li>
   <li><%= link_to "Reservations", reservations_path %></li>
 </ul>
-
-<%= link_to "login", new_session_path unless @login_user %>

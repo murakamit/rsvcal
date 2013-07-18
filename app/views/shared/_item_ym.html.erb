@@ -1,4 +1,7 @@
 <h1><%= @page_title %></h1>
+<%- if @item && @item.memo.present? -%>
+<div><%= @item.memo %></div>
+<%- end -%>
 
 <h2 style="margin-bottom: 0px"><span id="calendar-m"><%= @month %></span>, <span id="calendar-y"><%= @year %></span></h2>
 <%- today ||= Date.today -%>

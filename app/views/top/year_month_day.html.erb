@@ -1,9 +1,7 @@
-<%= link_to "Create new reservation", new_reservation_path %>
-
 <h1><%= @page_title %></h1>
 
 <%- if @reservations.empty? -%>
-(N/A)
+(no reservations)
 <%- else -%>
 <%= render "shared/long_table_reservations" %>
 <%- end -%>

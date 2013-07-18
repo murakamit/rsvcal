@@ -4,8 +4,9 @@ class ReservationsController < ApplicationController
   include IconHelper
 
   def index
-    @page_title = "Reservation(s)"
-    @reservations = Reservation.order(:id).reverse_order.first(100)
+    @reservations = Reservation.order(:updated_at).reverse_order.first(100)
+    n = @reservations.size
+    @page_title = (n > 0) ? "#{n} Reservation#{'s' if n > 1} updated recently" : "Reservation"
   end
 
   def show
