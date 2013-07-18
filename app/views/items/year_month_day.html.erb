@@ -1,19 +1,9 @@
+<%- args = { controller: :reservations, action: :new, item_id: @item, date: @date } -%>
+<div><%= link_to "reserve at this day", args %></div>
+<%- args = { controller: :weeklies, action: :new, item_id: @item, date_begin: @date } -%>
+<div><%= link_to "reserve(weekly) from this day", args %></div>
+<div><%= link_to @item.name, @item %></div>
+
 <h1><%= @page_title %></h1>
 
-<%- args = { controller: :reservations, action: :new, item_id: @item, date: @date } -%>
-<div><%= link_to "reserve...", args %></div>
-<%- args = { controller: :weeklies, action: :new, item_id: @item, date_begin: @date } -%>
-<div><%= link_to "reserve(weekly)...", args %></div>
-
-<%- reservations = Reservation.all -%>
-<h2>Reservation<%= 's' if reservations.size > 1 %></h2>
-<%- if reservations.empty? -%>
-(nothing)
-<%- else -%>
-hello
-<%- end -%>
-
-<hr>
-<pre>
-<%= params.inspect %>
-</pre>
+<%= render "shared/table_reservations", reservations: @reservations %>

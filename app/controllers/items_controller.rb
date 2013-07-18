@@ -23,8 +23,8 @@ class ItemsController < ApplicationController
     @reservations = sort_by_datetime(a1 + a2)
   rescue => e
     # redirect_to items_path, alert: "No such item(##{id})"
-    # render text: "No such item(##{id})"
-    render text: e
+    # render text: e
+    render text: "No such item(##{id})"
   end
 
   def show
@@ -35,8 +35,12 @@ class ItemsController < ApplicationController
 
   def year_month_day
     @date = Date.new params[:year].to_i, params[:month].to_i, params[:day].to_i
-    @item = Item.find params[:id]
+    id = params[:id]
+    @item = Item.find id
     @page_title = "#{@item.name}, #{@date.ymdw}"
+    a1 = Reservation.where(item_id: id, date: @date)
+    a2 = get_weeklies(id, (@date .. @date))
+    @reservations = sort_by_datetime(a1 + a2)
   rescue
     redirect_to items_path
   end
