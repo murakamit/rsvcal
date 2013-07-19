@@ -1,12 +1,19 @@
-<h1 style="display:inline"><%= @page_title %></h1>
-<%= @item.memo if @item && @item.memo.present? -%>
+<div>
+  <h1 style="display:inline"><%= @page_title %></h1>
+  <%- if @item && @item.memo.present? -%>
+  <span style="margin-left:16px"><%= @item.memo %></span>
+  <%- end -%>
+</div>
 
-<h2 style="margin-bottom: 0px"><span id="calendar-m"><%= @month %></span>, <span id="calendar-y"><%= @year %></span></h2>
+<div style="margin-top:16px">
+  <h2 style="display:inline"><span id="calendar-m"><%= @month %></span>, <span id="calendar-y"><%= @year %></span></h2>
 <%- today ||= Date.today -%>
-<nav><%= nav_prev @year, @month %> <%= nav_next @year, @month %></nav>
 <%- if (today.year != @year) || (today.month != @month) -%>
-<nav><%= link_to "go to this month", action: :year_month, year: today.year, month: today.month %></nav>
+<%= link_to "go to this month", {action: :year_month, year: today.year, month: today.month}, style: "margin-left:16px" %>
 <%- end -%>
+</div>
+
+<nav><%= nav_prev @year, @month %> <%= nav_next @year, @month %></nav>
 
 <table border="1" class="calendar" id="calendar"></table>
 

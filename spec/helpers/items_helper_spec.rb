@@ -10,6 +10,12 @@ require 'spec_helper'
 #     end
 #   end
 # end
+
 describe ItemsHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "nav_prev" do
+    pending "I don't know how to rspec helper."
+  end
+
+  # describe "nav_next" do
+  # end
 end

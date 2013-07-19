@@ -58,8 +58,8 @@
 <%- else -%>
 <ul>
   <%- revokes.each do |r| -%>
-    <%- s = "#{r.applicant}, #{r.date}" -%>
-    <%- s += ", #{r.memo}" if r.memo.present? -%>
+    <%- s = "#{r.date.ymdw} by #{r.applicant}" -%>
+    <%- s += ", memo: #{r.memo}" if r.memo.present? -%>
   <li><%= link_to s, r %></li>
   <%- end -%>
 </ul>

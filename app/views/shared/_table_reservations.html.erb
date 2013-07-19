@@ -33,11 +33,11 @@
       <td class="rid"><%= rid %></td>
       <td class="wid"><%= wid %></td>
       <td class="icon"><%= x[:icon].html_safe %></td>
-      <td class="date"><%= x[:date] %></td>
+      <td class="date"><%= x[:date].ymdw %></td>
       <td class="begin"><%= combine_hm x, :begin %></td>
       <td class="end"><%= combine_hm x, :end %></td>
       <td class="user"><%= x[:user] %></td>
-      <td><%= x[:memo] %></td>
+      <td class="memo"><%= x[:memo] %></td>
       <td>
         <%- command_tags_rsv_wkly(x).each do |tag| -%>
         <%= tag %>

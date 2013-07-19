@@ -23,7 +23,7 @@ a {
 
 
 a:hover {
-  background-color: pink;
+  background-color: pink !important;
 }
 
 

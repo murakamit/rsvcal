@@ -19,7 +19,7 @@
     <%- reservations.each do | r | -%>
     <tr>
       <td class="icon"><%= r[:icon].html_safe %></td>
-      <td><%= r[:date] %></td>
+      <td><%= r[:date].ymdw %></td>
       <td><%= combine_hm r, :begin %></td>
       <td><%= combine_hm r, :end %></td>
       <%- item = Item.find r[:item_id] -%>

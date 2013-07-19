@@ -78,7 +78,7 @@ get_holidays = (year) ->
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 isolate_ymd = (ymd) ->
-  a = ymd.match /^(\d{4})-(\d{1,2})-(\d{1,2})$/
+  a = ymd.match /^\s*(\d{4})-(\d{1,2})-(\d{1,2})/
   return if a? then [parseInt(a[1]), parseInt(a[2]), parseInt(a[3])] else null
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -141,6 +141,11 @@ generate_weeks = (year, month, sunday_end = false) ->
   return weeks
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+is_today = (y, m, d) ->
+  t = new Date
+  (t.getFullYear() == y) and ((t.getMonth() + 1) == m) and (t.getDate() == d)
+
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 build_week = (days) ->
   s = ''
   a = location.href.match /^(.+\/items\/\d+).*$/
@@ -154,7 +159,9 @@ build_week = (days) ->
     s += ' month="' + m + '"'
     s += ' day="' + d + '"'
     href = "#{url}/#{y}-#{m}-#{d}"
-    s += '><a href="' + href + '">' + d + '</a></td>'
+    s += '><a href="' + href + '"'
+    s += ' class="today"' if is_today(y,m,d)
+    s += '>' + d + '</a></td>'
   # end for
 
   return $("<tr>#{s}</tr>")
@@ -250,7 +257,7 @@ reservation_tr2hash = (tr) ->
   columns = $(tr).children()
   return {} if columns?.length == 0
   h = {}
-  for k in ['rid', 'wid', 'icon', 'date', 'begin', 'end', 'user']
+  for k in ['rid', 'wid', 'icon', 'date', 'begin', 'end', 'user', 'memo']
     h[k] = columns.filter('td[class=' + k + ']').html();
     h['new'] = $(tr).hasClass('newrid')
   # end for
@@ -274,6 +281,8 @@ generate_hover_tips = (h) ->
   s += "#{h['date']}\n"
   s += "#{h['begin']} - #{h['end']}\n"
   s += h['user']
+  memo = h['memo']
+  s += "\n" + memo if memo?
   return s
 
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

@@ -13,8 +13,12 @@ User.create(name: "admin",
             password: "123",
             password_confirmation: "123")
 
-g1 = Group.create(name: "会議室")
+g1 = Group.create(name: "部屋")
 
-%w(１ ２ ３).each { |s|
-  Item.create(group_id: g1.id, name: (g1.name + s))
+[["会議室", "201室"], ["暗室", "301室"]].each { |a|
+  name, memo = a
+  Item.create(group_id: g1.id, name: name, memo: memo)
 }
+
+g2 = Group.create(name: "機器")
+Item.create(group_id: g2.id, name: "電子顕微鏡", memo: "302室")
