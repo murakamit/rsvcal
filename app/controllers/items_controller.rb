@@ -39,7 +39,7 @@ class ItemsController < ApplicationController
     @date = Date.new params[:year].to_i, params[:month].to_i, params[:day].to_i
     id = params[:id]
     @item = Item.find id
-    @page_title = "#{@item.name}, #{@date.ymdw}"
+    @page_title = @item.name
     a1 = Reservation.where(item_id: id, date: @date)
     a2 = get_weeklies((@date .. @date), id)
     @reservations = sort_by_datetime(a1 + a2)

@@ -1,3 +1,10 @@
+<%- if @login_user.try :admin? -%>
+<div>
+  <%= link_to "Create new group", new_admin_group_path %>
+  <%= link_to "Create new item", new_admin_item_path %>
+</div>
+<%- end -%>
+
 <h1><%= @page_title %></h1>
 
 <%- if Group.all.empty? -%>
@@ -15,7 +22,7 @@
     <%- if g.items.empty? -%>
 <div>(no items)</div>
     <%- else -%>
-<ol>
+<ul>
       <%- g.items.order(:name).each do |i| -%>
   <li><%= link_to i.name, i %></li>
         <%- if i.memo.present? -%>
@@ -25,13 +32,7 @@
   <ul><li style="list-style:none "><%= link_to "properties", [:prop, i] %></li></ul>
         <%- end -%>
       <%- end -%>
-</ol>
+</ul>
     <%- end -%>
   <%- end -%>
-<%- end -%>
-
-<%- if @login_user.try :admin? -%>
-<hr>
-<div><%= link_to "Create new group...", new_admin_group_path %></div>
-<div><%= link_to "Create new item...", new_admin_item_path %></div>
 <%- end -%>

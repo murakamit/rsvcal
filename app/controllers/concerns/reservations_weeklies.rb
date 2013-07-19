@@ -38,7 +38,8 @@ module ReservationsWeeklies
     weeklies.each { |x|
       d = range.first
       if x.date_begin < d
-        d += (d.wday - x.wday).abs.days
+        # d += (d.wday - x.wday).abs.days
+        d += 1.day while d.wday != x.wday
       else
         d = x.date_begin
       end
@@ -46,6 +47,7 @@ module ReservationsWeeklies
       while d <= dmax
         ary << {
           id: x.id,
+          item_id: x.item_id,
           date: d,
           begin_h: x.begin_h,
           begin_m: x.begin_m,
@@ -54,6 +56,7 @@ module ReservationsWeeklies
           user: x.user,
           icon: x.icon,
           memo: x.memo,
+          updated_at: x.updated_at,
           revoked: Weeklyrevoke.where(weekly_id: x.id, date: d).present?,
         }
         d += 1.week

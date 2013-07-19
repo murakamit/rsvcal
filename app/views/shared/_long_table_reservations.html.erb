@@ -18,16 +18,16 @@
   <tbody>
     <%- reservations.each do | r | -%>
     <tr>
-      <td class="icon"><%= r.icon.html_safe %></td>
-      <td><%= r.date %></td>
+      <td class="icon"><%= r[:icon].html_safe %></td>
+      <td><%= r[:date] %></td>
       <td><%= combine_hm r, :begin %></td>
       <td><%= combine_hm r, :end %></td>
-      <%- item = r.item -%>
+      <%- item = Item.find r[:item_id] -%>
       <td><%= link_to item.group.name, item.group %></td>
       <td><%= link_to item.name, item  %></td>
-      <td><%= r.user %></td>
-      <td><%= r.memo %></td>
-      <td><%= r.updated_at.ymdw_hm %></td>
+      <td><%= r[:user] %></td>
+      <td><%= r[:memo] %></td>
+      <td><%= r[:updated_at].ymdw_hm %></td>
       <td><%= link_to "show", r %></td>
     </tr>
     <%- end -%>

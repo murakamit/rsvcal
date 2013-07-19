@@ -36,10 +36,13 @@ class Admin::GroupsController < Admin::Base
 
   def destroy
     g = Group.find params[:id]    
-    g.remove
-    redirect_to groups_path, notice: "deleted."
+    if g.remove
+      redirect_to groups_path, notice: "deleted."
+    else
+      redirect_to g, alert: "Error.#{" (Group with some items is protected)" unless g.items.empty?}"
+    end
   rescue
-    redirect_to groups_path
+    redirect_to groups_path, alert: "error"
   end
 
   private

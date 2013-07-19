@@ -6,8 +6,9 @@ class WeeklyrevokesController < ApplicationController
     id = params[:id]
     @revoke = Weeklyrevoke.find id
     @page_title = "Revocation of #{generate_title @revoke}"
-  rescue
-    redirect_to @revoke, alert: "No such revocation(##{id})"
+  rescue => e
+    render text: e
+    # redirect_to @revoke, alert: "No such revocation(##{id})"
   end
 
   def new
@@ -40,7 +41,7 @@ class WeeklyrevokesController < ApplicationController
   private
   def generate_title(obj)
     w = obj.weekly
-    "#{w.item.name}@#{w.date_begin.strftime "%A"}"
+    "#{obj.applicant}@#{w.item.name},#{w.date_begin.strftime "%A"}"
   end
 
   def myparams

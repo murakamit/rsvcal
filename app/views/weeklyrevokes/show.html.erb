@@ -14,11 +14,11 @@
   <dd><%= @revoke.applicant %></dd>
 
   <dt>date</dt>
-  <dd><%= @revoke.date %></dd>
+  <dd><%= @revoke.date.ymdw %></dd>
 
   <dt>memo</dt>
   <dd><%= @revoke.memo.presence || "(N/A)" %></dd>
 
   <dt>created at</dt>
-  <dd><%= @revoke.created_at %></dd>
+  <dd><%= @revoke.created_at.ymdw_hm %></dd>
 </dl>

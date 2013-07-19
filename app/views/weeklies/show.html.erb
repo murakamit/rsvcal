@@ -17,7 +17,7 @@
   <dd><%= @weekly.user %></dd>
 
   <dt>start date</dt>
-  <dd><%= @weekly.date_begin %></dd>
+  <dd><%= @weekly.date_begin.ymdw %></dd>
 
   <dt>end date</dt>
   <dd>
@@ -45,13 +45,13 @@
   <dd><%= @weekly.memo.presence || "(N/A)" %></dd>
 
   <dt>created at</dt>
-  <dd><%= @weekly.created_at %></dd>
+  <dd><%= @weekly.created_at.ymdw_hm %></dd>
 
   <dt>updated at</dt>
-  <dd><%= @weekly.updated_at %></dd>
+  <dd><%= @weekly.updated_at.ymdw_hm %></dd>
 </dl>
 
-<h2>Revocations</h2>
+<h2>Revocation(s)</h2>
 <%- revokes = @weekly.weeklyrevokes -%>
 <%- if revokes.empty? -%>
 (N/A)

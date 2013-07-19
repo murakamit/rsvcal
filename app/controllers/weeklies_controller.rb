@@ -103,7 +103,7 @@ class WeekliesController < ApplicationController
   end
 
   def generate_title(obj)
-    "#{obj.user}@#{obj.date_begin.strftime "%A"}"
+    "#{obj.user}@#{obj.item.name},#{obj.date_begin.strftime "%A"}"
   end
 
   def display_errors(errors, rendering_page, page_title)

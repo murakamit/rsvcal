@@ -26,6 +26,11 @@ a:hover {
   background-color: pink;
 }
 
+
+div.reset-float {
+  clear: both;
+}
+
 /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
 nav.header {
   color: black;
@@ -51,10 +56,6 @@ nav div.left {
 
 nav div.right {
   float: right;
-}
-
-nav div.reset {
-  clear: both;
 }
 
 nav time.timestamp {

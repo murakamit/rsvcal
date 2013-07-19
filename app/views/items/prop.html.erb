@@ -1,6 +1,10 @@
-<h1><%= @page_title %></h1>
+<%= render "shared/admin_edit_delete_link", obj: @item, delmes: "Are you sure you want to delete '#{@item.name}'" %>
 
-<h2>Properties</h2>
+<div>
+  <h1 style="display:inline"><%= @page_title %></h1>
+  <%= @item.memo if @item.memo.present? -%>
+</div>
+
 <dl>
   <dt>ID</dt>
   <dd><%= @item.id %></dd>
@@ -15,10 +19,8 @@
   <dd><%= @item.memo.presence || "(N/A)" %></dd>
 
   <dt>created at</dt>
-  <dd><%= @item.created_at %></dd>
+  <dd><%= @item.created_at.ymdw_hm %></dd>
 
   <dt>updated at</dt>
-  <dd><%= @item.updated_at %></dd>
+  <dd><%= @item.updated_at.ymdw_hm %></dd>
 </dl>
-
-<%= render "shared/admin_edit_delete", obj: @item, delmes: "Are you sure you want to delete '#{@item.name}'" %>

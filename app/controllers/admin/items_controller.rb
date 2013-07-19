@@ -36,10 +36,13 @@ class Admin::ItemsController < Admin::Base
 
   def destroy
     item = Item.find params[:id]    
-    item.remove
-    redirect_to items_path, notice: "deleted."
+    if item.remove
+      redirect_to items_path, notice: "deleted."
+    else
+      redirect_to item, alert: "Error."
+    end
   rescue
-    redirect_to items_path
+    redirect_to items_path, alert: "error"
   end
 
   private

@@ -8,8 +8,8 @@ class TopController < ApplicationController
     a2 = get_weeklies(@date .. @date)
     @reservations = sort_by_datetime(a1 + a2)
 rescue => e
-    # redirect_to root_path
-    render text: e
+    redirect_to root_path
+    # render text: e
   end
 
   def today
@@ -24,10 +24,10 @@ rescue => e
     [:year, :month, :day].each { |k| params[k] = @today.send k }
     year_month_day
 
-    @recent_days = 3
-    range = @today .. (@today + @recent_days.days)
+    @more_days = 2
+    range = @today .. (@today + @more_days.days)
     a1 = get_reservations range
     a2 = get_weeklies range
-    @recents = sort_by_datetime(a1 + a2)
+    @mores = sort_by_datetime(a1 + a2)
   end
 end

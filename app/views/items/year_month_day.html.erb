@@ -4,6 +4,7 @@
 <div><%= link_to "reserve(weekly) from this day", args %></div>
 <div><%= link_to @item.name, @item %></div>
 
-<h1><%= @page_title %></h1>
+<h1 style="display:inline"><%= @page_title %></h1>
+<%= @item.memo if @item && @item.memo.present? -%>
 
-<%= render "shared/table_reservations", reservations: @reservations %>
+<%= render "shared/table_reservations", reservations: @reservations, h2: @date.ymdw %>

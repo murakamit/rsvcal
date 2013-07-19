@@ -7,11 +7,11 @@
 <%= render "shared/long_table_reservations" %>
 <%- end -%>
 
-<h2><%= @recent_days %> days Resevation(s)</h2>
-<%- if @recents.empty? -%>
+<h2>Today + <%= @more_days %> days</h2>
+<%- if @mores.empty? -%>
 (N/A)
 <%- else -%>
-<%= render "shared/long_table_reservations", reservations: @recents %>
+<%= render "shared/long_table_reservations", reservations: @mores %>
 <%- end -%>
 
 <h2>Lists</h2>

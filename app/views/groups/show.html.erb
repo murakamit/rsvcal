@@ -1,4 +1,9 @@
-<h1><%= @page_title %></h1>
+<%= render "shared/admin_edit_delete_link", obj: @group, delmes: "Are you sure you want to delete '#{@group.name}'" %>
+
+<div>
+  <h1 style="display:inline"><%= @page_title %></h1>
+  <%= @group.memo if @group.memo.present? -%>
+</div>
 
 <dl>
   <dt>ID</dt>
@@ -7,14 +12,25 @@
   <dt>name</dt>
   <dd><%= @group.name %></dd>
 
+  <dt>item(s)</dt>
+  <%- items = @group.items -%>
+  <%- if items.empty? -%>
+  <dd>(N/A)</dd>
+  <%- else -%>
+    <%- items.each do |obj| -%>
+  <dd><%= link_to obj.name, obj %></dd>
+      <%- if @login_user.try :admin? -%>
+  <dd><ul><li><%= link_to "properties", [:prop, obj] %></li></ul></dd>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+
   <dt>memo</dt>
   <dd><%= @group.memo.presence || "(N/A)" %></dd>
 
   <dt>created at</dt>
-  <dd><%= @group.created_at %></dd>
+  <dd><%= @group.created_at.ymdw_hm %></dd>
 
   <dt>updated at</dt>
-  <dd><%= @group.updated_at %></dd>
+  <dd><%= @group.updated_at.ymdw_hm %></dd>
 </dl>
-
-<%= render "shared/admin_edit_delete", obj: @group, delmes: "Are you sure you want to delete '#{@group.name}'" %>
