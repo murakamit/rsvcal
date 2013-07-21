@@ -1,6 +1,7 @@
 <%# args: obj -%>
 <%- if @login_user.try :admin? -%>
 <div>
+  <%= link_to "show", obj %>
   <%= link_to "edit", [:edit, :admin, obj] %>
   <%= link_to "delete", [:admin, obj], method: :delete, confirm: delmes %>
 </div>

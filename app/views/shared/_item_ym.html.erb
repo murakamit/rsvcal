@@ -1,4 +1,7 @@
 <div>
+  <%- if @item.photo.present? -%>
+  <%= image_tag @item.photo, style: "margin-right:16px" %>
+  <%- end -%>
   <h1 style="display:inline"><%= @page_title %></h1>
   <%- if @item && @item.memo.present? -%>
   <span style="margin-left:16px"><%= @item.memo %></span>

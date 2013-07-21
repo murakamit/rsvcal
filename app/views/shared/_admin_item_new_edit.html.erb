@@ -30,6 +30,14 @@
   </dd>
   <%# --- --- --- --- --- --- --- --- --- --- -%>
   <dt>
+    <label>photo</label>
+<%= render "shared/attach_errors", key: :photo -%>
+  </dt>
+  <dd>
+    <%= f.file_field :photo %>
+  </dd>
+  <%# --- --- --- --- --- --- --- --- --- --- -%>
+  <dt>
     <label>memo</label>
 <%= render "shared/attach_errors", key: :memo -%>
   </dt>

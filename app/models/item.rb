@@ -45,8 +45,11 @@ class Item < ActiveRecord::Base
   end
 
   def validate_photo
-    if self.photo.present? && (! File.size? self.photo)
-      errors.add :photo, "missing on server storage"
+    s = self.photo
+    if s.present?
+      unless File.size? IMAGES_PATH.join(s)
+        errors.add :photo, "missing on server storage"
+      end
     end
   end
 
