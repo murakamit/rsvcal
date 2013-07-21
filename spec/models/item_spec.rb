@@ -69,5 +69,45 @@ describe Item do
       expect(obj.valid?).to be_false
       expect(Item.unscoped.find(obj.id).group_id).to eq g.id
     }
-  end
+  end # "association :group"
+
+  describe "photo" do
+    let(:sandbox) { Rails.root.join("spec").join("sandbox") }
+    let(:group) { Group.create! name: "g" }
+    let(:subject) { Item.create! group: group, name: "i" }
+
+    context "sandbox" do
+      before(:all) do
+        s = Rails.root.join("spec").join("sandbox")
+        Item::IMAGES_PATH = s # override
+        Item::PHOTO_PATH = s.join Item::PHOTO_DIR # override
+      end
+
+      let(:upfile) {
+        path = Rails.root.join("memo")
+        fname = "3732662818_0c6382c71d_m.jpg"
+        x = double("upfile")
+        x.stub(:original_filename) { fname }
+        x.stub(:read) { IO.read path.join(fname) }
+        x
+      }
+
+      it {
+        rex =/\Aitems\/item(\d+)-(\d+)/
+        s = subject.save_photo upfile
+        m = rex.match s
+        expect { m }.not_to be_nil
+        expect(m[1].to_i).to eq subject.id.to_i
+        expect(File.size? sandbox.join(s)).to be > 0
+        n = m[2].to_i
+
+        s = subject.save_photo upfile
+        m = rex.match s
+        expect { m }.not_to be_nil
+        expect(m[1].to_i).to eq subject.id.to_i
+        expect(File.size? sandbox.join(s)).to be > 0
+        expect(m[2].to_i).to eq n+1
+      }
+    end
+  end # "photo"
 end

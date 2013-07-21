@@ -25,6 +25,9 @@
 <ul>
       <%- g.items.order(:name).each do |i| -%>
   <li><%= link_to i.name, i %></li>
+        <%- if i.photo.present? -%>
+  <ul><li style="list-style:none "><%= image_tag i.photo %></li></ul>
+        <%- end -%>
         <%- if i.memo.present? -%>
   <ul><li style="list-style:none "><%= i.memo %></li></ul>
         <%- end -%>
