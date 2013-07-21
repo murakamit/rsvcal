@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130709105948) do
+ActiveRecord::Schema.define(version: 20130721002828) do
 
   create_table "groups", force: true do |t|
     t.string   "name",         limit: 50,                                  null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20130709105948) do
     t.integer  "lock_version",             default: 0,                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "photo",        limit: 250, default: "",                    null: false
   end
 
   create_table "reservations", force: true do |t|

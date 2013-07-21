@@ -48,6 +48,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # murakami
 # gem 'rails-i18n'
+gem 'rmagick', require: 'RMagick'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
