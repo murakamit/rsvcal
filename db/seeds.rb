@@ -10,8 +10,8 @@
 
 User.create(name: "admin",
             admin: true,
-            password: "123",
-            password_confirmation: "123")
+            password: "admin",
+            password_confirmation: "admin")
 
 g1 = Group.create(name: "部屋")
 
