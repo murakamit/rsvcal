@@ -29,3 +29,6 @@
 
 # Win
 Thumbs.db
+
+# sandbox
+/spec/sandbox/*

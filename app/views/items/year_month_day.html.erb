@@ -4,7 +4,12 @@
 <div><%= link_to "reserve(weekly) from this day", args %></div>
 <div><%= link_to @item.name, @item %></div>
 
-<h1 style="display:inline"><%= @page_title %></h1>
-<%= @item.memo if @item && @item.memo.present? -%>
+<div>
+  <%- if @item.photo.present? -%>
+  <%= image_tag @item.photo, style: "margin-right:16px" %>
+  <%- end -%>
+  <h1 style="display:inline"><%= @page_title %></h1>
+  <%= @item.memo if @item && @item.memo.present? -%>
+</div>
 
 <%= render "shared/table_reservations", reservations: @reservations, h2: @date.ymdw %>
