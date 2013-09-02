@@ -84,8 +84,8 @@ describe Item do
       end
 
       let(:upfile) {
-        path = Rails.root.join("memo")
-        fname = "3732662818_0c6382c71d_m.jpg"
+        path = Rails.root.join("spec")
+        fname = "test1.png"
         x = double("upfile")
         x.stub(:original_filename) { fname }
         x.stub(:read) { IO.read path.join(fname) }
