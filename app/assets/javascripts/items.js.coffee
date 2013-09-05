@@ -64,7 +64,7 @@ get_holidays = (year) ->
     a = holidays[i]
     continue if a.length == 0
     for x, j in a
-      d = new Date(year, i, x)
+      d = new Date(year, i - 1, x)
       continue if d.getDay() != 0
       x += 1
       while $.inArray(x, a) >= 0
